@@ -1,0 +1,19 @@
+.Header {
+    text-align: center;
+    display: inline-block;
+    min-width: 100%;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+    justify-content: space-between;
+    background-color: blue;
+
+}
+
+.flexItem {
+    flex: 0 0 auto;
+    padding: 10px;
+}

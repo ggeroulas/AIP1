@@ -1,0 +1,15 @@
+.App {
+    text-align: center;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.flexMainContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.flexGameItem {
+    flex: 1 0 auto;
+}

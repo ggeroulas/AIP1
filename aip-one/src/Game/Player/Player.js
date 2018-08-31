@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Player.css';
+import Cards from '../Cards/Cards.js'
 
 class Player extends Component {
 
     render() {
         return(
-            <div className="playerCards">
+            <div className="playerCards"> {/* Renders the players card hand */}
                 <div className="cardPlayer">
-                    <p>4♠</p>
+                    <Cards/>
                 </div>
                 <div className="cardPlayer">
-                    <p>10♠</p>
+                    <Cards/>
                 </div>
             
             </div>

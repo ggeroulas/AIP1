@@ -1,0 +1,25 @@
+.App-logo {
+    animation: App-logo-spin infinite 10s linear;
+    height: 80px; /* Adds the spinning shark logo */
+  }
+  
+.App-header {
+    background-color: #222;
+    height: 110px;
+    padding: 20px;
+    color: white; /* Adds styling for the application header */
+  }
+  
+  .App-title {
+    font-size: 1.5em;
+    color: rgb(124, 191, 218);
+  }
+  
+  .App-intro {
+    font-size: large;
+  }
+
+  @keyframes App-logo-spin {
+    from { transform: rotate(0deg); } /* Parameters for the spinning shark animation */
+    to { transform: rotate(360deg); }
+  }

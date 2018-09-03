@@ -23,7 +23,7 @@ User
     .then(() => {
         new User({
             id: 4592, 
-            name: 'David', 
+            name: 'Davy', 
             password: 'doggo1',
             score: 1000,
             games: [

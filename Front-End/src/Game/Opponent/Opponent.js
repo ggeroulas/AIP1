@@ -5,15 +5,21 @@ import Cards from '../Cards/Cards.js'
 class Opponent extends Component {
 
     render() {
+        const { cards } = this.props;
+        console.log(cards);
         return(
-        <div className="opponentCards"> {/* The opponents hand, with cards generated for each one */}
-            <div className="cardOpp"> 
-                <Cards/>
+            <div className="opponentCards"> {/* Renders the players card hand */}
+                <div className="card-flex-container">
+                    {/*takes each card in cards and pass it to be rendered as a card */}
+                    {cards.map((card) => {
+                        return ( 
+                            <div className="cardOpp">
+                               <Cards card={card}/>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
-            <div className="cardOpp">
-                <Cards/>
-            </div>
-        </div>
         );
     }
 }

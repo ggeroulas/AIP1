@@ -6,7 +6,6 @@ class Opponent extends Component {
 
     render() {
         const { cards } = this.props;
-        console.log(cards);
         return(
             <div className="opponentCards"> {/* Renders the players card hand */}
                 <div className="card-flex-container">

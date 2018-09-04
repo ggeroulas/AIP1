@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost:27017/temp', { useNewUrlParser: true });
 
 const User = mongoose.model('User', {
     id: {type: Number, index: true},
-    name: [String],
+    user: [String],
     password: [String],
     score: [Number],
     games: [
@@ -22,10 +22,9 @@ User
     .remove({}) 
     .then(() => {
         new User({
-            id: 4592, 
-            name: 'Davy', 
+            user: 'Davy', 
             password: 'doggo1',
-            score: 1000,
+            score: 0,
             games: [
                 {
                     result: true,
@@ -36,10 +35,9 @@ User
         }).save();
 
         new User({
-            id: 5284, 
-            name: 'Lisa', 
+            user: 'Lisa', 
             password: 'nootnoot',
-            score: 1000,
+            score: 0,
             games: [
                 {
                     result: true,
@@ -50,10 +48,9 @@ User
         }).save();
 
         new User({
-            id: 3729, 
-            name: 'Johnny', 
+            user: 'Johnny', 
             password: 'marksuccs1',
-            score: 1000,
+            score: 0,
             games: [
                 {
                     result: false,
@@ -66,10 +63,9 @@ User
     });
 
     new User({
-        id: 2999, 
-        name: 'Mark', 
+        user: 'Mark', 
         password: 'whatastory',
-        score: 1000,
+        score: 0,
         games: [
             {
                 result: false,
@@ -79,26 +75,27 @@ User
         ]
     }).save();
 
-app.use('/users', (req, res) => {
+app.get('/users', (req, res) => {
     User
         .find()
         .then(results => res.json(results));
 });
 
-app.use('/find', (req, res) => {
+app.get('/find', (req, res) => {
     User
-        .find({name: req.query.name})
+        .find({user: req.query.user})
         .then(results => res.json(results));
 });
 
-app.use('/add', (req, res) => {
+
+app.post('/add', (req, res) => {
     console.log("hi");
     User
-        .insertMany({id: req.query.id, name: req.query.name, password: req.query.password, score: req.query.score})
+        .insertMany({id: req.query.id, user: req.query.user, password: req.query.password, score: req.query.score})
         .then(results => res.json(results));
         
 });
 
 server = app.listen(3000, () => {
-    console.log('Running on http://localhost:3000/');
+    console.log('Running on http://localhost:5000/');
 });

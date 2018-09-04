@@ -4,12 +4,10 @@ import Player from './Player/Player'
 import Opponent from './Opponent/Opponent'
 import { HEARTS, DIAMONDS, CLUBS, SPADES } from './Cards/cardTypes';
 
-
-
 class Game extends Component {
   constructor() {
     super();
-    this.state = { 
+    this.state = {
       score: 0, // Initialises the score for the player
       playerCards: [
         { suit: CLUBS, value: "6" },
@@ -28,12 +26,12 @@ class Game extends Component {
 
   drawCard() {// Function to draw cards for the player
     this.setState({ //should instead pop a card from the shuffled deck and then push that card into the hand
-      playerCards:[
+      playerCards: [
         ...this.state.playerCards,  //set the state to be previous state plus new playerCards by overriding previous cards
-        {suit: HEARTS, value: "5"}
+        { suit: HEARTS, value: "5" }
       ]
     });
-  } 
+  }
 
   stay() {// Function to action the player to hold their hand
     console.log("stay");
@@ -43,21 +41,18 @@ class Game extends Component {
 
   changeScore(win) {
     var change = (win) ? 100 : -100;
-    console.log(change);
-    this.setState({ score: this.state.score + change});
-    console.log(this.state.score);  
+    this.setState({ score: this.state.score + change });
   }
 
   render() {
-    const score = this.state.score; // Passes the score down from the state
     return (
 
       <div className="Game">
         <div className="Score"> {/* Shows the score */}
-          <p>Score: {score}</p>
+          <p>Score: {this.state.score}</p>
         </div>
         <div>
-          <Opponent cards={this.state.opponentCards}/> {/* Renders the opponent cards */}
+          <Opponent cards={this.state.opponentCards} /> {/* Renders the opponent cards */}
           <Player cards={this.state.playerCards} /> {/* Renders the players cards */}
         </div>
         <div className="Choice"> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}

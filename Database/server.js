@@ -29,7 +29,7 @@ tempUser = {
 };
 User.create(tempUser); 
 
-router.post('/', function(req, res, next) {
+app.get('/login', function(req, res, next) {
     if (req.body.name && req.body.password) {
       User.authenticate(req.body.name, req.body.password, function (error, user) {
         if (error || !user) {

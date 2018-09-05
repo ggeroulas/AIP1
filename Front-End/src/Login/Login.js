@@ -13,17 +13,20 @@ class Login extends Component {
     }
 
     checkPassword(e) {
-        if (this.username.value === "Zhongy97" && this.password.value === "Password") {//temporary
-            this.setState({
-                loggedIn: true,
-                user: 'Zhongy97',
-                error: ''
-            });
+        // if (this.username.value === "Zhongy97" && this.password.value === "Password") {//temporary
+        //     this.setState({
+        //         loggedIn: true,
+        //         user: 'Zhongy97',
+        //         error: ''
+        //     });
 
-        } else {
-            this.setState({error: 'Username or Password Incorrect'});
-        }
-        e.preventDefault();
+        // } else {
+        //     this.setState({error: 'Username or Password Incorrect'});
+        // }
+        // fetch("/test")
+        //     .then(res => res.json())
+        //     .then(data => console.log(data));
+        // e.preventDefault();
     }
     
     render() {

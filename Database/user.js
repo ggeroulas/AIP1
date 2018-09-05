@@ -38,6 +38,7 @@ UserSchema.statics.authenticate = function (username, password, callback) {
       }
       bcrypt.compare(password, user.password, function (err, result) {
         if (result) {
+          var err = new Error('Password Correct.');
           return callback(null, user);
         } else {
           var err = new Error('Password Incorrect.');

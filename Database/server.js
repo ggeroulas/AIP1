@@ -15,11 +15,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}))
 
 //sessions
+app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-    secret: 'doggo',
-    resave: true,
-    saveUninitialized: false
-}));
+  secret: 'doggo',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 var tempUser = {
     username: "Johnny",
@@ -46,17 +48,17 @@ app.post('/login', function(req, res, next) {
     if (req.query.username && req.query.password) {
         User.authenticate(req.query.username, req.query.password, function (error, user) {
             if (error || !user) {
-                // var err = new Error('Wrong name or password.');//without sessions
-                // err.status = 401;//without sessions
+                var err = new Error('Wrong name or password.');//without sessions
+                err.status = 401; //without sessions
                 return res.json([false, 'Wrong name or password.']);
             } else {
-                //req.session.userId = user._id; //session id
-                return res.json([true]);//without sessions
+                req.session.id = User._id;
+                return req.session.id;//json([true]);//without sessions
             }
         });
     } else {
-        // var err = new Error('Name and password are required.'); //without sessions
-        // err.status = 401; //without sessions
+        var err = new Error('Name and password are required.'); //without sessions
+        err.status = 401; //without sessions
         return res.json([false, 'Name and password are required.']); //without sessions
     }
 });

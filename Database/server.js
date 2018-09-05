@@ -4,10 +4,12 @@ var mongoose = require('mongoose');
 var User = require('./user');
 mongoose.connect('mongodb://localhost:27017/temp', { useNewUrlParser: true });
 
+User.db.useDb("temp");
+User.db.dropDatabase("temp");
+
 var tempUser = {
     name: "Johnny",
     password: "marcsuccs1",
-    passwordConf: "marcsuccs1",
     score: 1000
 };
 User.create(tempUser);
@@ -15,7 +17,6 @@ User.create(tempUser);
 tempUser = {
     name: "Mark",
     password: "nootnoot",
-    passwordConf: "nootnoot",
     score: 1000
 };
 User.create(tempUser);
@@ -23,10 +24,9 @@ User.create(tempUser);
 tempUser = {
     name: "Lisa",
     password: "whattanug",
-    passwordConf: "whattanug",
     score: 1000
 };
-User.create(tempUser);
+User.create(tempUser); 
 
 app.get('/users', (req, res) => {
     User
@@ -38,15 +38,6 @@ app.get('/find', (req, res) => {
     User
         .find({user: req.query.user})
         .then(results => res.json(results));
-});
-
-
-app.post('/add', (req, res) => {
-    console.log("hi");
-    User
-        .insertMany({id: req.query.id, user: req.query.user, password: req.query.password, score: req.query.score})
-        .then(results => res.json(results));
-        
 });
 
 

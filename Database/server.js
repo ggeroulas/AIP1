@@ -9,29 +9,29 @@ User.db.useDb("temp");
 User.db.dropDatabase("temp");
 
 var tempUser = {
-    name: "Johnny",
+    username: "Johnny",
     password: "marcsuccs1",
     score: 1000
 };
 User.create(tempUser);
 
 tempUser = {
-    name: "Mark",
+    username: "Mark",
     password: "nootnoot",
     score: 1000
 };
 User.create(tempUser);
 
 tempUser = {
-    name: "Lisa",
+    username: "Lisa",
     password: "whattanug",
     score: 1000
 };
 User.create(tempUser); 
 
 app.get('/login', function(req, res, next) {
-    if (req.body.name && req.body.password) {
-      User.authenticate(req.body.name, req.body.password, function (error, user) {
+    if (req.body.username && req.body.password) {
+      User.authenticate(req.body.username, req.body.password, function (error, user) {
         if (error || !user) {
           var err = new Error('Wrong name or password.');
           err.status = 401;
@@ -56,7 +56,7 @@ app.get('/users', (req, res) => {
 
 app.get('/find', (req, res) => {
     User
-        .find({user: req.query.user})
+        .find({user: req.query.username})
         .then(results => res.json(results));
 });
 

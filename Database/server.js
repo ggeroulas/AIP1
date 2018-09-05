@@ -1,80 +1,32 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-//var body = require('body-parser'); Do we need this?
 var User = require('./user');
 mongoose.connect('mongodb://localhost:27017/temp', { useNewUrlParser: true });
 
-const User = mongoose.model('User', {
-    id: {type: Number, index: true},
-    user: [String],
-    password: [String],
-    score: [Number],
-    games: [
-        {
-            result: [Boolean],
-            dealer: [Number],
-            player: [Number]
-        }
-    ]
-});
+var tempUser = {
+    name: "Johnny",
+    password: "marcsuccs1",
+    passwordConf: "marcsuccs1",
+    score: 1000
+};
+User.create(tempUser);
 
-User
-    .remove({}) 
-    .then(() => {
-        new User({
-            user: 'Davy', 
-            password: 'doggo1',
-            score: 0,
-            games: [
-                {
-                    result: true,
-                    dealer: 14,
-                    player: 17
-                }
-            ]
-        }).save();
+tempUser = {
+    name: "Mark",
+    password: "nootnoot",
+    passwordConf: "nootnoot",
+    score: 1000
+};
+User.create(tempUser);
 
-        new User({
-            user: 'Lisa', 
-            password: 'nootnoot',
-            score: 0,
-            games: [
-                {
-                    result: true,
-                    dealer: 34,
-                    player: 11
-                }
-            ]
-        }).save();
-
-        new User({
-            user: 'Johnny', 
-            password: 'marksuccs1',
-            score: 0,
-            games: [
-                {
-                    result: false,
-                    dealer: 12,
-                    player: 11
-                }
-            ]
-        }).save();
-        
-    });
-
-    new User({
-        user: 'Mark', 
-        password: 'whatastory',
-        score: 0,
-        games: [
-            {
-                result: false,
-                dealer: 21,
-                player: 19
-            }
-        ]
-    }).save();
+tempUser = {
+    name: "Lisa",
+    password: "whattanug",
+    passwordConf: "whattanug",
+    score: 1000
+};
+User.create(tempUser);
 
 app.get('/users', (req, res) => {
     User
@@ -96,6 +48,7 @@ app.post('/add', (req, res) => {
         .then(results => res.json(results));
         
 });
+
 
 server = app.listen(5000, () => {
     console.log('Running on http://localhost:5000/');

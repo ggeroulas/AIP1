@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Header.css';
 import logo from '../shark.png';
+import Login from '../Login/Login.js';
 
 class Header extends Component {
 
@@ -11,7 +12,7 @@ class Header extends Component {
                 <img src={logo} className="App-logo" alt="logo" />
                 <h1 className="App-title">Welcome to Card Shark</h1>
             </header>
-            
+            <Login/>            
         </div>
         );
     }

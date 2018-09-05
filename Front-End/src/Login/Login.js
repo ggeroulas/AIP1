@@ -35,7 +35,6 @@ class Login extends Component {
                     <input type="submit"/>
                 </form>
                 <p>{this.state.error}</p>
-                <button>Sign Up</button>
             </div>
         );
     }

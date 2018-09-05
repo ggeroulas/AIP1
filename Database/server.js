@@ -5,8 +5,6 @@ var mongoose = require('mongoose');
 var User = require('./user');
 mongoose.connect('mongodb://localhost:27017/temp', { useNewUrlParser: true });
 
-<<<<<<< HEAD
-=======
 const User = mongoose.model('User', {
     id: {type: Number, index: true},
     user: [String],
@@ -77,7 +75,6 @@ User
             }
         ]
     }).save();
->>>>>>> b263765889e834bad3086e171e14f2582463f2fa
 
 app.get('/users', (req, res) => {
     User
@@ -95,15 +92,11 @@ app.get('/find', (req, res) => {
 app.post('/add', (req, res) => {
     console.log("hi");
     User
-<<<<<<< HEAD
-        .insertMany({name: req.query.name, password: req.query.password, score: req.query.score})
-=======
         .insertMany({id: req.query.id, user: req.query.user, password: req.query.password, score: req.query.score})
->>>>>>> b263765889e834bad3086e171e14f2582463f2fa
         .then(results => res.json(results));
         
 });
 
-server = app.listen(3000, () => {
+server = app.listen(5000, () => {
     console.log('Running on http://localhost:5000/');
 });

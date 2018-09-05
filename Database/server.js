@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
+var body = require('body-parser');
 var User = require('./user');
 mongoose.connect('mongodb://localhost:27017/temp', { useNewUrlParser: true });
 
@@ -28,6 +29,25 @@ tempUser = {
 };
 User.create(tempUser); 
 
+router.post('/', function(req, res, next) {
+    if (req.body.name && req.body.password) {
+      User.authenticate(req.body.name, req.body.password, function (error, user) {
+        if (error || !user) {
+          var err = new Error('Wrong email or password.');
+          err.status = 401;
+          return next(err, null);
+        }  else {
+          req.session.userId = user._id;
+          return next(null, user._id);
+        }
+      });
+    } else {
+      var err = new Error('Email and password are required.');
+      err.status = 401;
+      return next(err, null);
+    }
+  });
+
 app.get('/users', (req, res) => {
     User
         .find()
@@ -39,6 +59,7 @@ app.get('/find', (req, res) => {
         .find({user: req.query.user})
         .then(results => res.json(results));
 });
+
 
 
 server = app.listen(5000, () => {

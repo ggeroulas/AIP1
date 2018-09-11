@@ -33,7 +33,7 @@ passport.use('login', new localStrategy({
         }
         const validate = await user.validatePassword(password);
         if ( !validate ) {
-            return done(null, false, { message : 'Wong Password' });
+            return done(null, false, { message : 'Wrong Password' });
         }
         return done(null, user, { message : 'Logged in Successfully'});
     } catch (error) {
@@ -43,8 +43,8 @@ passport.use('login', new localStrategy({
 
 // Verification of tokens
 passport.use(new JWTstrategy({
-    secretOrKey : 'top_secret', //check
-    jwtFromRequest : ExtractJWT.fromUrlQueryParameter('top_sercret') //check
+    secretOrKey : 'doggo', //check
+    jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken(),
 }, async (token, done) => {
     try {
         console.log('test-auth');
@@ -53,4 +53,4 @@ passport.use(new JWTstrategy({
     } catch (error) {
         done(error);
     }
-}));
+}))

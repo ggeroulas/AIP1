@@ -32,5 +32,12 @@ UserSchema.pre('save', function(next) {
     });
 });
 
+// Checks Credentials
+UserSchema.methods.validatePassword = async function(password) {
+    const user = this;
+    const compare = await bcrypt.compare(password, user.password);
+    return compare;
+}
+
 
 module.exports = mongoose.model('Users', UserSchema);

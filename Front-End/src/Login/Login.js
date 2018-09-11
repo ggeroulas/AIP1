@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
+import axios from 'axios';
 
 class Login extends Component {
     constructor() {
@@ -13,6 +14,24 @@ class Login extends Component {
     }
 
     checkPassword(e) {
+
+
+        axios.post('/login', 
+            {
+                username: this.username.value,
+                password: this.password.value
+            }).then((res) => {
+                console.log(res);
+                localStorage.setItem('token', res.data.token);
+            }).then(
+                axios.get('/user/profile',
+                    {
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
+                    }
+                }).then((res) => {
+                    console.log(res);
+                }));
         // if (this.username.value === "Zhongy97" && this.password.value === "Password") {//temporary
         //     this.setState({
         //         loggedIn: true,
@@ -26,7 +45,7 @@ class Login extends Component {
         // fetch("/test")
         //     .then(res => res.json())
         //     .then(data => console.log(data));
-        // e.preventDefault();
+        e.preventDefault();
     }
     
     render() {

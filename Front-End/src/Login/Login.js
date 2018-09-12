@@ -1,66 +1,92 @@
-import React, { Component } from 'react';
-import './Login.css';
-import axios from 'axios';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { SvgIcon } from '@material-ui/core';
 
-class Login extends Component {
-    constructor() {
-        super();
-        this.state = {
-            loggedIn: false,
-            user: '',
-            error: ''
-        }
-        this.checkPassword = this.checkPassword.bind(this);
-    }
+const styles = theme => ({
+  layout: {
+    width: 'auto',
+    display: 'block', 
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', 
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+});
 
-    checkPassword(e) {
+function SignIn(props) {
+  const { classes } = props;
 
-
-        axios.post('/login', 
-            {
-                username: this.username.value,
-                password: this.password.value
-            }).then((res) => {
-                console.log(res);
-                localStorage.setItem('token', res.data.token);
-            }).then(
-                axios.get('/user/profile',
-                    {
-                        headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
-                    }
-                }).then((res) => {
-                    console.log(res);
-                }));
-        // if (this.username.value === "Zhongy97" && this.password.value === "Password") {//temporary
-        //     this.setState({
-        //         loggedIn: true,
-        //         user: 'Zhongy97',
-        //         error: ''
-        //     });
-
-        // } else {
-        //     this.setState({error: 'Username or Password Incorrect'});
-        // }
-        // fetch("/test")
-        //     .then(res => res.json())
-        //     .then(data => console.log(data));
-        e.preventDefault();
-    }
-    
-    render() {
-        return( 
-            <div className="login"> {/* The login bar accross the top of the page*/}
-                <form onSubmit={this.checkPassword}>
-                    <input type="text" ref={input => this.username = input} placeholder="Username"></input>
-                    <input  type="password" ref={input => this.password = input} placeholder="Password"></input>
-                    <input type="submit"/>
-                </form>
-                <p>{this.state.error}</p>
-            </div>
-        );
-    }
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <main className={classes.layout}>
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar} src="../shark.png">
+        
+          </Avatar>
+          <Typography variant="headline">Sign in</Typography>
+          <form className={classes.form}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <Input id="email" name="email" autoComplete="email" autoFocus />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </FormControl>
+            <Button
+              type="submit"
+              fullWidth
+              variant="raised"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign in
+            </Button>
+          </form>
+        </Paper>
+      </main>
+    </React.Fragment>
+  );
 }
 
-export default Login;
+SignIn.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
+export default withStyles(styles)(SignIn);

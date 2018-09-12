@@ -1,13 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import { Avatar, Button, CssBaseline, FormControl, Input, InputLabel, Paper, Typography} from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { SvgIcon } from '@material-ui/core';
 
@@ -51,7 +44,7 @@ function SignIn(props) {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Avatar className={classes.avatar} src="../shark.png">
+          <Avatar className={classes.avatar} src="./images/shark.png">
         
           </Avatar>
           <Typography variant="headline">Sign in</Typography>

@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 router.post('/register', passport.authenticate('register', { session : false }) , async (req, res, next) => {
-    console.log("Tony");
     res.json({
         message : "Register Successful",
         user : req.user
@@ -16,7 +15,9 @@ router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {
         try {
             if (err || !user) {
-                const error = new Error('An Error occured');
+                const error = new Error();
+                error.status = 401;
+                error.message = info.message;
                 return next(error);
             }
             req.login(user, { session : false }, async (error) => {

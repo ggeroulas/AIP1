@@ -14,8 +14,6 @@ class Login extends Component {
     }
 
     checkPassword(e) {
-
-
         axios.post('/login', 
             {
                 username: this.username.value,
@@ -23,7 +21,7 @@ class Login extends Component {
             }).then((res) => {
                 console.log(res);
                 localStorage.setItem('token', res.data.token);
-            }).then(
+            }).then( //grabs username
                 axios.get('/user/profile',
                     {
                         headers: {
@@ -32,19 +30,6 @@ class Login extends Component {
                 }).then((res) => {
                     console.log(res);
                 }));
-        // if (this.username.value === "Zhongy97" && this.password.value === "Password") {//temporary
-        //     this.setState({
-        //         loggedIn: true,
-        //         user: 'Zhongy97',
-        //         error: ''
-        //     });
-
-        // } else {
-        //     this.setState({error: 'Username or Password Incorrect'});
-        // }
-        // fetch("/test")
-        //     .then(res => res.json())
-        //     .then(data => console.log(data));
         e.preventDefault();
     }
     

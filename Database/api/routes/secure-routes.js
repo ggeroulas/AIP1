@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/profile', (req, res, next) => {
-    console.log('test');
+router.get('/', (req, res, next) => {
+    console.log(req.user.score);
     res.json({
         message : 'You made it to the secure route',
         user : req.user,

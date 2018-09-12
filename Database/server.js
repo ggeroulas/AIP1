@@ -1,17 +1,17 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var User = require('./api/models/userModel');
-var passport = require('passport');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const User = require('./api/models/userModel');
+const passport = require('passport');
 
-var routes = require('./api/routes/routes'); // importing route
-var secureRoutes = require('./api/routes/secure-routes')
+const routes = require('./api/routes/routes'); // importing route
+const secureRoutes = require('./api/routes/secure-routes')
 
 
 
-var PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 // Mongoose instance connection url 
 mongoose.Promise = global.Promise;
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 //testing only
 User.db.dropDatabase("cardshark");
 
-var tempUser = {
+const tempUser = {
     username: "Joy",
     password: "LIGMA"
 };
@@ -37,7 +37,7 @@ User.create(tempUser);
 app.use('/', routes); 
 app.use('/user', passport.authenticate('jwt', { session : false}), secureRoutes );
 
-// Handles errors
+//Handles errors
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({ error : err });

@@ -11,12 +11,11 @@ passport.use('register', new localStrategy({
     passwordField : 'password'
 }, async (username, password, done) => {
     try {
-        console.log('hello');
         const user = await UserModel.create({ username, password });
         return done(null, user);
     } catch (error) {
-        console.log("Tony2");
-
+        error.status = 409;
+        error.message = 'Username already exists!';
         done(error);
     }
 }));
@@ -29,15 +28,18 @@ passport.use('login', new localStrategy({
     try {   
         const user = await UserModel.findOne({ username });
         if ( !user ) {
-            return done(null, false, { message : 'User not found'});
+            return done(null, false, { message : 'Incorrect Username or Password!'});//FIX ERROR MESSAGES
         }
         const validate = await user.validatePassword(password);
         if ( !validate ) {
-            return done(null, false, { message : 'Wrong Password' });
+            return done(null, false, { message : 'Incorrect Username or Password!' });
+        } else {
+            return done(null, user, { message : 'Logged in Successfully'});
         }
-        return done(null, user, { message : 'Logged in Successfully'});
     } catch (error) {
-        return done(error);
+        error.status = 409;
+        error.message = ('Username already exists!');
+        done(error);
     }
 }));
 
@@ -47,7 +49,6 @@ passport.use(new JWTstrategy({
     jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken(),
 }, async (token, done) => {
     try {
-        console.log('test-auth');
         // Pass user details to next middleware
         return done(null, token.user);
     } catch (error) {

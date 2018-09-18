@@ -30,7 +30,6 @@ const tempUser = {
     password: "LIGMA"
 };
 User.create(tempUser);
-
 //testing space ends
 
 //register the route

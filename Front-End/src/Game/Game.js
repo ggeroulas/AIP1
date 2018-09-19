@@ -2,14 +2,30 @@ import React, { Component } from 'react';
 import Table from './Table/Table';
 import Login from '../Login/Login';
 import Register from "../Register/Register";
+import axios from 'axios';
 
 class Game extends Component {
     constructor() {
         super();
         this.state = {
-            loggedin: 3
+            loggedin: 0,
              // Case 0 no one logged in, Case 1 refresh to show login, Case 2 refresh to show register, Case 3 continue to table
+            loggedUser: {
+                userId: null,
+                username: null
+            }
         };
+    }
+
+    // Callback to get Logged in user
+    getLoggedUser = (id, user) => {
+        this.setState(prevState => ({
+            loggedUser: {
+                userId: id,
+                username: user
+            }
+        }))
+        this.setState({loggedin: 3});
     }
 
     refresh(e, x) {
@@ -44,7 +60,7 @@ class Game extends Component {
                             <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 2)}>Register</button>
                         </div>
                     </nav>
-                    <Login/>
+                    <Login onLogin={this.getLoggedUser}/>
                 </div>  
             );
             case 2: return(
@@ -61,7 +77,7 @@ class Game extends Component {
             case 3: return(
                 <div>
                     <nav className="navbar navbar-dark bg-dark mb-2">
-                        <p className="text-light">Welcome Mr. Schneebly!</p>
+                        <p className="text-light">Welcome {this.state.loggedUser.username}!</p>
                         <button className="btn btn-sm btn-outline-info" onClick={(e) => this.logout(e)}>Log Out</button>
                     </nav>
                     <Table/>

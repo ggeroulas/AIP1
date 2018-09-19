@@ -4,7 +4,6 @@ const User = require('../models/userModel')
 
 router.get('/', (req, res, next) => {
     res.json({
-        message : 'You made it to the secure route',
         user : req.user,
         token: req.query.secret_token
     })

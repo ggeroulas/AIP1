@@ -10,7 +10,7 @@ class Login extends Component {
             error: ''
         }
         this.checkPassword = this.checkPassword.bind(this);
-    }
+    };
 
     checkPassword(e) {
         axios.post('/login', 
@@ -21,23 +21,20 @@ class Login extends Component {
             .then(
                 (res) => {
                     localStorage.setItem('token', res.data.token);
-                    console.log('complete'); //should reroute to the table
+                    axios.get('/user', 
+                    {
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
+                        }
+                    }).then((res) => {
+                        this.props.onLogin(res.data.user._id, res.data.user.username);
+                    });
                 }, 
                 (err) => {//should instead get the error response from the api
                     alert("Incorrect Username or Password!");   
                     
                 }
             );
-        //     ).then(
-        //         axios.get('/user/',
-        //             {
-        //                 headers: {
-        //                     'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
-        //             }
-        //         }).then((res) => {
-        //             console.log(res);
-                    
-        //         }));
         e.preventDefault();
     }
     

@@ -1,19 +1,4 @@
-.Choice {
-    display: inline-block;
-    padding-top: 40px;
-    padding-bottom: 40px; /* Allows items to be lined up rather than being stacked up on top of eachother */
-  }
 
-.button {
-    display: inline-block;
-    margin-right: 15px;
-  
-}
-
-#nextGame {
-    margin-right: 15px;
-  }
-  
 .Score {
     text-align: left;
     padding: 15px;

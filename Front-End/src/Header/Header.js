@@ -9,11 +9,11 @@ class Header extends Component {
 
     render() {
         return( // Renders the header of the page
-        <div>
-            <header className="App-header">
-                <img src="./images/shark.png" className="App-logo" alt="logo" />
-                <h1 className="App-title">Welcome to Card Shark</h1>
-            </header>
+        <div class="container-fluid">
+            <div class="jumbotron bg-1 row">
+                    <h1 class="col-sm">Welcome to Card Shark</h1>
+                    <img class="col-sm" src="./images/shark.png" className="App-logo" alt="logo" />
+            </div>
         </div>
         );
     }

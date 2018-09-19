@@ -24,22 +24,22 @@ class Register extends Component {
 
     render() {
         return(
-            <div class="container-small center">
+            <div className="container-small center">
             <form onSubmit={this.registerUser}>
                 <h4>Register</h4>
-                <div class="form-group">    
+                <div className="form-group">    
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" ref={input => this.username = input} placeholder="Username"></input>
+                    <input type="text" className="form-control" ref={input => this.username = input} placeholder="Username"></input>
                 </div>    
-                <div class="form-group">
+                <div className="form-group">
                     <label>Password</label>
-                    <input  type="password" class="form-control" ref={input => this.password = input} placeholder="Password"></input>
+                    <input  type="password" className="form-control" ref={input => this.password = input} placeholder="Password"></input>
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                     <label>Confirm Password</label>
-                    <input  type="password" class="form-control" ref={input => this.cpassword = input} placeholder="Password"></input>
+                    <input  type="password" className="form-control" ref={input => this.cpassword = input} placeholder="Password"></input>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Sign Up"/>
+                <input className="btn btn-primary" type="submit" value="Sign Up"/>
                 <p>{this.state.error}</p>
             </form>
         </div>

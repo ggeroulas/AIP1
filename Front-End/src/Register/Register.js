@@ -28,7 +28,7 @@ class Register extends Component {
             <form onSubmit={this.registerUser}>
                 <h4>Register</h4>
                 <div className="form-group">    
-                    <label for="username">Username</label>
+                    <label>Username</label>
                     <input type="text" className="form-control" ref={input => this.username = input} placeholder="Username"></input>
                 </div>    
                 <div className="form-group">

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import Player from '../Player/Player';
 import './Table.css';
-import Player from '../Player/Player'
-import Opponent from '../Opponent/Opponent'
+import Opponent from '../Opponent/Opponent';
 import { HEARTS, DIAMONDS, CLUBS, SPADES } from '../Cards/cardTypes';
 
 
@@ -48,19 +48,19 @@ class Table extends Component {
   render() {
     return (
 
-      <div className="Game">
-        <div className="Score"> {/* Shows the score */}
+      <div className="container-fluid card back">
+        <div className="score"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
         </div>
-        <div>
+        <div className="container">
           <Opponent cards={this.state.opponentCards} /> {/* Renders the opponent cards */}
           <Player cards={this.state.playerCards} /> {/* Renders the players cards */}
         </div>
-        <div className="Choice"> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
+        <div className=""> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <button className="button" onClick={this.drawCard}>DRAW</button>
           <button className="button" onClick={this.stay}>STAY</button>
         </div>
-        <br />
+        <br/>
         <button id="nextGame">NEXT GAME</button>
       </div>
     );

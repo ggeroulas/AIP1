@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './Header.css';
-import Login from '../Login/Login.js';
-import Register from "../Register/Register.js"
 
 class Header extends Component {
 

@@ -3,7 +3,7 @@ import './Table.css';
 import Player from '../Player/Player'
 import Opponent from '../Opponent/Opponent'
 import { HEARTS, DIAMONDS, CLUBS, SPADES } from '../Cards/cardTypes';
-import Button from '@material-ui/core/Button';
+
 
 class Table extends Component {
   constructor() {
@@ -57,11 +57,11 @@ class Table extends Component {
           <Player cards={this.state.playerCards} /> {/* Renders the players cards */}
         </div>
         <div className="Choice"> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
-          <Button variant="outlined" color="primary" className="button" onClick={this.drawCard}>DRAW</Button>
-          <Button variant="outlined" color="primary" className="button" onClick={this.stay}>STAY</Button>
+          <button className="button" onClick={this.drawCard}>DRAW</button>
+          <button className="button" onClick={this.stay}>STAY</button>
         </div>
         <br />
-        <Button variant="outlined" color="primary" id="nextGame">NEXT GAME</Button>
+        <button id="nextGame">NEXT GAME</button>
       </div>
     );
 

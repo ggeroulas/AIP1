@@ -7,25 +7,56 @@ class Game extends Component {
     constructor() {
         super();
         this.state = {
-            loggedin: false //toggle for now
+            loggedin: 0 // Case 0 no one logged in, Case 1 refresh to show login, Case 2 refresh to show register, Case 3 continue to table
         };
+    }
+
+    refresh(e, x) {
+        this.setState({loggedin: x});
+        
     }
     
     render() {
-        if (!this.state.loggedin) {
-            return (
+        switch (this.state.loggedin) {
+            case 0: {
+                return(
+                    <div>
+                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                        <h2>Welcome to my fully sick game!</h2>
+                    </div>
+                    
+                );
+            }
+            case 1: return(
                 <div>
-                    <span><Login/></span>
-                    <span><Register/></span>
-                </div>
-            )
-        } else {
-            return (
+                    <div>
+                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                    </div>
+                    <Login/>
+                </div>  
+            );
+            case 2: return(
                 <div>
-                    <Table/>  
-                </div>
-            )
+                    <div>
+                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                    </div>
+                    <Register/>
+                </div>  
+            );
+            case 3: return(
+                <div>
+                    <div>
+                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                    </div>
+                    <Table/>
+                </div>  
+            );
         }
+        
     }
 }
 

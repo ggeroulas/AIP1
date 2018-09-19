@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
 
 class Register extends Component {
     constructor() {
@@ -11,7 +13,19 @@ class Register extends Component {
 
     registerUser(e) {
         if (this.password.value === this.cpassword.value) {
-            
+            axios.post('/register',
+            {
+                username: this.username.value,
+                password: this.password.value
+            })
+            .then(
+                (res) => {
+                    console.log(res.data.message);
+                },
+                (err) => {//should instead get message from error
+                    alert("Username already Taken")
+                }
+            )
         }
         else {
             alert("Passwords do not match!")

@@ -7,13 +7,18 @@ class Game extends Component {
     constructor() {
         super();
         this.state = {
-            loggedin: 0 // Case 0 no one logged in, Case 1 refresh to show login, Case 2 refresh to show register, Case 3 continue to table
+            loggedin: 3
+             // Case 0 no one logged in, Case 1 refresh to show login, Case 2 refresh to show register, Case 3 continue to table
         };
     }
 
     refresh(e, x) {
         this.setState({loggedin: x});
-        
+    }
+
+    logout(e) {
+        this.setState({loggedin: 0});
+        // need to call a function here that kills the session
     }
     
     render() {
@@ -21,37 +26,44 @@ class Game extends Component {
             case 0: {
                 return(
                     <div>
-                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                        <nav class="navbar navbar-light bg-light mb-5">
+                            <div class="div-inline">
+                                <button class="btn btn-sm btn-outline-secondary mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                                <button class="btn btn-sm btn-outline-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            </div>
+                        </nav>
                         <h2>Welcome to my fully sick game!</h2>
-                    </div>
-                    
+                    </div>  
                 );
             }
             case 1: return(
                 <div>
-                    <div>
-                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
-                    </div>
+                    <nav class="navbar navbar-light bg-light mb-5">
+                        <div class="div-inline">
+                            <button class="btn btn-sm btn-outline-secondary mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                            <button class="btn btn-sm btn-outline-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                        </div>
+                    </nav>
                     <Login/>
                 </div>  
             );
             case 2: return(
                 <div>
-                    <div>
-                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
-                    </div>
+                    <nav class="navbar navbar-light bg-light mb-5">
+                        <div class="div-inline">
+                            <button class="btn btn-sm btn-outline-secondary mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                            <button class="btn btn-sm btn-outline-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                        </div>
+                    </nav>
                     <Register/>
                 </div>  
             );
             case 3: return(
                 <div>
-                    <div>
-                        <button class="btn btn-primary" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                        <button class="btn btn-secondary" onClick={(e) => this.refresh(e, 2)}>Register</button>
-                    </div>
+                    <nav class="navbar navbar-light bg-light">
+                        <p class="navbar-brand">Welcome Mr. Schneebly!</p>
+                        <button class="btn btn-sm btn-outline-secondary" onClick={(e) => this.logout(e)}>Log Out</button>
+                    </nav>
                     <Table/>
                 </div>  
             );

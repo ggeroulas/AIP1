@@ -13,7 +13,8 @@ class Game extends Component {
             loggedUser: {
                 userId: null,
                 username: null
-            }
+            },
+            userScore: ''
         };
     }
 
@@ -24,8 +25,13 @@ class Game extends Component {
                 userId: id,
                 username: user
             }
-        }))
+        }));
+
         this.setState({loggedin: 3});
+    }
+
+    processRegister = () => {
+        this.setState({loggedin: 1});
     }
 
     refresh(e, x) {
@@ -34,7 +40,13 @@ class Game extends Component {
 
     logout(e) {
         this.setState({loggedin: 0});
-        // need to call a function here that kills the session
+        localStorage.removeItem('token');
+        this.setState(prevState => ({
+            loggedUser: {
+                userId: null,
+                username: null
+            }
+        }));
     }
     
     render() {
@@ -71,7 +83,7 @@ class Game extends Component {
                             <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 2)}>Register</button>
                         </div>
                     </nav>
-                    <Register/>
+                    <Register onRegister={this.processRegister}/>
                 </div>  
             );
             case 3: return(

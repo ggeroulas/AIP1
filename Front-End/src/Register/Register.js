@@ -20,7 +20,7 @@ class Register extends Component {
             })
             .then(
                 (res) => {
-                    console.log(res.data.message);
+                    this.props.onRegister();
                 },
                 (err) => {//should instead get message from error
                     alert("Username already Taken")

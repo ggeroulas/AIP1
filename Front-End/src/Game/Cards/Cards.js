@@ -29,7 +29,7 @@ class Cards extends Component {
 
     render() {
         return ( // Renders each individual card
-            <div>
+            <div className="cardVal">
                 <p>{this.state.value}{this.state.suit}</p>
             </div>
         );

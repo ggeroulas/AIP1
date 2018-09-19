@@ -7,17 +7,16 @@ class Opponent extends Component {
     render() {
         const { cards } = this.props;
         return(
-            <div className="opponentCards"> {/* Renders the players card hand */}
-                <div className="card-flex-container">
+
+            <div className="container flex-container">
                     {/*takes each card in cards and pass it to be rendered as a card */}
                     {cards.map((card) => {
                         return ( 
-                            <div className="cardOpp">
+                            <div className="card cln cardOpp m-2 bg-info">
                                <Cards card={card}/>
                             </div>
                         );
                     })}
-                </div>
             </div>
         );
     }

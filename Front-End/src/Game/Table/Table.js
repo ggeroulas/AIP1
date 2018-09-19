@@ -56,12 +56,13 @@ class Table extends Component {
           <Opponent cards={this.state.opponentCards} /> {/* Renders the opponent cards */}
           <Player cards={this.state.playerCards} /> {/* Renders the players cards */}
         </div>
-        <div className=""> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
-          <button className="button" onClick={this.drawCard}>DRAW</button>
-          <button className="button" onClick={this.stay}>STAY</button>
+        <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
+          <div className="flex-container mt-5">
+            <button className="btn-primary btn-sm m-2" onClick={this.drawCard}>DRAW</button>
+            <button className="btn-primary btn-sm m-2" onClick={this.stay}>STAY</button>
+            <button className="btn-secondary btn-sm m-2">NEXT GAME</button>
+          </div>
         </div>
-        <br/>
-        <button id="nextGame">NEXT GAME</button>
       </div>
     );
 

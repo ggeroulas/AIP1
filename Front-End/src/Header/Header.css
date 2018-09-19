@@ -2,10 +2,9 @@
     animation: App-logo-spin infinite 10s linear;
     height: 80px; /* Adds the spinning shark logo */
   }
- 
-.bg-1 { 
-    background-color: rgb(151, 151, 151);
-    color: black;
+
+.header {
+  background-color: rgb(216, 215, 215);
 }
 
   

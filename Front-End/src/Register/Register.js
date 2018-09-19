@@ -15,6 +15,7 @@ class Register extends Component {
         }
         else {
             alert("Passwords do not match!")
+            
         }
         e.preventDefault();
     }
@@ -23,6 +24,9 @@ class Register extends Component {
     render() {
         return(
             <div className="container-small center">
+            <div className="alert alert-danger" name="alert">
+                This is a danger alert—check it out!
+            </div>
             <form onSubmit={this.registerUser}>
                 <h4>Register</h4>
                 <div className="form-group">    

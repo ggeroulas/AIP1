@@ -5,18 +5,17 @@ class Register extends Component {
     constructor() {
         super();
         this.state = {
-            error: '' //todo: should be sent to the header component to display
+            error: '' //todo: should be sent to the header component to display ##may not be needed if using alerts
         }
         this.registerUser = this.registerUser.bind(this);
     }
 
     registerUser(e) {
         if (this.password.value === this.cpassword.value) {
-            this.setState({error: '' });
-            console.log("pass")
+            
         }
         else {
-            this.setState({error: 'Passwords do not match!' });
+            alert("Passwords do not match!")
         }
         e.preventDefault();
     }

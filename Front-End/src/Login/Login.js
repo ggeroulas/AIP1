@@ -14,40 +14,30 @@ class Login extends Component {
     }
 
     checkPassword(e) {
-
-
         axios.post('/login', 
             {
                 username: this.username.value,
                 password: this.password.value
-            }).then((res) => {
-                console.log(res);
-                //this.setState(); Need to set the error to show up in login
-                this.setState({error: res.data.error});
-                localStorage.setItem('token', res.data.token);
-            }).then(
-                axios.get('/user/profile',
-                    {
-                        headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
-                    }
-                }).then((res) => {
-                    console.log(res);
+            })
+            .then(
+                (res) => {
+                    localStorage.setItem('token', res.data.token);
+                    console.log('complete'); //should reroute to the table
+                }, 
+                (err) => {//should instead get the error response from the api
+                    alert("Incorrect Username or Password!");   
+                }
+            );
+        //     ).then(
+        //         axios.get('/user/',
+        //             {
+        //                 headers: {
+        //                     'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
+        //             }
+        //         }).then((res) => {
+        //             console.log(res);
                     
-                }));
-        // if (this.username.value === "Zhongy97" && this.password.value === "Password") {//temporary
-        //     this.setState({
-        //         loggedIn: true,
-        //         user: 'Zhongy97',
-        //         error: ''
-        //     });
-
-        // } else {
-        //     this.setState({error: 'Username or Password Incorrect'});
-        // }
-        // fetch("/test")
-        //     .then(res => res.json())
-        //     .then(data => console.log(data));
+        //         }));
         e.preventDefault();
     }
     

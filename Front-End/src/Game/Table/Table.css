@@ -1,7 +1,13 @@
 
-.Score {
-    text-align: left;
-    padding: 15px;
-    font-size: 26px; /* Sets the styling for the score board */
-  
+.back {
+    background-image: linear-gradient(to bottom right, rgb(0, 88, 7), rgb(25, 146, 1));
 }
+
+.score {
+    color: rgb(255, 255, 255);
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+  }

@@ -8,18 +8,17 @@ class Player extends Component {
     render() {
         const { cards } = this.props;
         return(
-            <div className="playerCards"> {/* Renders the players card hand */}
-                <div className="card-flex-container">
+                <div className="container flex-container">
                     {/*takes each card in cards and pass it to be rendered as a card */}
                     {cards.map((card) => {
                         return ( 
-                            <div className="cardPlayer">
+                            <div className="card cln cardPlayer m-2">
                                <Cards card={card}/>
                             </div>
                         );
                     })}
                 </div>
-            </div>  
+           
         );
     }
 }

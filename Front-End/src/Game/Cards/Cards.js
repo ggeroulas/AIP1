@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Cards.css';
 import { HEARTS, DIAMONDS, CLUBS, SPADES } from './cardTypes';
 
 class Cards extends Component {
@@ -30,7 +29,7 @@ class Cards extends Component {
 
     render() {
         return ( // Renders each individual card
-            <div>
+            <div className="cardVal">
                 <p>{this.state.value}{this.state.suit}</p>
             </div>
         );

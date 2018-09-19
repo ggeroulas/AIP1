@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Login.css';
 import axios from 'axios';
 
 class Login extends Component {
@@ -42,21 +41,21 @@ class Login extends Component {
     }
     
     render() {
-        // <div class="alert alert-warning" role="alert"></div>
+        // <div className="alert alert-warning" role="alert"></div>
         
         return( 
-        <div class="container-small center">
+        <div className="container-small center">
             <form onSubmit={this.checkPassword}>
                 <h4>Login</h4>
-                <div class="form-group">    
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" ref={input => this.username = input} placeholder="Username"></input>
+                <div className="form-group">    
+                    <label>Username</label>
+                    <input type="text" className="form-control" ref={input => this.username = input} placeholder="Username"></input>
                 </div>    
-                <div class="form-group">
+                <div className="form-group">
                     <label>Password</label>
-                    <input  type="password" class="form-control" ref={input => this.password = input} placeholder="Password"></input>
+                    <input  type="password" className="form-control" ref={input => this.password = input} placeholder="Password"></input>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Login"/>
+                <input className="btn btn-primary" type="submit" value="Login"/>
             </form>
         </div>
             

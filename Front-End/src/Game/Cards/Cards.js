@@ -3,7 +3,7 @@ import './Cards.css';
 import { HEARTS, DIAMONDS, CLUBS, SPADES } from './cardTypes';
 
 class Cards extends Component {
-    state = { suit: null, value: null }
+    state = { suit: null, value: null, name: null }
 
     changeSuit = (suit) => {
         switch (suit) {

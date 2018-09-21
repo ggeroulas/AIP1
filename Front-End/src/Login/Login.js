@@ -29,11 +29,11 @@ class Login extends Component {
                     }).then((res) => {
                         this.props.onLogin(res.data.user._id, res.data.user.username);
                     });
-                }, 
-                (err) => {//should instead get the error response from the api
-                    alert("Incorrect Username or Password!");   
-                    
                 }
+            )
+            .catch((err) => {//should instead get the error response from the api
+                alert(err.response.data.error.message);
+            }
             );
         e.preventDefault();
     }
@@ -43,7 +43,7 @@ class Login extends Component {
         
         return( 
         <div className="container-small center">
-            <p class="alert alert-danger">
+            <p className="alert alert-danger">
                 This is a danger alert—check it out!
             </p>
             

@@ -2,34 +2,63 @@ import React, { Component } from 'react';
 import Player from '../Player/Player';
 import './Table.css';
 import Opponent from '../Opponent/Opponent';
-import { HEARTS, DIAMONDS, CLUBS, SPADES } from '../Cards/cardTypes';
-
 
 class Table extends Component {
   constructor() {
     super();
+    const newDeck = this.newDeck();
     this.state = {
       score: 0, // Initialises the score for the player
-      playerCards: [
-        { suit: CLUBS, value: "6" },
-        { suit: HEARTS, value: "7" },
-        { suit: HEARTS, value: "7" }
-      ],
-      opponentCards: [
-        { suit: CLUBS, value: "6" },
-        { suit: HEARTS, value: "7" }
-      ]
+      deck: newDeck,
+      playerCards: [],
+      opponentCards: []
     };
     this.drawCard = this.drawCard.bind(this);
     this.stay = this.stay.bind(this);
     this.changeScore = this.changeScore.bind(this);
+    this.consoleLOG = this.consoleLOG.bind(this);
+    this.handleNewGame = this.handleNewGame.bind(this);
+  }
+  //testing reasons
+  consoleLOG () {
+    console.log(this.state)
+  }
+
+  // Resets and creates deck
+  newDeck() {
+    //clear hands and shit
+    let newDeck = [];
+    const suits = ['HEARTS', 'SPADES', 'CLUBS', 'DIAMONDS'];
+    const names = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+    for (let s = 0; s < suits.length; s++) {
+        for (let n = 0; n <= names.length - 1; n++) {
+            if (n < 10) {
+                newDeck.push({ suit: suits[s], value: n + 1, name: names[n]});
+            } else {
+                newDeck.push({ suit: suits[s], value: 10, name: names[n]});
+            }
+        }
+    }
+    for (let i = newDeck.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * i);
+            let temp = newDeck[j];
+            newDeck[j] = newDeck[i];
+            newDeck[i] = temp;
+        }
+    return newDeck;
+  }
+
+  handleNewGame() {
+    const newDeck = this.newDeck();
+    this.setState({ ...this.state, deck: newDeck, playerCards: [], opponentCards: []})
   }
 
   drawCard() {// Function to draw cards for the player
     this.setState({ //should instead pop a card from the shuffled deck and then push that card into the hand
       playerCards: [
         ...this.state.playerCards,  //set the state to be previous state plus new playerCards by overriding previous cards
-        { suit: HEARTS, value: "5" }
+        { suit: 'HEARTS', value: 5, name: '5' }
       ]
     });
   }
@@ -47,7 +76,6 @@ class Table extends Component {
 
   render() {
     return (
-
       <div className="container-fluid card back">
         <div className="score"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
@@ -61,6 +89,8 @@ class Table extends Component {
             <button className="btn-primary btn-sm m-2" onClick={this.drawCard}>DRAW</button>
             <button className="btn-primary btn-sm m-2" onClick={this.stay}>STAY</button>
             <button className="btn-secondary btn-sm m-2">NEXT GAME</button>
+            <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button>{/*testing reasons*/}
+            <button className="btn-primary btn-sm m-2" onClick={this.handleNewGame}>NEW GAME</button>
           </div>
         </div>
       </div>

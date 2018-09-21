@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { HEARTS, DIAMONDS, CLUBS, SPADES } from './cardTypes';
 
 class Cards extends Component {
     state = { suit: null, value: null, name: null }
 
     changeSuit = (suit) => {
         switch (suit) {
-            case CLUBS:
+            case 'CLUBS':
                 return "♣";
-            case DIAMONDS:
+            case 'DIAMONDS':
                 return "♦";
-            case HEARTS:
+            case 'HEARTS':
                 return "♥";
-            case SPADES:
+            case 'SPADES':
                 return "♠";
             default:
                 return "";
@@ -22,7 +21,7 @@ class Cards extends Component {
     componentWillMount() {
         const suit = this.changeSuit(this.props.card.suit);
         this.setState({
-            value: this.props.card.value,
+            name: this.props.card.name,
             suit
         })
     }
@@ -30,7 +29,7 @@ class Cards extends Component {
     render() {
         return ( // Renders each individual card
             <div className="cardVal">
-                <p>{this.state.value}{this.state.suit}</p>
+                <p>{this.state.name}{this.state.suit}</p>
             </div>
         );
     }

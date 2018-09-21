@@ -23,7 +23,7 @@ class Register extends Component {
                     this.props.onRegister();
                 },
                 (err) => {//should instead get message from error
-                    alert("Username already Taken")
+                    alert("Username already Taken!")
                 }
             )
         }

@@ -13,11 +13,18 @@ class Table extends Component {
       playerCards: [],
       opponentCards: []
     };
+
+    for (var i = 0; i < 2; i++) {
+      this.state.playerCards.push(this.state.deck.pop());
+      this.state.opponentCards.push(this.state.deck.pop());
+    }
+
     this.drawCard = this.drawCard.bind(this);
     this.stay = this.stay.bind(this);
     this.changeScore = this.changeScore.bind(this);
     this.consoleLOG = this.consoleLOG.bind(this);
     this.handleNewGame = this.handleNewGame.bind(this);
+    this.evaluate = this.evaluate.bind(this);
   }
   //testing reasons
   consoleLOG () {
@@ -26,7 +33,7 @@ class Table extends Component {
 
   // Resets and creates deck
   newDeck() {
-    //clear hands and shit
+    // Creates new Deck
     let newDeck = [];
     const suits = ['HEARTS', 'SPADES', 'CLUBS', 'DIAMONDS'];
     const names = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -40,6 +47,7 @@ class Table extends Component {
             }
         }
     }
+    // Shufffles the deck
     for (let i = newDeck.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * i);
             let temp = newDeck[j];
@@ -49,28 +57,50 @@ class Table extends Component {
     return newDeck;
   }
 
+  // Does not work
   handleNewGame() {
     const newDeck = this.newDeck();
     this.setState({ ...this.state, deck: newDeck, playerCards: [], opponentCards: []})
+    for (var i = 0; i < 2; i++) {
+      this.state.playerCards.push(this.state.deck.pop());
+      this.state.opponentCards.push(this.state.deck.pop());
+    }
   }
 
   drawCard() {// Function to draw cards for the player
-    this.setState({ //should instead pop a card from the shuffled deck and then push that card into the hand
-      playerCards: [
-        ...this.state.playerCards,  //set the state to be previous state plus new playerCards by overriding previous cards
-        { suit: 'HEARTS', value: 5, name: '5' }
-      ]
-    });
+    this.state.playerCards.push(this.state.deck.pop());
   }
 
   stay() {// Function to action the player to hold their hand
-    console.log("stay");
-    //todo
-    this.changeScore(true); //temp
+    const points = this.evaluate(this.state.playerCards);
+    if (points > this.evaluate(this.state.opponentCards)) {
+      alert('Winner: ' + points);
+      this.changeScore(true);
+    } else {
+      alert('Loser: ' + points);
+      this.changeScore(false);
+    }
+  }
+
+  evaluate(hand) { //evaluates the points for a hand
+    let total = 0;
+    let aces = 0;
+    for (let i = 0; i < hand.length; i++) {
+        if (hand[i].value != 1) {
+            total += hand[i].value;
+        } else {
+            aces++;
+        }
+    }
+    for (let i = 0; i < aces; i++) {
+        if (total <= 10) total += 11;
+        else total += 1;
+    }
+    return total;
   }
 
   changeScore(win) {
-    var change = (win) ? 100 : -100;
+    let change = (win) ? 100 : -100;
     this.setState({ score: this.state.score + change });
   }
 

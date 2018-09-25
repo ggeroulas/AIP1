@@ -18,7 +18,8 @@ class Table extends Component {
       this.state.playerCards.push(this.state.deck.pop());
       this.state.opponentCards.push(this.state.deck.pop());
     }
-
+    this.opponentDraw();
+    // this.opponentDraw = this.drawCard.bind(this);
     this.drawCard = this.drawCard.bind(this);
     this.stay = this.stay.bind(this);
     this.changeScore = this.changeScore.bind(this);
@@ -67,8 +68,17 @@ class Table extends Component {
     }
   }
 
+  opponentDraw() {
+    if (this.evaluate(this.state.opponentCards) <= 14) {
+      this.state.opponentCards.push(this.state.deck.pop());
+    }
+  }
+
   drawCard() {// Function to draw cards for the player
     this.state.playerCards.push(this.state.deck.pop());
+    if (this.evaluate(this.state.playerCards) > 21) {
+      alert("Busted");
+    }
   }
 
   stay() {// Function to action the player to hold their hand
@@ -86,7 +96,7 @@ class Table extends Component {
     let total = 0;
     let aces = 0;
     for (let i = 0; i < hand.length; i++) {
-        if (hand[i].value != 1) {
+        if (hand[i].value !== 1) {
             total += hand[i].value;
         } else {
             aces++;

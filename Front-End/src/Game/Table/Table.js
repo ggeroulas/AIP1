@@ -67,27 +67,33 @@ class Table extends Component {
       this.state.opponentCards.push(this.state.deck.pop());
     }
   }
-
+  
+  // Automates opponent draw, recursive if hand less than 14
   opponentDraw() {
     if (this.evaluate(this.state.opponentCards) <= 14) {
       this.state.opponentCards.push(this.state.deck.pop());
+      this.opponentDraw();
     }
   }
 
   drawCard() {// Function to draw cards for the player
     this.state.playerCards.push(this.state.deck.pop());
     if (this.evaluate(this.state.playerCards) > 21) {
-      alert("Busted");
+      alert("Busted"); // add delay
     }
   }
 
   stay() {// Function to action the player to hold their hand
-    const points = this.evaluate(this.state.playerCards);
-    if (points > this.evaluate(this.state.opponentCards)) {
-      alert('Winner: ' + points);
+    const playerPoints = this.evaluate(this.state.playerCards);
+    const oppPoints = this.evaluate(this.state.opponentCards)
+    if (playerPoints > oppPoints) {
+      alert('Winner: ' + playerPoints);
+      this.changeScore(true);
+    } else if (playerPoints === oppPoints) {
+      alert ('Draw, You Win: ' + playerPoints);
       this.changeScore(true);
     } else {
-      alert('Loser: ' + points);
+      alert('Loser: ' + playerPoints);
       this.changeScore(false);
     }
   }
@@ -109,6 +115,7 @@ class Table extends Component {
     return total;
   }
 
+  // Changes score should push to db
   changeScore(win) {
     let change = (win) ? 100 : -100;
     this.setState({ score: this.state.score + change });

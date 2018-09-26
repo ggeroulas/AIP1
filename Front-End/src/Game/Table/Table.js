@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import Player from '../Player/Player';
 import './Table.css';
-import Opponent from '../Opponent/Opponent';
+import Dealer from '../Dealer/Dealer';
 
 class Table extends Component {
   constructor() {
     super();
-    const newDeck = this.newDeck();
+    let cards = this.startGame()
     this.state = {
       score: 0, // Initialises the score for the player
-      deck: newDeck,
-      playerCards: [],
-      opponentCards: []
+      cards: {
+        deck: cards.deck,
+        playerCards: cards.playerCards,
+        dealerCards: cards.dealerCards
+      }
     };
 
-    this.newHand();
-    // this.opponentDraw = this.drawCard.bind(this);
+    this.startGame = this.startGame.bind(this);
     this.drawCard = this.drawCard.bind(this);
     this.stay = this.stay.bind(this);
     this.changeScore = this.changeScore.bind(this);
     this.consoleLOG = this.consoleLOG.bind(this);
     this.handleNewGame = this.handleNewGame.bind(this);
     this.evaluate = this.evaluate.bind(this);
-    this.newHand = this.newHand.bind(this);
   }
   //testing reasons
   consoleLOG () {
@@ -55,51 +55,64 @@ class Table extends Component {
     return newDeck;
   }
 
-  // Does not work
-  handleNewGame() {
-    const newDeck = this.newDeck();
-    this.setState({ ...this.state, deck: newDeck, playerCards: [], opponentCards: []},
-      () => {
-      console.log(this.state);
-      this.newHand();
-      console.log(this.state);
-      }
-      
-    )
-  }
-
-  newHand(){
+  //initialises new deck and card
+  startGame() {
+    let deck = this.newDeck();
+    let playerCards = [];
+    let dealerCards = [];
+    // Draws Cards for players
     for (var i = 0; i < 2; i++) {
-      this.state.playerCards.push(this.state.deck.pop());
-      this.state.opponentCards.push(this.state.deck.pop());
+      playerCards.push(deck.pop());
+      dealerCards.push(deck.pop());
     }
-    this.opponentDraw();
+    //dealers extra cards could be done after so it looks nicer
+    while (this.evaluate(dealerCards) <= 14) {
+      dealerCards.push(deck.pop());
+    }
 
-
+    return {deck, playerCards, dealerCards};
   }
-  
-  // Automates opponent draw, recursive if hand less than 14
-  opponentDraw() {
-    if (this.evaluate(this.state.opponentCards) <= 14) {
-      this.state.opponentCards.push(this.state.deck.pop());
-      this.opponentDraw();
-    }
+
+  // removes past deck and creates new deck and cards
+  handleNewGame() {
+    this.setState({...this.state, cards: 
+        {
+          ...this.state.cards, 
+          deck: [], 
+          playerCards: [], 
+          dealerCards: []
+        }
+      },
+      () => {
+        console.log('handleNewGame');
+        let newCards = this.startGame();
+        this.setState({...this.state, cards: newCards});
+      }
+    );
   }
 
   drawCard() {// Function to draw cards for the player
-    this.state.playerCards.push(this.state.deck.pop());
-    if (this.evaluate(this.state.playerCards) > 21) {
+    let newDeck = this.state.cards.deck;
+    let newPlayerCards = this.state.cards.playerCards;
+    newPlayerCards.push(newDeck.pop());
+    this.setState({...this.state, cards:
+      {
+        ...this.state.cards,
+        deck: newDeck,
+        playerCards: newPlayerCards
+      }})
+    if (this.evaluate(this.state.cards.playerCards) > 21) {
       alert("Busted"); // add delay
     }
   }
 
   stay() {// Function to action the player to hold their hand
-    const playerPoints = this.evaluate(this.state.playerCards);
-    const oppPoints = this.evaluate(this.state.opponentCards)
-    if (playerPoints > oppPoints) {
+    const playerPoints = this.evaluate(this.state.cards.playerCards);
+    const dealerPoints = this.evaluate(this.state.cards.dealerCards)
+    if (playerPoints > dealerPoints) {
       alert('Winner: ' + playerPoints);
       this.changeScore(true);
-    } else if (playerPoints === oppPoints) {
+    } else if (playerPoints === dealerPoints) {
       alert ('Draw, You Win: ' + playerPoints);
       this.changeScore(true);
     } else {
@@ -139,9 +152,8 @@ class Table extends Component {
         </div>
         <div className="container">
         {console.log(this.state)}
-        {console.log(this.state.opponentCards)}
-          <Opponent cards={this.state.opponentCards} /> {/* Renders the opponent cards */}
-          <Player cards={this.state.playerCards} /> {/* Renders the players cards */}
+          <Dealer cards={this.state.cards.dealerCards} /> {/* Renders the dealer cards */}
+          <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>
         <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-5">

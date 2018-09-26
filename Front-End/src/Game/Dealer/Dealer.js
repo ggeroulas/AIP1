@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './Opponent.css';
-import Cards from '../Cards/Cards.js'
+import './Dealer.css';
+import Cards from '../Cards/Cards'
 
-class Opponent extends Component {
+class Dealer extends Component {
 
     render() {
         const { cards } = this.props;
@@ -23,5 +23,5 @@ class Opponent extends Component {
     }
 }
 
-export default Opponent;
+export default Dealer;
 

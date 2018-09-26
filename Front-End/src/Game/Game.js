@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Table from './Table/Table';
 import Login from '../Login/Login';
 import Register from "../Register/Register";
-import axios from 'axios';
 
 class Game extends Component {
     constructor() {
@@ -95,6 +94,8 @@ class Game extends Component {
                     <Table/>
                 </div>  
             );
+            default:
+            break;
         }
         
     }

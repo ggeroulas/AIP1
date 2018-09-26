@@ -14,11 +14,7 @@ class Table extends Component {
       opponentCards: []
     };
 
-    for (var i = 0; i < 2; i++) {
-      this.state.playerCards.push(this.state.deck.pop());
-      this.state.opponentCards.push(this.state.deck.pop());
-    }
-    this.opponentDraw();
+    this.newHand();
     // this.opponentDraw = this.drawCard.bind(this);
     this.drawCard = this.drawCard.bind(this);
     this.stay = this.stay.bind(this);
@@ -26,6 +22,7 @@ class Table extends Component {
     this.consoleLOG = this.consoleLOG.bind(this);
     this.handleNewGame = this.handleNewGame.bind(this);
     this.evaluate = this.evaluate.bind(this);
+    this.newHand = this.newHand.bind(this);
   }
   //testing reasons
   consoleLOG () {
@@ -61,11 +58,24 @@ class Table extends Component {
   // Does not work
   handleNewGame() {
     const newDeck = this.newDeck();
-    this.setState({ ...this.state, deck: newDeck, playerCards: [], opponentCards: []})
+    this.setState({ ...this.state, deck: newDeck, playerCards: [], opponentCards: []},
+      () => {
+      console.log(this.state);
+      this.newHand();
+      console.log(this.state);
+      }
+      
+    )
+  }
+
+  newHand(){
     for (var i = 0; i < 2; i++) {
       this.state.playerCards.push(this.state.deck.pop());
       this.state.opponentCards.push(this.state.deck.pop());
     }
+    this.opponentDraw();
+
+
   }
   
   // Automates opponent draw, recursive if hand less than 14
@@ -122,12 +132,14 @@ class Table extends Component {
   }
 
   render() {
-    return (
+      return (
       <div className="container-fluid card back">
         <div className="score"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
         </div>
         <div className="container">
+        {console.log(this.state)}
+        {console.log(this.state.opponentCards)}
           <Opponent cards={this.state.opponentCards} /> {/* Renders the opponent cards */}
           <Player cards={this.state.playerCards} /> {/* Renders the players cards */}
         </div>

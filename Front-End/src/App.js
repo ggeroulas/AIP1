@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Game from './Game/Game.js'
 import Header from './Header/Header.js'
-import './App.css';
 
 //♠	♥	♦	♣
 

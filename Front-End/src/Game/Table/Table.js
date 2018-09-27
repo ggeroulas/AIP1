@@ -135,6 +135,7 @@ class Table extends Component {
         if (total <= 10) total += 11;
         else total += 1;
     }
+    if (total > 21) return 0;
     return total;
   }
 

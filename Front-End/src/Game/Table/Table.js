@@ -2,20 +2,25 @@ import React, { Component } from 'react';
 import Player from '../Player/Player';
 import './Table.css';
 import Dealer from '../Dealer/Dealer';
+import axios from 'axios';
 
 class Table extends Component {
   constructor() {
     super();
-    let cards = this.startGame()
+    let cards = this.startGame();
+    const score = this.getScore();
+    console.log(score);
     this.state = {
       score: 0, // Initialises the score for the player
       cards: {
         deck: cards.deck,
         playerCards: cards.playerCards,
         dealerCards: cards.dealerCards
-      }
+      },
+      //bust: false
     };
 
+    this.getScore = this.getScore.bind(this);
     this.startGame = this.startGame.bind(this);
     this.drawCard = this.drawCard.bind(this);
     this.stay = this.stay.bind(this);
@@ -27,6 +32,20 @@ class Table extends Component {
   //testing reasons
   consoleLOG () {
     console.log(this.state)
+  }
+
+  // Gets the score
+  getScore() {
+    let score = 0;
+    axios.get('user/userScore', 
+    {
+      headers: { 
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    }).then((res) => {
+      //console.log(res.data);
+      this.setState({...this.state, score: res.data.score})//should wait and set the score in the beginning
+    });
   }
 
   // Resets and creates deck
@@ -100,16 +119,24 @@ class Table extends Component {
         ...this.state.cards,
         deck: newDeck,
         playerCards: newPlayerCards
-      }})
-    if (this.evaluate(this.state.cards.playerCards) > 21) {
-      alert("Busted"); // add delay
-    }
+      }
+    },
+      () => {
+        console.log(this.state);
+        console.log('Hello');
+        if (this.evaluate(this.state.cards.playerCards) > 21) {
+          //this.setState({...this.state, bust: true});
+          alert("Busted"); // add delay
+        }
+      }
+    );
+    
   }
 
   stay() {// Function to action the player to hold their hand
     const playerPoints = this.evaluate(this.state.cards.playerCards);
     const dealerPoints = this.evaluate(this.state.cards.dealerCards)
-    if (playerPoints > dealerPoints) {
+    if ((playerPoints > dealerPoints && dealerPoints < 21) || dealerPoints > 21) {
       alert('Winner: ' + playerPoints);
       this.changeScore(true);
     } else if (playerPoints === dealerPoints) {
@@ -135,14 +162,28 @@ class Table extends Component {
         if (total <= 10) total += 11;
         else total += 1;
     }
-    if (total > 21) return 0;
     return total;
   }
 
   // Changes score should push to db
   changeScore(win) {
-    let change = (win) ? 100 : -100;
-    this.setState({ score: this.state.score + change });
+    let newScore = this.state.score + ((win) ? 100 : -100);
+    console.log(newScore);
+    
+    const data = {
+      score: newScore
+    }
+    const axiosConfig = {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    }
+    axios.post('/user/scoreUpdate', data, axiosConfig)
+      .then((res) => {
+        console.log(res);
+      });
+
+    this.setState({ score: newScore });
   }
 
   render() {
@@ -158,7 +199,7 @@ class Table extends Component {
         </div>
         <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-5">
-            <button className="btn-primary btn-sm m-2" onClick={this.drawCard}>DRAW</button>
+            <button className="btn-primary btn-sm m-2" onClick={this.drawCard}>DRAW</button> {/*disabled={this.state.bust} */}
             <button className="btn-primary btn-sm m-2" onClick={this.stay}>STAY</button>
             <button className="btn-secondary btn-sm m-2">NEXT GAME</button>
             <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button>{/*testing reasons*/}

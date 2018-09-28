@@ -19,17 +19,16 @@ router.get('/userScore', (req, res) => {
     });  
 });
 
-// router.post('/scoreUpdate', (req, res) => {
-//     try {
-//         const score = req.body.score;
-//         //console.log(User.score);
-//         User.updateOne({'username': req.user.username}, {'score': score })
-//         //console.log('test');
-//         res.json(post);
-//     } catch (error) {
-//         console.log('test2');
-//         done(error);
-//     }
-// });
+router.post('/scoreUpdate', (req, res) => {
+    console.log('Test: ' + req.body.score);
+    var conditions = { username: req.user.username },
+        update = { score: req.body.score},
+        options = { multi: false };
+
+    User.findOneAndUpdate(conditions, update, options, function(err, doc) {
+        if (err) return res.send(500, { error: err });
+        return res.send("Score Updated!");
+    });
+});
 
 module.exports = router;

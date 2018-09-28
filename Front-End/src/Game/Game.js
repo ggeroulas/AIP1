@@ -7,7 +7,7 @@ class Game extends Component {
     constructor() {
         super();
         this.state = {
-            loggedin: 3,
+            loggedin: 0,
              // Case 0 no one logged in, Case 1 refresh to show login, Case 2 refresh to show register, Case 3 continue to table
             loggedUser: {
                 userId: null,

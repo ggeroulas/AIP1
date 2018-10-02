@@ -1,7 +1,11 @@
 const express = require('express');
 const app = express();
+const config = require('./config');
 
 const mongoose = require('mongoose');
+const user = config.database.username;
+const password = config.database.password;
+const mongoDB = 'mongodb://' + user + ':' + password + '@ds121373.mlab.com:21373/cardshark';
 const bodyParser = require('body-parser');
 const User = require('./api/models/userModel');
 const passport = require('passport');
@@ -14,8 +18,8 @@ const secureRoutes = require('./api/routes/secure-routes')
 const PORT = process.env.PORT || 5000;
 
 // Mongoose instance connection url 
+mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/cardshark');
 
 require('./api/auth/auth');
 
@@ -23,13 +27,13 @@ app.use(bodyParser.urlencoded({ extended: false })); //check
 app.use(bodyParser.json());
 
 //testing only
-User.db.dropDatabase("cardshark");
+// User.db.dropDatabase("cardshark");
 
-const tempUser = {
-    username: "Joy",
-    password: "LIGMA"
-};
-User.create(tempUser);
+// const tempUser = {
+//     username: "Joy",
+//     password: "LIGMA"
+// };
+// User.create(tempUser);
 //testing space ends
 
 //register the route

@@ -169,14 +169,16 @@ class Table extends Component {
   changeScore(win) {
     let newScore = this.state.score + ((win) ? 100 : -100);
     console.log(newScore);
-
-    axios.post('/user/scoreUpdate', 
-      { score: newScore }, 
-      { 
-        headers: { 
-          'Authorization': 'Bearer ' + localStorage.getItem('token') 
-        } 
-      })
+    
+    const data = {
+      score: newScore
+    }
+    const axiosConfig = {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    }
+    axios.post('/user/scoreUpdate', data, axiosConfig)
       .then((res) => {
         console.log(res);
       });

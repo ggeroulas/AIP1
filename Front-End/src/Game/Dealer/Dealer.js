@@ -6,7 +6,7 @@ class Dealer extends Component {
 
     render() {
         const { cards } = this.props;
-        console.log('opponent',cards)
+        //console.log('opponent',cards)
         return(
 
             <div className="container flex-container">

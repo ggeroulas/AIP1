@@ -21,14 +21,15 @@ class Login extends Component {
             .then(
                 (res) => {
                     localStorage.setItem('token', res.data.token);
-                    axios.get('/user', 
-                    {
-                        headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
-                        }
-                    }).then((res) => {
-                        this.props.onLogin(res.data.user._id, res.data.user.username);
-                    });
+                    this.props.onLogin();
+                    // axios.get('/user', //should maybe be done in the GAME
+                    // {
+                    //     headers: {
+                    //         'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
+                    //     }
+                    // }).then((res) => {
+                    //     this.props.onLogin(res.data.user._id, res.data.user.username);
+                    // });
                 }
             )
             .catch((err) => {//should instead get the error response from the api

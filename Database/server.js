@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 
 const mongoose = require('mongoose');
@@ -19,6 +20,7 @@ mongoose.connect('mongodb://localhost/cardshark');
 
 require('./api/auth/auth');
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false })); //check
 app.use(bodyParser.json());
 

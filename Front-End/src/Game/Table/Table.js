@@ -9,7 +9,6 @@ class Table extends Component {
     super();
     let cards = this.startGame();
     const score = this.getScore();
-    console.log(score);
     this.state = {
       score: 0, // Initialises the score for the player
       cards: {
@@ -17,6 +16,7 @@ class Table extends Component {
         playerCards: cards.playerCards,
         dealerCards: cards.dealerCards
       },
+      stage: 0
       //bust: false
     };
 
@@ -28,6 +28,7 @@ class Table extends Component {
     this.consoleLOG = this.consoleLOG.bind(this);
     this.handleNewGame = this.handleNewGame.bind(this);
     this.evaluate = this.evaluate.bind(this);
+    this.flipCard = this.flipCard.bind(this);
   }
   //testing reasons
   consoleLOG () {
@@ -81,10 +82,7 @@ class Table extends Component {
     let dealerCards = [];
     // Draws Cards for players
     for (var i = 0; i < 2; i++) {
-      let pcard = deck.pop();
-      console.log('this' + pcard);
-      pcard.flipped = true;
-      playerCards.push(pcard);
+      playerCards.push(this.flipCard(deck.pop()));
       dealerCards.push(deck.pop());
     }
     //dealers extra cards could be done after so it looks nicer
@@ -113,10 +111,15 @@ class Table extends Component {
     );
   }
 
+  flipCard(card) {
+    card.flipped = true;
+    return card;
+  }
+
   drawCard() {// Function to draw cards for the player
     let newDeck = this.state.cards.deck;
     let newPlayerCards = this.state.cards.playerCards;
-    newPlayerCards.push(newDeck.pop());
+    newPlayerCards.push(this.flipCard(newDeck.pop()));
     this.setState({...this.state, cards:
       {
         ...this.state.cards,
@@ -133,13 +136,18 @@ class Table extends Component {
         }
       }
     );
-    
   }
 
   stay() {// Function to action the player to hold their hand
+    this.setState({ stage: 3 });
     const playerPoints = this.evaluate(this.state.cards.playerCards);
     const dealerPoints = this.evaluate(this.state.cards.dealerCards)
-    if ((playerPoints > dealerPoints && dealerPoints < 21) || dealerPoints > 21) {
+    for (let i = 0; i < this.state.cards.dealerCards.length; i++) {
+      this.state.cards.dealerCards[i] = this.flipCard(this.state.cards.dealerCards[i]);
+    }
+    if (dealerPoints > 21) {
+      alert('Dealer Bust, You Win!');
+    } else if (playerPoints > dealerPoints && dealerPoints < 21) {
       alert('Winner: ' + playerPoints);
       this.changeScore(true);
     } else if (playerPoints === dealerPoints) {
@@ -196,8 +204,7 @@ class Table extends Component {
           <p>Score: {this.state.score}</p>
         </div>
         <div className="container">
-        {console.log(this.state)}
-          <Dealer cards={this.state.cards.dealerCards} /> {/* Renders the dealer cards */}
+          <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
           <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>
         <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}

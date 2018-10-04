@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './Register.css';
 
 
 class Register extends Component {
     constructor() {
         super();
         this.state = {
-            error: '' //todo: should be sent to the header component to display ##may not be needed if using alerts
+            error: '' 
         }
         this.registerUser = this.registerUser.bind(this);
     }
@@ -23,12 +24,15 @@ class Register extends Component {
                     this.props.onRegister();
                 },
                 (err) => {//should instead get message from error
-                    alert("Username already Taken!")
+                    this.setState({error: "Username already taken!"});
+                    document.getElementById("errorMsg").className = "alert alert-danger";
+
                 }
             )
         }
         else {
-            alert("Passwords do not match!")
+            this.setState({error: "Passwords do not match!"});
+            document.getElementById("errorMsg").className = "alert alert-danger";
             
         }
         e.preventDefault();
@@ -38,9 +42,7 @@ class Register extends Component {
     render() {
         return(
             <div className="container-small center">
-            <div className="alert alert-danger" name="alert">
-                This is a danger alert—check it out!
-            </div>
+            <p className="alert alert-danger hide" id="errorMsg">{this.state.error}</p>
             <form onSubmit={this.registerUser}>
                 <h4>Register</h4>
                 <div className="form-group">    

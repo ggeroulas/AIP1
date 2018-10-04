@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './Login.css';
 
 class Login extends Component {
     constructor() {
@@ -28,8 +29,8 @@ class Login extends Component {
                 }
             )
             .catch((err) => {//should instead get the error response from the api
-                alert(err.response.data.error.message);
-                console.log(err.response.data.error.message);
+                this.setState({error: err.response.data.error.message});               
+                document.getElementById("errorMsg").className = "alert alert-danger";
             }
             );
         e.preventDefault();
@@ -40,11 +41,7 @@ class Login extends Component {
         
         return( 
         <div className="container-small center">
-            <p className="alert alert-danger">
-                This is a danger alert—check it out!
-            </p>
-            
-
+            <p className="alert alert-danger hide" id="errorMsg">{this.state.error}</p>
             <form onSubmit={this.checkPassword}>
                 <h4>Login</h4>
                 <div className="form-group">    

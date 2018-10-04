@@ -9,7 +9,7 @@ class Table extends Component {
     super();
     let cards = this.startGame();
     const score = this.getScore();
-    //console.log(score);
+    console.log(score);
     this.state = {
       score: 0, // Initialises the score for the player
       cards: {
@@ -193,7 +193,7 @@ class Table extends Component {
           <p>Score: {this.state.score}</p>
         </div>
         <div className="container">
-        {/* {console.log(this.state)} */}
+        {console.log(this.state)}
           <Dealer cards={this.state.cards.dealerCards} /> {/* Renders the dealer cards */}
           <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>

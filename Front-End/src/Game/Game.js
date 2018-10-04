@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import Table from './Table/Table';
 import Login from '../Login/Login';
 import Register from "../Register/Register";
-import axios from 'axios';
 
 class Game extends Component {
     constructor() {
         super();
-        let gameState = 0;
-        if (localStorage.getItem('token')) {
-            this.getLoggedUser();
-            gameState = 3;
-        }
         this.state = {
-            loggedin: gameState,
+            loggedin: 0,
              // Case 0 no one logged in, Case 1 refresh to show login, Case 2 refresh to show register, Case 3 continue to table
             loggedUser: {
                 userId: null,
@@ -24,22 +18,14 @@ class Game extends Component {
     }
 
     // Callback to get Logged in user
-    getLoggedUser = () => {
-        axios.get('/user', //should maybe be done in the GAME
-        {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token') //localStorage.clearItem('token');
+    getLoggedUser = (id, user) => {
+        this.setState(prevState => ({
+            loggedUser: {
+                userId: id,
+                username: user
             }
-        }).then((res) => {
-            this.setState(prevState => ({
-                loggedUser: {
-                    userId: res.data.user.id,
-                    username: res.data.user.username
-                }
-            }));    
-            console.log(res.data.user);            
-        });
-        console.log('TESTING');
+        }));
+
         this.setState({loggedin: 3});
     }
 

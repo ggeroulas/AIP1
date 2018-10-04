@@ -13,7 +13,7 @@ class Dealer extends Component {
                     {/*takes each card in cards and pass it to be rendered as a card */}
                     {cards.map((card, index) => {
                         return ( 
-                            <div key={index} className="card cln cardOpp m-2 bg-info">
+                            <div key={index} className={"card cln cardOpp m-2 " + (!this.props.cards.flipped ? 'bg-info': '')}> {/*bg-info*/}
                                <Cards card={card}/>
                             </div>
                         );

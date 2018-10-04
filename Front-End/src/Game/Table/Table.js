@@ -58,9 +58,9 @@ class Table extends Component {
     for (let s = 0; s < suits.length; s++) {
         for (let n = 0; n <= names.length - 1; n++) {
             if (n < 10) {
-                newDeck.push({ suit: suits[s], value: n + 1, name: names[n]});
+                newDeck.push({ suit: suits[s], value: n + 1, name: names[n], flipped: false});
             } else {
-                newDeck.push({ suit: suits[s], value: 10, name: names[n]});
+                newDeck.push({ suit: suits[s], value: 10, name: names[n], flipped: false});
             }
         }
     }
@@ -81,7 +81,10 @@ class Table extends Component {
     let dealerCards = [];
     // Draws Cards for players
     for (var i = 0; i < 2; i++) {
-      playerCards.push(deck.pop());
+      let pcard = deck.pop();
+      console.log('this' + pcard);
+      pcard.flipped = true;
+      playerCards.push(pcard);
       dealerCards.push(deck.pop());
     }
     //dealers extra cards could be done after so it looks nicer

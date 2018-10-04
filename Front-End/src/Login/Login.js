@@ -20,12 +20,16 @@ class Login extends Component {
             })
             .then(
                 (res) => {
-                    localStorage.setItem('token', res.data.token);
-                    this.props.onLogin();
+                    console.log(res.data.token);
+                    if (res.data.token) {
+                        localStorage.setItem('token', res.data.token);
+                        this.props.onLogin();
+                    }
                 }
             )
             .catch((err) => {//should instead get the error response from the api
                 alert(err.response.data.error.message);
+                console.log(err.response.data.error.message);
             }
             );
         e.preventDefault();

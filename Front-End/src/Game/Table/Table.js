@@ -10,13 +10,13 @@ class Table extends Component {
     let cards = this.startGame();
     const score = this.getScore();
     this.state = {
-      score: 0, // Initialises the score for the player
+      score: score, // Initialises the score for the player
       cards: {
         deck: cards.deck,
         playerCards: cards.playerCards,
         dealerCards: cards.dealerCards
       },
-      stage: 0
+      stage: 0 //0 = beginning, 1 = During game, 2 = evaluation 
       //bust: false
     };
 
@@ -29,6 +29,7 @@ class Table extends Component {
     this.handleNewGame = this.handleNewGame.bind(this);
     this.evaluate = this.evaluate.bind(this);
     this.flipCard = this.flipCard.bind(this);
+    this.flipDealer = this.flipDealer.bind(this);
   }
   //testing reasons
   consoleLOG () {
@@ -37,7 +38,6 @@ class Table extends Component {
 
   // Gets the score
   getScore() {
-    let score = 0;
     axios.get('user/userScore', 
     {
       headers: { 
@@ -96,19 +96,18 @@ class Table extends Component {
   // removes past deck and creates new deck and cards
   handleNewGame() {
     this.setState({...this.state, cards: 
-        {
-          ...this.state.cards, 
-          deck: [], 
-          playerCards: [], 
-          dealerCards: []
-        }
+      {
+        ...this.state.cards, 
+        deck: [], 
+        playerCards: [], 
+        dealerCards: []
       },
-      () => {
-        console.log('handleNewGame');
-        let newCards = this.startGame();
-        this.setState({...this.state, cards: newCards});
-      }
-    );
+      stage: 1
+    },
+    () => {
+      let newCards = this.startGame();
+      this.setState({...this.state, cards: newCards});
+    });
   }
 
   flipCard(card) {
@@ -128,23 +127,21 @@ class Table extends Component {
       }
     },
       () => {
-        console.log(this.state);
-        console.log('Hello');
         if (this.evaluate(this.state.cards.playerCards) > 21) {
           //this.setState({...this.state, bust: true});
           alert("Busted"); // add delay
+          this.flipDealer();
         }
       }
     );
   }
 
   stay() {// Function to action the player to hold their hand
-    this.setState({ stage: 3 });
     const playerPoints = this.evaluate(this.state.cards.playerCards);
     const dealerPoints = this.evaluate(this.state.cards.dealerCards)
-    for (let i = 0; i < this.state.cards.dealerCards.length; i++) {
-      this.state.cards.dealerCards[i] = this.flipCard(this.state.cards.dealerCards[i]);
-    }
+
+    this.flipDealer();
+
     if (dealerPoints > 21) {
       alert('Dealer Bust, You Win!');
     } else if (playerPoints > dealerPoints && dealerPoints < 21) {
@@ -157,6 +154,20 @@ class Table extends Component {
       alert('Loser: ' + playerPoints);
       this.changeScore(false);
     }
+  }
+
+  flipDealer() {
+    let newDCards = this.state.cards.dealerCards;
+    for (let i = 0; i < newDCards.length; i++) {
+      newDCards[i] = this.flipCard(newDCards[i]);
+    }
+    this.setState({...this.state, cards:
+      {
+        ...this.state.cards,
+        dealerCards: newDCards
+      }, 
+      stage: 2
+    });
   }
 
   evaluate(hand) { //evaluates the points for a hand
@@ -179,7 +190,6 @@ class Table extends Component {
   // Changes score should push to db
   changeScore(win) {
     let newScore = this.state.score + ((win) ? 100 : -100);
-    console.log(newScore);
     
     const data = {
       score: newScore
@@ -191,10 +201,8 @@ class Table extends Component {
     }
     axios.post('/user/scoreUpdate', data, axiosConfig)
       .then((res) => {
-        console.log(res);
+        this.setState({ score: this.getScore() });
       });
-
-    this.setState({ score: newScore });
   }
 
   render() {
@@ -209,11 +217,28 @@ class Table extends Component {
         </div>
         <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-5">
-            <button className="btn-primary btn-sm m-2" onClick={this.drawCard}>DRAW</button> {/*disabled={this.state.bust} */}
-            <button className="btn-primary btn-sm m-2" onClick={this.stay}>STAY</button>
-            <button className="btn-secondary btn-sm m-2">NEXT GAME</button>
-            <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button>{/*testing reasons*/}
-            <button className="btn-primary btn-sm m-2" onClick={this.handleNewGame}>NEW GAME</button>
+            <button 
+              className={'btn-' + ((this.state.stage === 2) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
+              disabled={((this.state.stage === 2) ? true : false)}
+              onClick={this.drawCard}
+            >
+              DRAW
+            </button> {/*disabled={this.state.bust} */}
+            <button 
+              className={'btn-' + ((this.state.stage === 2) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
+              disabled={((this.state.stage === 2) ? true : false)}
+              onClick={this.stay}
+            >
+              STAY
+            </button>
+            <button 
+              className={'btn-' + ((this.state.stage !== 2) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
+              disabled={((this.state.stage !== 2) ? true : false)}
+              onClick={this.handleNewGame}
+            >
+              NEXT GAME
+            </button>
+            {/* <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button> */}
           </div>
         </div>
       </div>

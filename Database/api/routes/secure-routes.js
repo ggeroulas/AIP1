@@ -20,7 +20,6 @@ router.get('/userScore', (req, res) => {
 });
 
 router.post('/scoreUpdate', (req, res) => {
-    console.log('Test: ' + req.body.score);
     var conditions = { username: req.user.username },
         update = { score: req.body.score},
         options = { multi: false };

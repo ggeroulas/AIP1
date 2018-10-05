@@ -24,16 +24,11 @@ class Register extends Component {
                     this.props.onRegister();
                 },
                 (err) => {//should instead get message from error
-                    this.setState({error: "Username already taken!"});
-                    document.getElementById("errorMsg").className = "alert alert-danger";
-
-                }
+                    this.setState({error: "Username already taken!"});                }
             )
         }
         else {
             this.setState({error: "Passwords do not match!"});
-            document.getElementById("errorMsg").className = "alert alert-danger";
-            
         }
         e.preventDefault();
     }
@@ -42,7 +37,6 @@ class Register extends Component {
     render() {
         return(
             <div className="container-small center">
-            <p className="alert alert-danger hide" id="errorMsg">{this.state.error}</p>
             <form onSubmit={this.registerUser}>
                 <h4>Register</h4>
                 <div className="form-group">    
@@ -57,8 +51,8 @@ class Register extends Component {
                     <label>Confirm Password</label>
                     <input  type="password" className="form-control" ref={input => this.cpassword = input} placeholder="Password"></input>
                 </div>
+                <p className="alert alert-danger" hidden={(this.state.error === '')}>{this.state.error}</p>
                 <input className="btn btn-primary" type="submit" value="Sign Up"/>
-                <p>{this.state.error}</p>
             </form>
         </div>
         );

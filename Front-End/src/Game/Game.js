@@ -19,7 +19,7 @@ class Game extends Component {
                 userId: null,
                 username: null
             },
-            userScore: ''
+            registered: false
         };
     }
 
@@ -42,7 +42,12 @@ class Game extends Component {
     }
 
     processRegister = () => {
-        this.setState({loggedin: 1});
+        this.setState({loggedin: 1, registered: true});
+        console.log(this.state);
+    }
+
+    changeRegister = () => {
+        this.setState({registered: false})
     }
 
     refresh(e, x) {
@@ -83,7 +88,7 @@ class Game extends Component {
                             <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 2)}>Register</button>
                         </div>
                     </nav>
-                    <Login onLogin={this.getLoggedUser}/>
+                    <Login onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister}/>
                 </div>  
             );
             case 2: return(

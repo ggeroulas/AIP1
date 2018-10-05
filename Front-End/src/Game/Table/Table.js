@@ -16,14 +16,12 @@ class Table extends Component {
         playerCards: cards.playerCards,
         dealerCards: cards.dealerCards
       },
-      stage: 0 //0 = beginning, 1 = During game, 2 = evaluation 
-      //bust: false
+      stage: 1 //0 = beginning, 1 = During game, 2 = evaluation 
     };
-
     this.getScore = this.getScore.bind(this);
     this.startGame = this.startGame.bind(this);
     this.drawCard = this.drawCard.bind(this);
-    this.stay = this.stay.bind(this);
+    this.hold = this.hold.bind(this);
     this.changeScore = this.changeScore.bind(this);
     this.consoleLOG = this.consoleLOG.bind(this);
     this.handleNewGame = this.handleNewGame.bind(this);
@@ -130,13 +128,14 @@ class Table extends Component {
         if (this.evaluate(this.state.cards.playerCards) > 21) {
           //this.setState({...this.state, bust: true});
           alert("Busted"); // add delay
+          this.changeScore(false);
           this.flipDealer();
         }
       }
     );
   }
 
-  stay() {// Function to action the player to hold their hand
+  hold() {// Function to action the player to hold their hand
     const playerPoints = this.evaluate(this.state.cards.playerCards);
     const dealerPoints = this.evaluate(this.state.cards.dealerCards)
 
@@ -215,25 +214,27 @@ class Table extends Component {
           <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
           <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>
-        <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
+
+
+        <div hidden={(this.state.stage === 0)}> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-5">
             <button 
               className={'btn-' + ((this.state.stage === 2) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
-              disabled={((this.state.stage === 2) ? true : false)}
+              disabled={(this.state.stage === 2)}
               onClick={this.drawCard}
             >
               DRAW
             </button> {/*disabled={this.state.bust} */}
             <button 
               className={'btn-' + ((this.state.stage === 2) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
-              disabled={((this.state.stage === 2) ? true : false)}
-              onClick={this.stay}
+              disabled={(this.state.stage === 2)}
+              onClick={this.hold}
             >
-              STAY
+              HOLD
             </button>
             <button 
               className={'btn-' + ((this.state.stage !== 2) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
-              disabled={((this.state.stage !== 2) ? true : false)}
+              disabled={(this.state.stage !== 2)}
               onClick={this.handleNewGame}
             >
               NEXT GAME

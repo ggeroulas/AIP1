@@ -28,11 +28,11 @@ passport.use('login', new localStrategy({
     try {   
         const user = await UserModel.findOne({ username });
         if ( !user ) {
-            return done(null, false, { message : 'Incorrect Username sor Password!'});//FIX ERROR MESSAGES
+            return done(null, false, { message : 'Incorrect Username or Password!'});//FIX ERROR MESSAGES
         }
         const validate = await user.validatePassword(password);
         if ( !validate ) {
-            return done(null, false, { message : 'Incorrect Username sor Password!' });
+            return done(null, false, { message : 'Incorrect Username or Password!' });
         } else {
             return done(null, user, { message : 'Logged in Successfully'});
         }

@@ -8,12 +8,14 @@ class Login extends Component {
         this.state = {
             loggedIn: false,
             user: '',
-            error: ''
+            error: '',
+            registered: false
         }
         this.checkPassword = this.checkPassword.bind(this);
     };
 
     checkPassword(e) {
+        this.props.afterRegister();
         axios.post('/login', 
             {
                 username: this.username.value,
@@ -29,19 +31,15 @@ class Login extends Component {
                 }
             )
             .catch((err) => {//should instead get the error response from the api
-                this.setState({error: err.response.data.error.message});               
-                document.getElementById("errorMsg").className = "alert alert-danger";
-            }
-            );
+                this.setState({error: err.response.data.error.message});    
+            });
         e.preventDefault();
     }
     
     render() {
-        
-        
-        return( 
+        return(
         <div className="container-small center">
-            <p className="alert alert-danger hide" id="errorMsg">{this.state.error}</p>
+            <p className="alert alert-success" hidden={(!this.props.registered)}>{'You have successfully registered!'}</p>
             <form onSubmit={this.checkPassword}>
                 <h4>Login</h4>
                 <div className="form-group">    
@@ -52,6 +50,7 @@ class Login extends Component {
                     <label>Password</label>
                     <input  type="password" className="form-control" ref={input => this.password = input} placeholder="Password"></input>
                 </div>
+                <p className="alert alert-danger" hidden={(this.state.error === '')}>{this.state.error}</p>
                 <input className="btn btn-primary" type="submit" value="Login"/>
             </form>
         </div>

@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const User = require('../models/userModel')
 
 const router = express.Router();
 
@@ -34,6 +35,13 @@ router.post('/login', async (req, res, next) => {
         }
     })
     (req, res, next);
+});
+
+router.get('/highScore', (req, res) => {
+    User.find({}, 'username score', { sort: {'score': -1} }, (err, users) => {
+        if (err) return handleError(err);
+        res.send(users);
+    });
 });
 
 module.exports = router;

@@ -10,7 +10,7 @@ class Login extends Component {
             user: '',
             error: '',
             registered: false
-        }
+        };
         this.checkPassword = this.checkPassword.bind(this);
     };
 
@@ -23,7 +23,6 @@ class Login extends Component {
             })
             .then(
                 (res) => {
-                    console.log(res.data.token);
                     if (res.data.token) {
                         localStorage.setItem('token', res.data.token);
                         this.props.onLogin();

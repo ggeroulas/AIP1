@@ -16,7 +16,8 @@ class Table extends Component {
         playerCards: cards.playerCards,
         dealerCards: cards.dealerCards
       },
-      stage: 1 //0 = beginning, 1 = During game, 2 = evaluation 
+      stage: 1, //0 = beginning, 1 = During game, 2 = evaluation 
+      message: ''
     };
     this.getScore = this.getScore.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -100,7 +101,8 @@ class Table extends Component {
         playerCards: [], 
         dealerCards: []
       },
-      stage: 1
+      stage: 1,
+      message: ''
     },
     () => {
       let newCards = this.startGame();
@@ -114,25 +116,15 @@ class Table extends Component {
   }
 
   drawCard() {// Function to draw cards for the player
-    let newDeck = this.state.cards.deck;
-    let newPlayerCards = this.state.cards.playerCards;
-    newPlayerCards.push(this.flipCard(newDeck.pop()));
-    this.setState({...this.state, cards:
-      {
-        ...this.state.cards,
-        deck: newDeck,
-        playerCards: newPlayerCards
-      }
-    },
-      () => {
-        if (this.evaluate(this.state.cards.playerCards) > 21) {
-          //this.setState({...this.state, bust: true});
-          alert("Busted"); // add delay
-          this.changeScore(false);
-          this.flipDealer();
-        }
-      }
-    );
+    let newState = this.state;
+    newState.cards.playerCards.push(this.flipCard(newState.cards.deck.pop()));
+    if (this.evaluate(newState.cards.playerCards) > 21) {
+      this.flipDealer();
+      this.changeScore(false);
+      newState.message = "Busted! You Lose";
+      newState.stage = 2;
+    }
+    this.setState(newState);
   }
 
   hold() {// Function to action the player to hold their hand
@@ -142,15 +134,16 @@ class Table extends Component {
     this.flipDealer();
 
     if (dealerPoints > 21) {
-      alert('Dealer Bust, You Win!');
+      this.setState({ message: 'Dealer Bust, You Win!'});
+      this.changeScore(true);
     } else if (playerPoints > dealerPoints && dealerPoints < 21) {
-      alert('Winner: ' + playerPoints);
+      this.setState({ message: 'Winner: ' + playerPoints});
       this.changeScore(true);
     } else if (playerPoints === dealerPoints) {
-      alert ('Draw, You Win: ' + playerPoints);
+      this.setState({ message: 'Draw, You Win: ' + playerPoints});
       this.changeScore(true);
     } else {
-      alert('Loser: ' + playerPoints);
+      this.setState({ message: 'Loser: ' + playerPoints});
       this.changeScore(false);
     }
   }
@@ -215,7 +208,8 @@ class Table extends Component {
           <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>
 
-
+        <p className="text-center alert alert-success" hidden={this.state.message === ''}>{this.state.message}</p>
+        
         <div hidden={(this.state.stage === 0)}> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-5">
             <button 
@@ -239,7 +233,7 @@ class Table extends Component {
             >
               NEXT GAME
             </button>
-            {/* <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button> */}
+            <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button>
           </div>
         </div>
       </div>

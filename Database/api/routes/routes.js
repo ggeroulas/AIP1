@@ -25,7 +25,7 @@ router.post('/login', async (req, res, next) => {
                 // in the body of the token it will return userid and username
                 const body = { _id : user._id, username : user.username };
                 // Signs the JWT token and add the populated body
-                const token = jwt.sign({ user : body }, 'doggo'); //check
+                const token = jwt.sign({ user : body }, 'doggo', { expiresIn: '2h' });
                 // Sends token back to user
                 return res.json({ token });
             });

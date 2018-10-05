@@ -17,7 +17,8 @@ class Table extends Component {
         dealerCards: cards.dealerCards
       },
       stage: 1, //0 = beginning, 1 = During game, 2 = evaluation 
-      message: ''
+      message: '',
+      win: false
     };
     this.getScore = this.getScore.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -123,6 +124,7 @@ class Table extends Component {
       this.changeScore(false);
       newState.message = "Busted! You Lose";
       newState.stage = 2;
+      newState.win = false;
     }
     this.setState(newState);
   }
@@ -134,16 +136,16 @@ class Table extends Component {
     this.flipDealer();
 
     if (dealerPoints > 21) {
-      this.setState({ message: 'Dealer Bust, You Win!'});
+      this.setState({ message: 'Dealer Bust, You Win!', win: true });
       this.changeScore(true);
     } else if (playerPoints > dealerPoints && dealerPoints < 21) {
-      this.setState({ message: 'Winner: ' + playerPoints});
+      this.setState({ message: 'Winner: ' + playerPoints, win: true});
       this.changeScore(true);
     } else if (playerPoints === dealerPoints) {
-      this.setState({ message: 'Draw, You Win: ' + playerPoints});
+      this.setState({ message: 'Draw, You Win: ' + playerPoints, win: true});
       this.changeScore(true);
     } else {
-      this.setState({ message: 'Loser: ' + playerPoints});
+      this.setState({ message: 'Loser: ' + playerPoints, win: false});
       this.changeScore(false);
     }
   }
@@ -207,8 +209,8 @@ class Table extends Component {
           <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
           <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>
-
-        <p className="text-center alert alert-success" hidden={this.state.message === ''}>{this.state.message}</p>
+        {/* notifies the player if they win or lose */}
+        <p className={"text-center alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
         
         <div hidden={(this.state.stage === 0)}> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-5">
@@ -233,7 +235,7 @@ class Table extends Component {
             >
               NEXT GAME
             </button>
-            <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button>
+            {/* <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button> */}
           </div>
         </div>
       </div>

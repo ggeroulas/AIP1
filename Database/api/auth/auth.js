@@ -45,7 +45,7 @@ passport.use('login', new localStrategy({
 
 // Verification of tokens
 passport.use(new JWTstrategy({
-    secretOrKey : 'doggo', //check
+    secretOrKey : 'doggo',
     jwtFromRequest : ExtractJWT.fromAuthHeaderAsBearerToken(),
 }, async (token, done) => {
     try {

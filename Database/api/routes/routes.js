@@ -44,4 +44,8 @@ router.get('/highScore', (req, res) => {
     });
 });
 
+router.get('/test', (req, res) => {
+    res.send('Connected');
+});
+
 module.exports = router;

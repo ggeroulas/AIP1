@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Table from './Table/Table';
 import Login from '../Login/Login';
 import Register from "../Register/Register";
+import HighScore from "../HighScore/HighScore";
 import axios from 'axios';
 
 class Game extends Component {
@@ -77,6 +78,7 @@ class Game extends Component {
                             </div>
                         </nav>
                         <h2>Welcome to my fully sick game!</h2>
+                        <HighScore/>
                     </div>  
                 );
             }

@@ -182,11 +182,9 @@ class Table extends Component {
   }
 
   // Changes score should push to db
-  changeScore(win) {
-    let newScore = this.state.score + ((win) ? 100 : -100);
-    
+  changeScore(didWin) {
     const data = {
-      score: newScore
+      win: (didWin) ? 1 : 0
     }
     const axiosConfig = {
       headers: {

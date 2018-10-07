@@ -1,11 +1,17 @@
 
-.back {
-    background-image: linear-gradient(to bottom right, rgb(0, 88, 7), rgb(25, 146, 1));
+.score {
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
 }
 
-.score {
-    color: rgb(255, 255, 255);
-    
+.oval { 
+    background-image: linear-gradient(to bottom right, rgb(0, 88, 7), rgb(25, 146, 1));
+    border-radius: 50%;
+  }
+
+.msgBox {
+    width: 60% !important;
 }
 
 .flex-container {

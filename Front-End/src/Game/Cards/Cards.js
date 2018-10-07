@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Cards.css';
 
 class Cards extends Component {
     state = { suit: null, value: null, name: null }
@@ -32,7 +33,7 @@ class Cards extends Component {
                 {this.props.card.flipped ? (
                     <p>{this.state.name}{this.state.suit}</p>
                 ) : (
-                    <p>INSERT</p>//Insert shark png george  
+                    <img className="cardBack" src="./images/shark.png" alt="Flipped" />
                 )}
                 
             </div>

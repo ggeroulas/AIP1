@@ -8,7 +8,7 @@ class Player extends Component {
     render() {
         const { cards } = this.props;
         return(
-                <div className="container flex-container">
+                <div className="container flex-container mt-4">
                     {/*takes each card in cards and pass it to be rendered as a card */}
                     {cards.map((card, index) => {
                         return ( 

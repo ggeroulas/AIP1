@@ -199,19 +199,20 @@ class Table extends Component {
 
   render() {
       return (
-      <div className="container-fluid card back">
-        <div className="score"> {/* Shows the score */}
+      <div className="container p-10 p-10">
+      <div className="score"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
         </div>
-        <div className="container">
+      <div className="container-fluid oval">
+        
+        <div className="container cln pt-3 pb-3">
           <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
           <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>
-        {/* notifies the player if they win or lose */}
-        <p className={"text-center alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
-        
-        <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
-          <div className="flex-container mt-5">
+      </div>
+
+      <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
+          <div className="flex-container mt-2 pb-3">
             <button 
               className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
               disabled={(this.state.stage === 1)}
@@ -235,7 +236,9 @@ class Table extends Component {
             </button>
             {/* <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button> */}
           </div>
-        </div>
+      </div>
+      {/* notifies the player if they win or lose */}
+      <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
       </div>
     );
 

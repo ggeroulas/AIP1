@@ -9,7 +9,7 @@ class Header extends Component {
         return( // Renders the header of the page
         <div className="container-fluid">
             <div className="row header">
-                    <h1 className="col">Card Shark</h1>
+                    <h1 className="col head">Card Shark</h1>
                     <img className="App-logo m-2" src="./images/shark.png" alt="logo" />
             </div>
         </div>

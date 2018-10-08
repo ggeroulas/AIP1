@@ -4,7 +4,11 @@
   }
 
 .header {
-  background-color: rgb(216, 215, 215);
+  background-color: rgb(206, 205, 205);
+}
+
+.head {
+  font-size: 65px;
 }
 
   

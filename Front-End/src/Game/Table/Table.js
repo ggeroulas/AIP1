@@ -213,7 +213,7 @@ class Table extends Component {
       </div>
 
       <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
-          <div className="flex-container mt-2 pb-3">
+          <div className="flex-container mt-2">
             <button 
               className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
               disabled={(this.state.stage === 1)}

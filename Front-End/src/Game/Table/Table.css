@@ -17,6 +17,7 @@
     height: 70px !important;
     width: 95px !important;
     opacity: 0.5;
+    filter: grayscale(100%);
 }
 
 .msgBox {

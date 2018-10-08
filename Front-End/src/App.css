@@ -2,5 +2,6 @@
 .backCol {
 
     background: url(./card_backdrop.png) repeat;
+    height: 600px;
 
 }

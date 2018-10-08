@@ -34,7 +34,7 @@ class HighScore extends Component {
     render() {
         console.log(this.state.users)
         return(
-            <div className="container-small center pt-3">
+            <div className="container-small center pt-3 bg-white highscore">
                 <h6 className="text-primary">Login or Register to play!</h6>
                 
                 <div className="form-inline pt-2">

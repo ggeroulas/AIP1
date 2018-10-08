@@ -3,3 +3,8 @@
 
     height: 50px !important;
 }
+
+.highscore {
+    min-height: 500px;
+    max-height: 500px;
+}

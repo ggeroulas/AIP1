@@ -200,7 +200,7 @@ class Table extends Component {
   render() {
       return (
       <div className="container p-10 p-10">
-      <div className="score"> {/* Shows the score */}
+      <div className="score card bg-white"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
         </div>
       <div className="container-fluid oval">

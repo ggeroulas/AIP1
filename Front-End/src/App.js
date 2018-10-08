@@ -13,6 +13,10 @@ class App extends Component {
       <div className="backCol">
         <Header/>
         <Game/> {/* Initialises the main component */}
+        <nav className="navbar fixed-bottom navbar-light bg-dark">
+          <p className="text-light">Advanced Internet Peoplez | Dai Lo Dev Team </p>
+          <a className="text-light" href="https://www.youtube.com/watch?v=q6EoRBvdVPQ">Copyright© 2018</a>
+        </nav>
       </div>
     );
   }

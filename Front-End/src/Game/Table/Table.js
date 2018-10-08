@@ -174,10 +174,11 @@ class Table extends Component {
             aces++;
         }
     }
-    for (let i = 0; i < aces; i++) {
-        if (total <= 10) total += 11;
-        else total += 1;
-    }
+    if (aces !== 0) {
+      total += (aces - 1);
+      if (total <= 10) total += 11;
+      else total++;
+    };
     return total;
   }
 

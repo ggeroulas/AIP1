@@ -77,7 +77,6 @@ class Game extends Component {
                                 <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 2)}>Register</button>
                             </div>
                         </nav>
-                        <h2>Welcome to my fully sick game!</h2>
                         <HighScore/>
                     </div>  
                 );

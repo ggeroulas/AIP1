@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './HighScore.css';
 
 class HighScore extends Component {
     constructor() {
@@ -33,15 +34,34 @@ class HighScore extends Component {
     render() {
         console.log(this.state.users)
         return(
-            <div>
-                <p>Test</p>
+            <div className="container-small center pt-3">
+                <h6 className="text-primary">Login or Register to play!</h6>
+                
+                <div className="form-inline pt-2">
+                    <h2>High Scores</h2>
+                    <img className="trophy" src="./images/trophy.png" alt="trophy"/>
+                </div>
+                <table className="table center m-0 p-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
                 {this.state.users.map((user, index) => {
-                    return (
-                        <div key={index}>
-                            {user.username} - {user.score}
-                        </div>
+                    return (           
+                        <tr key={index}>
+                            <th scope="row">{index+1}</th>
+                            <td>{user.username}</td>
+                            <td>{user.score}</td>
+                        </tr>    
                     )
                 })}
+                    </tbody>
+                </table>
             </div>
         );
     }

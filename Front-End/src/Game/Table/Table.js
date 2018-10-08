@@ -207,6 +207,7 @@ class Table extends Component {
         
         <div className="container cln pt-3 pb-3">
           <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
+          <img className="shark container flex-container" src="./images/shark.png" alt="shark" />
           <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
         </div>
       </div>

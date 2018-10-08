@@ -8,7 +8,16 @@
 .oval { 
     background-image: linear-gradient(to bottom right, rgb(0, 88, 7), rgb(25, 146, 1));
     border-radius: 50%;
+    min-width: 250px;
+    height: 350px;
+    max-width: 500px;
   }
+
+.shark {
+    height: 70px !important;
+    width: 95px !important;
+    opacity: 0.5;
+}
 
 .msgBox {
     width: 60% !important;

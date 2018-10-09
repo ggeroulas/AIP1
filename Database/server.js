@@ -25,8 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false })); //check
 app.use(bodyParser.json());
 
 //testing only
-User.db.dropDatabase("cardshark");
-
 const tempUser = {
     username: "Joy",
     password: "LIGMA"

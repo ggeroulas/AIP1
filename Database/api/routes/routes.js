@@ -38,7 +38,7 @@ router.post('/login', async (req, res, next) => {
 });
 
 router.get('/highScore', (req, res) => {
-    User.find({}, 'username score', { sort: {'score': -1} }, (err, users) => {
+    User.find({}, 'username score', { sort: {'score': -1}, limit: 20 }, (err, users) => {
         if (err) return handleError(err);
         res.send(users);
     });

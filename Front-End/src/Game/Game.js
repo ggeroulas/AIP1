@@ -9,8 +9,7 @@ class Game extends Component {
     constructor() {
         super();
         let gameState = 0;
-        if (localStorage.getItem('token')) {
-            this.getLoggedUser();
+        if (localStorage.getItem('token') && this.getLoggedUser()) {
             gameState = 3;
         }
         this.state = {
@@ -26,20 +25,28 @@ class Game extends Component {
 
     // Callback to get Logged in user
     getLoggedUser = () => {
-        axios.get('/user',
-        {
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            }
-        }).then((res) => {
-            this.setState(prevState => ({
-                loggedUser: {
-                    userId: res.data.user.id,
-                    username: res.data.user.username
+        try {
+            axios.get('/user',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
-            }));
-        });
-        this.setState({loggedin: 3});
+            }).then((res) => {
+                console.log(res);
+                this.setState(prevState => ({
+                    loggedUser: {
+                        userId: res.data.user.id,
+                        username: res.data.user.username
+                    },
+                    loggedin: 3
+                }));
+                return true;
+            }); 
+        } catch (err) {
+            localStorage.removeItem('token');
+            return false;
+        }
+           
     }
 
     processRegister = () => {

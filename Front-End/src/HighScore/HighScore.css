@@ -6,4 +6,5 @@
 
 .highscore {
     height: 70vh;
+    min-width: 40vh;
 }

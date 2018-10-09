@@ -33,14 +33,14 @@ class HighScore extends Component {
 
     render() {
         return(
-            <div className="container-small center pt-3 bg-white highscore">
-                <h6 className="text-primary">Login or Register to play!</h6>
+            <div className="container-small center pt-3 highscore">
+                <h6 className="text-primary center">Login or Register to play!</h6>
                 
-                <div className="form-inline pt-2">
+                <div className="form-inline center pt-2">
                     <h2>High Scores</h2>
                     <img className="trophy" src="./images/trophy.png" alt="trophy"/>
                 </div>
-                <table className="table center m-0 p-0">
+                <table className="table-small center">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

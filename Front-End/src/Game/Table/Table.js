@@ -86,7 +86,7 @@ class Table extends Component {
       dealerCards.push(deck.pop());
     }
     //dealers extra cards could be done after so it looks nicer
-    while (this.evaluate(dealerCards) <= 14) {
+    while (this.evaluate(dealerCards) <= 16) {
       dealerCards.push(deck.pop());
     }
 
@@ -137,7 +137,7 @@ class Table extends Component {
 
   hold() {// Function to action the player to hold their hand
     const playerPoints = this.evaluate(this.state.cards.playerCards);
-    const dealerPoints = this.evaluate(this.state.cards.dealerCards)
+    const dealerPoints = this.evaluate(this.state.cards.dealerCards);
 
     this.flipDealer();
 
@@ -148,8 +148,7 @@ class Table extends Component {
       this.setState({ message: 'Winner: ' + playerPoints, win: true});
       this.changeScore(true);
     } else if (playerPoints === dealerPoints) {
-      this.setState({ message: 'Draw, You Win: ' + playerPoints, win: true});
-      this.changeScore(true);
+      this.setState({ message: 'Draw! No Winner!', win: true});
     } else {
       this.setState({ message: 'Loser! Your hand: ' + playerPoints + ', Dealer hand: ' + dealerPoints, win: false});
       this.changeScore(false);
@@ -225,14 +224,14 @@ class Table extends Component {
               disabled={(this.state.stage === 1)}
               onClick={this.drawCard}
             >
-              DRAW
+              HIT
             </button> {/*disabled={this.state.bust} */}
             <button 
               className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
               disabled={(this.state.stage === 1)}
               onClick={this.hold}
             >
-              HOLD
+              STAND
             </button>
             <button 
               className={'btn-' + ((this.state.stage !== 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 

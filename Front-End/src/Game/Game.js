@@ -3,6 +3,7 @@ import Table from './Table/Table';
 import Login from '../Login/Login';
 import Register from "../Register/Register";
 import HighScore from "../HighScore/HighScore";
+import GameRules from "./GameRules/GameRules";
 import axios from 'axios';
 
 class Game extends Component {
@@ -80,7 +81,9 @@ class Game extends Component {
                         <nav className="navbar navbar-dark bg-dark mb-2">
                             <div className="div-inline">
                                 <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                                <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
+                                <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
                             </div>
                         </nav>
                         <HighScore/>
@@ -92,7 +95,9 @@ class Game extends Component {
                     <nav className="navbar navbar-dark bg-dark mb-2">
                         <div className="div-inline">
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                            <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
+                            <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
                         </div>
                     </nav>
                     <Login onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister}/>
@@ -103,7 +108,9 @@ class Game extends Component {
                     <nav className="navbar navbar-dark bg-dark mb-2">
                         <div className="div-inline">
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                            <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
+                            <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
                         </div>
                     </nav>
                     <Register onRegister={this.processRegister}/>
@@ -112,10 +119,27 @@ class Game extends Component {
             case 3: return(
                 <div>
                     <nav className="navbar navbar-dark bg-dark mb-2">
-                        <p className="text-light">Welcome {this.state.loggedUser.username}!</p>
-                        <button className="btn btn-sm btn-outline-info" onClick={(e) => this.logout(e)}>Log Out</button>
+                    <div className="div-inline">
+                        <a className="text-secondary text-outline-secondary mr-3">Welcome {this.state.loggedUser.username}!</a>
+                        <button className="btn btn-sm btn-outline-info mr-3">Game</button>
+                        <button className="btn btn-sm btn-outline-info mr-3">High Scores and Rules</button>
+                    </div>
+                    <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                     </nav>
                     <Table/>
+                </div>  
+            );
+            case 4: return(
+                <div>
+                <nav className="navbar navbar-dark bg-dark mb-2">
+                    <div className="div-inline">
+                        <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                        <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                        <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
+                        <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
+                    </div>
+                </nav>
+                    <GameRules/>
                 </div>  
             );
             default:

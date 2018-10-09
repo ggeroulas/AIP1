@@ -24,14 +24,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false })); //check
 app.use(bodyParser.json());
 
-//testing only
-const tempUser = {
-    username: "Joy",
-    password: "LIGMA"
-};
-User.create(tempUser);
-//testing space ends
-
 //register the route
 app.use('/', routes); 
 app.use('/user', passport.authenticate('jwt', { session : false}), secureRoutes );

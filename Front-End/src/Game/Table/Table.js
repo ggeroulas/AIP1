@@ -151,7 +151,7 @@ class Table extends Component {
       this.setState({ message: 'Draw, You Win: ' + playerPoints, win: true});
       this.changeScore(true);
     } else {
-      this.setState({ message: 'Loser: ' + playerPoints, win: false});
+      this.setState({ message: 'Loser! Your hand: ' + playerPoints + ', Dealer hand: ' + dealerPoints, win: false});
       this.changeScore(false);
     }
   }
@@ -206,8 +206,8 @@ class Table extends Component {
 
   render() {
       return (
-      <div className="container table">
-        <div className="score card bg-white"> {/* Shows the score */}
+      <div className="container">
+      <div className="score card bg-white"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
         </div>
         <div className="container-fluid oval">
@@ -243,9 +243,10 @@ class Table extends Component {
             </button>
             {/* <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button> */}
           </div>
-        </div>
-        {/* notifies the player if they win or lose */}
-        <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
+      </div>
+      {/* notifies the player if they win or lose */}
+      <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
+      <p className="text-center center msgBox mt-2 alert alert-info" hidden={this.state.message !== ''}>Your hand: {this.evaluate(this.state.cards.playerCards)}</p>
       </div>
     );
 

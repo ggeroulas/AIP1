@@ -2,6 +2,9 @@
 .backCol {
 
     background: url(./card_backdrop.png) repeat;
-    height: 600px;
+    min-height: 100vh;
+}
 
+.foot {
+    font-size: 1.5vw;
 }

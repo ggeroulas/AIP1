@@ -125,6 +125,12 @@ class Table extends Component {
       newState.message = "Busted! You Lose";
       newState.stage = 1;
       newState.win = false;
+    } else if (this.evaluate(newState.cards.playerCards) === 21) {
+      newState.message = "You Have 21 You Win!";
+      newState.stage = 1;
+      newState.win = true;
+      this.flipDealer();
+      this.changeScore(true);
     }
     this.setState(newState);
   }
@@ -201,19 +207,18 @@ class Table extends Component {
   render() {
       return (
       <div className="container table">
-      <div className="score card bg-white"> {/* Shows the score */}
+        <div className="score card bg-white"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
         </div>
-      <div className="container-fluid oval">
-        
-        <div className="container cln pt-3 pb-3">
-          <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
-          <img className="shark container flex-container" src="./images/shark.png" alt="shark" />
-          <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
+        <div className="container-fluid oval">
+          <div className="container cln pt-3 pb-3">
+            <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
+            <img className="shark container flex-container" src="./images/shark.png" alt="shark" />
+            <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
+          </div>
         </div>
-      </div>
 
-      <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
+        <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-2">
             <button 
               className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
@@ -238,9 +243,9 @@ class Table extends Component {
             </button>
             {/* <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button> */}
           </div>
-      </div>
-      {/* notifies the player if they win or lose */}
-      <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
+        </div>
+        {/* notifies the player if they win or lose */}
+        <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
       </div>
     );
 

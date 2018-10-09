@@ -1,3 +1,5 @@
+// https://scotch.io/@devGson/api-authentication-with-json-web-tokensjwt-and-passport
+
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const UserModel = require('../models/userModel');

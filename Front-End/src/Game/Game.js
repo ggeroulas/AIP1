@@ -32,7 +32,6 @@ class Game extends Component {
                     'Authorization': 'Bearer ' + localStorage.getItem('token')
                 }
             }).then((res) => {
-                console.log(res);
                 this.setState(prevState => ({
                     loggedUser: {
                         userId: res.data.user.id,

@@ -1,6 +1,7 @@
 .App-logo {
     animation: App-logo-spin infinite 10s linear;
-    height: 80px; /* Adds the spinning shark logo */
+    height: 5vw; /* Adds the spinning shark logo */
+    min-height: 30px;
   }
 
 .header {
@@ -8,7 +9,7 @@
 }
 
 .head {
-  font-size: 9vh;
+  font-size: 5vw;
 }
 
   

@@ -81,7 +81,6 @@ class Game extends Component {
                 <div>
                     <nav className="navbar navbar-dark bg-dark mb-2">
                         <div className="div-inline">
-                            <a className="text-secondary text-outline-secondary mr-3">Welcome {this.state.loggedUser.username}!</a>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 3)}>Play!</button>                            
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
@@ -89,7 +88,7 @@ class Game extends Component {
                         <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                         </nav>
                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
-                    <Table hide={this.state.loggedin !== 3}/>
+                    <Table hide={this.state.loggedin !== 3} usr={this.state.loggedUser.username}/>
                     <GameRules hide={this.state.loggedin !== 4}/>
                 </div>
             )

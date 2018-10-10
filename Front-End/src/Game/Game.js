@@ -83,6 +83,7 @@ class Game extends Component {
                                 <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
                                 <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
                                 <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                                <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 3)}>Play!</button>
                                 <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
                             </div>
                             <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
@@ -138,6 +139,7 @@ class Game extends Component {
                             {console.log(this.state.loggedUser.userId !== null)}
                             <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
                             <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 3)}>Play!</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
                         </div>
                         <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>

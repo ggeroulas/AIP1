@@ -37,7 +37,7 @@ class HighScore extends Component {
                 <h6 hidden={this.props.user} className="text-primary center">Login or Register to play!</h6>
                 
                 <div className="form-inline center pt-2">
-                    <h2>High Scores</h2>
+                    <h2 className="title">High Scores</h2>
                     <img className="trophy" src="./images/trophy.png" alt="trophy"/>
                 </div>
                 <table className="table-small center">

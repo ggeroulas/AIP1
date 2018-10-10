@@ -7,7 +7,7 @@ class GameRules extends Component {
         
         return(
 
-            <div className="card rules center" hidden={this.props.hide}>
+            <div className="card rules center p-2" hidden={this.props.hide}>
                 <h4>Game Rules</h4>
                 <p>The object of CardShark is to achieve a total of 21 points or a points
                 sum greater than the dealer. You start with 2 cards, the sum of which 

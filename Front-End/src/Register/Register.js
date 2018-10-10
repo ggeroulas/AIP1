@@ -35,7 +35,7 @@ class Register extends Component {
 
     render() {
         return(
-            <div className="container-small center">
+            <div className="container-small center" hidden={this.props.hide}>
             <form onSubmit={this.registerUser}>
                 <h4>Register</h4>
                 <div className="form-group">    

@@ -36,7 +36,7 @@ class Login extends Component {
     
     render() {
         return(
-        <div className="container-small center">
+        <div className="container-small center" hidden={this.props.hide}>
             <p className="alert alert-success" hidden={(!this.props.registered)}>{'You have successfully registered!'}</p>
             <form onSubmit={this.checkPassword}>
                 <h4>Login</h4>

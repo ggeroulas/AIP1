@@ -75,16 +75,17 @@ class Game extends Component {
     
     render() {
         switch (this.state.loggedin) {
-            case 0: {
+            case 0: { //the Navbar should be a separate component
                 return(
                     <div>
                         <nav className="navbar navbar-dark bg-dark mb-2">
                             <div className="div-inline">
-                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
+                                <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                                <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
                                 <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
-                                <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
                             </div>
+                            <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                         </nav>
                         <HighScore/>
                     </div>  
@@ -94,10 +95,10 @@ class Game extends Component {
                 <div>
                     <nav className="navbar navbar-dark bg-dark mb-2">
                         <div className="div-inline">
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
-                            <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
                         </div>
                     </nav>
                     <Login onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister}/>
@@ -107,10 +108,10 @@ class Game extends Component {
                 <div>
                     <nav className="navbar navbar-dark bg-dark mb-2">
                         <div className="div-inline">
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
-                            <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
                         </div>
                     </nav>
                     <Register onRegister={this.processRegister}/>
@@ -119,26 +120,28 @@ class Game extends Component {
             case 3: return(
                 <div>
                     <nav className="navbar navbar-dark bg-dark mb-2">
-                    <div className="div-inline">
-                        <a className="text-secondary text-outline-secondary mr-3">Welcome {this.state.loggedUser.username}!</a>
-                        <button className="btn btn-sm btn-outline-info mr-3">Game</button>
-                        <button className="btn btn-sm btn-outline-info mr-3">High Scores and Rules</button>
-                    </div>
-                    <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
-                    </nav>
+                            <div className="div-inline">
+                                <a className="text-secondary text-outline-secondary mr-3">Welcome {this.state.loggedUser.username}!</a>
+                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
+                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
+                            </div>
+                            <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
+                        </nav>
                     <Table/>
                 </div>  
             );
             case 4: return(
                 <div>
-                <nav className="navbar navbar-dark bg-dark mb-2">
-                    <div className="div-inline">
-                        <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                        <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
-                        <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
-                        <button className="btn btn-sm btn-outline-info" onClick={(e) => this.refresh(e, 0)}>High Scores</button>
-                    </div>
-                </nav>
+                    <nav className="navbar navbar-dark bg-dark mb-2">
+                        <div className="div-inline">
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
+                            {console.log(this.state.loggedUser.userId !== null)}
+                            <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
+                            <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
+                        </div>
+                        <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
+                    </nav>
                     <GameRules/>
                 </div>  
             );

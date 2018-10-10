@@ -15,11 +15,11 @@ class GameRules extends Component {
                 points. The exceptions are King, Queen and Jack which are all worth 10. As well 
                 as Ace which can be either 1 or 11.</p>
 
-                <p>You may click <button className="btn-primary btn-sm">Draw</button> until you have a desired amount of cards, or until
+                <p>You may click <button className="btn-primary btn-sm">HIT</button> until you have a desired amount of cards, or until
                 you reach a sum greater than 21. If this occurs, your hand of cards is 
                 bust and the dealer automatically wins the round.</p>
 
-                <p>If you do not wish to draw more cards you may <button className="btn-primary btn-sm">Hold</button> your hand which will 
+                <p>If you do not wish to draw more cards you may <button className="btn-primary btn-sm">STAND</button> your hand which will 
                 determine a winner for the round.</p>
 
                 <p>Once a winner is determined, you may click <button className="btn-primary btn-sm">Next Game</button> which will begin 

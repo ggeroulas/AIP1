@@ -7,7 +7,7 @@ class GameRules extends Component {
         
         return(
 
-            <div className="card rules center" hidden={this.props.hdn!=2}>
+            <div className="card rules center">
                 <h4>Game Rules</h4>
                 <p>The object of BlackJack is to achieve a total of 21 points or a points
                 sum greater than the dealer. You start with 2 cards, the sum of which 

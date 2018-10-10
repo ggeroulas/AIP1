@@ -20,8 +20,7 @@ class Game extends Component {
                 userId: null,
                 username: null
             },
-            registered: false,
-            tableState: 0 // 0 loads table, 1 loads high score, 2 loads game rules
+            registered: false
         };
     }
 
@@ -73,10 +72,6 @@ class Game extends Component {
             }
         }));
     }
-
-    handleTableState(e, n) {
-        this.setState({tableState: n})
-    }
     
     render() {
         switch (this.state.loggedin) {
@@ -88,11 +83,12 @@ class Game extends Component {
                                 <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
                                 <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
                                 <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                                <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 3)}>Play!</button>
                                 <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
                             </div>
                             <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                         </nav>
-                        <HighScore hdn={1}/>
+                        <HighScore/>
                     </div>  
                 );
             }
@@ -127,15 +123,12 @@ class Game extends Component {
                     <nav className="navbar navbar-dark bg-dark mb-2">
                             <div className="div-inline">
                                 <a className="text-secondary text-outline-secondary mr-3">Welcome {this.state.loggedUser.username}!</a>
-                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.handleTableState(e, 0)}>Game</button>
-                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.handleTableState(e, 1)}>HighScore</button>
-                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.handleTableState(e, 2)}>Game Rules</button>
+                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
+                                <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
                             </div>
                             <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                         </nav>
-                    <Table hdn={this.state.tableState}/>
-                    <GameRules hdn={this.state.tableState}/>
-                    <HighScore hdn={this.state.tableState}/>
+                    <Table/>
                 </div>  
             );
             case 4: return(
@@ -143,12 +136,15 @@ class Game extends Component {
                     <nav className="navbar navbar-dark bg-dark mb-2">
                         <div className="div-inline">
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
+                            {console.log(this.state.loggedUser.userId !== null)}
                             <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 1)}>Login</button>
                             <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 2)}>Register</button>
+                            <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 3)}>Play!</button>
                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
                         </div>
+                        <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                     </nav>
-                    <GameRules hdn={2}/>
+                    <GameRules/>
                 </div>  
             );
             default:

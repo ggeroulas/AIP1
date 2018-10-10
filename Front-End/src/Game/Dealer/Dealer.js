@@ -5,14 +5,14 @@ import Cards from '../Cards/Cards'
 class Dealer extends Component {
 
     render() {
-        const { cards, stage } = this.props;
+        const { cards } = this.props;
         return(
 
             <div className="container flex-container">
                     {/*takes each card in cards and pass it to be rendered as a card */}
                     {cards.map((card, index) => {
                         return ( 
-                            <div key={index} className={"card cln cardOpp m-2 " + ((stage !== 1) ? 'bg-info': '')}> {/*bg-info*/}
+                            <div key={index} className={"card cln cardOpp m-2 " + ((!card.flipped) ? 'bg-info': '')}> {/*bg-info*/}
                                <Cards card={card}/>
                             </div>
                         );

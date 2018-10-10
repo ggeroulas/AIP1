@@ -7,18 +7,23 @@ import axios from 'axios';
 class Table extends Component {
   constructor() {
     super();
-    let cards = this.startGame();
     const score = this.getScore();
     this.state = {
       score: score, // Initialises the score for the player
       cards: {
-        deck: cards.deck,
-        playerCards: cards.playerCards,
-        dealerCards: cards.dealerCards
+        deck: [],
+        playerCards: [
+          { suit: '', value: 0, name: '', flipped: false },
+          { suit: '', value: 0, name: '', flipped: false }
+        ],
+        dealerCards: [
+          { suit: '', value: 0, name: '', flipped: false },
+          { suit: '', value: 0, name: '', flipped: false }
+        ]
       },
-      stage: 0, //0 = beginning/During, 1 = evaluation 
-      message: '',
-      win: false
+      stage: 1, //0 = beginning/During, 1 = evaluation 
+      message: 'Press "NEXT GAME" to Start',
+      win: true 
     };
     this.getScore = this.getScore.bind(this);
     this.startGame = this.startGame.bind(this);
@@ -211,7 +216,7 @@ class Table extends Component {
         </div>
         <div className="container-fluid oval">
           <div className="container cln pt-3 pb-3">
-            <Dealer cards={this.state.cards.dealerCards} stage={this.state.stage} /> {/* Renders the dealer cards */}
+            <Dealer cards={this.state.cards.dealerCards} /> {/* Renders the dealer cards */}
             <img className="shark container flex-container" src="./images/shark.png" alt="shark" />
             <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
           </div>
@@ -234,7 +239,7 @@ class Table extends Component {
               STAND
             </button>
             <button 
-              className={'btn-' + ((this.state.stage !== 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
+              className={'btn-' + ((this.state.stage !== 1) ? 'secondary' : 'primary') + ' btn-sm m-2'  } 
               disabled={(this.state.stage !== 1)}
               onClick={this.handleNewGame}
             >

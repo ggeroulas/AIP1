@@ -34,7 +34,7 @@ class HighScore extends Component {
     render() {
         return(
             <div className="container-fluid center pt-3 highscore" hidden={this.props.hide}>
-                <h6 className="text-primary center">Login or Register to play!</h6>
+                <h6 hidden={this.props.user} className="text-primary center">Login or Register to play!</h6>
                 
                 <div className="form-inline center pt-2">
                     <h2>High Scores</h2>

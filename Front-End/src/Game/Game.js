@@ -88,7 +88,7 @@ class Game extends Component {
                         </div>
                         <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                         </nav>
-                    <HighScore hide={this.state.loggedin !== 0}/>
+                    <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
                     <Table hide={this.state.loggedin !== 3}/>
                     <GameRules hide={this.state.loggedin !== 4}/>
                 </div>
@@ -106,7 +106,7 @@ class Game extends Component {
                          </div>
                          <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.logout(e)}>Log Out</button>
                      </nav>
-                     <HighScore hide={this.state.loggedin !== 0}/>
+                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
                      <Login hide={this.state.loggedin !== 1} onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister} />
                      <Register hide={this.state.loggedin !== 2} onRegister={this.processRegister}/>
                      <GameRules hide={this.state.loggedin !== 4}/>

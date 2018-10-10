@@ -12,7 +12,7 @@ class Player extends Component {
                     {/*takes each card in cards and pass it to be rendered as a card */}
                     {cards.map((card, index) => {
                         return ( 
-                            <div key={index}className="card cln cardPlayer m-2">
+                            <div key={index}className={"card cln cardPlayer m-2 "+ ((!card.flipped) ? 'bg-info': '')}>
                                <Cards card={card}/>
                             </div>
                         );

@@ -221,7 +221,6 @@ class Table extends Component {
       <div className="container" hidden={this.props.hide}>
       <div className="score card bg-white"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
-          <p>Welcome: {this.props.usr}</p>
         </div>
         <div className="container-fluid oval">
           <div className="container cln pt-3 pb-3">

@@ -205,7 +205,7 @@ class Table extends Component {
 
   render() {
       return (
-      <div className="container">
+      <div className="container" hidden={this.props.hdn!=0}>
       <div className="score card bg-white"> {/* Shows the score */}
           <p>Score: {this.state.score}</p>
         </div>

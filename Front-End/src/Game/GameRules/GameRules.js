@@ -9,7 +9,7 @@ class GameRules extends Component {
 
             <div className="card rules center" hidden={this.props.hide}>
                 <h4>Game Rules</h4>
-                <p>The object of BlackJack is to achieve a total of 21 points or a points
+                <p>The object of CardShark is to achieve a total of 21 points or a points
                 sum greater than the dealer. You start with 2 cards, the sum of which 
                 determines your amount of points. All card numbers reflect a relevant amount of 
                 points. The exceptions are King, Queen and Jack which are all worth 10. As well 

@@ -111,8 +111,16 @@ class Table extends Component {
       message: ''
     },
     () => {
-      let newCards = this.startGame();
-      this.setState({...this.state, cards: newCards});
+      let newState = this.state;
+      newState.cards = this.startGame();
+      if (this.evaluate(newState.cards.playerCards) === 21) {
+        this.flipDealer();
+        this.changeScore(true);
+        newState.message = "You Have 21 You Win!";
+        newState.stage = 1;
+        newState.win = true;
+      }
+      this.setState(newState);
     });
   }
 

@@ -230,6 +230,7 @@ class Table extends Component {
           </div>
         </div>
         <p className="text-center center msgBox mt-2 alert alert-info" hidden={this.state.message !== ''}>Your hand: {this.evaluate(this.state.cards.playerCards)}</p>
+        <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
         <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
           <div className="flex-container mt-2">
             <button 
@@ -257,7 +258,6 @@ class Table extends Component {
           </div>
       </div>
       {/* notifies the player if they win or lose */}
-      <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
       </div>
     );
 

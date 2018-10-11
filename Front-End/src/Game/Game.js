@@ -98,7 +98,7 @@ class Game extends Component {
                 <div> 
                     <nav className="navbar navbar-dark bg-dark mb-2">
                          <div className="div-inline">
-                             <button className="btn btn-sm btn-outline-info mr-3" onClick={(e) => this.refresh(e, 0)}>Home</button>
+                             <button className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 0)}>Home</button>
                              <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 1)}>Login</button>
                              <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 2)}>Register</button>
                              <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 3)}>Play!</button>

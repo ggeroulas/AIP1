@@ -70,14 +70,6 @@ class Game extends Component {
 
 
 
-* // How will we handle port binding in our application?
-
-
-
-
-
-
-
 
 
 

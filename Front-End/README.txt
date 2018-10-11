@@ -13,7 +13,6 @@ Developers:
 	
 	De Shun Zhong
 	George Geroulas
-	Il Sun Choi
 
 
 1. CODING AND NAMING STANDARDS

@@ -3,6 +3,7 @@
 
     background: url(./card_backdrop.png) repeat;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 .foot {

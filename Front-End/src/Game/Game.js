@@ -4,6 +4,7 @@ import Login from '../Login/Login';
 import Register from "../Register/Register";
 import HighScore from "../HighScore/HighScore";
 import GameRules from "./GameRules/GameRules";
+import Navigation from "./Navigation/Navigation";
 import axios from 'axios';
 
 class Game extends Component {
@@ -23,6 +24,8 @@ class Game extends Component {
             },
             registered: false
         };
+        this.refresh = this.refresh.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     // Callback to get Logged in user
@@ -60,11 +63,11 @@ class Game extends Component {
         this.setState({registered: false})
     }
 
-    refresh(e, x) {
+    refresh(x) {
         this.setState({loggedin: x});
     }
 
-    logout(e) {
+    logout() {
         this.setState({loggedin: 0});
         localStorage.removeItem('token');
         this.setState(prevState => ({
@@ -79,15 +82,7 @@ class Game extends Component {
         if (this.state.loggedUser.user) {
             return (
                 <div>
-                    <nav className="navbar navbar-dark bg-dark mb-2">
-                        <div className="div-inline">
-                            <button className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 0)}>Home</button>
-                            <button className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 3)}>Play!</button>                            
-                            <button className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
-                            <button className="btn btn-sm btn-outline-danger" onClick={(e) => this.logout(e)}>Log Out</button>
-                        </div>
-                        <a className="text-secondary text-outline-secondary mr-1">Welcome {this.state.loggedUser.username}!</a>
-                        </nav>
+                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout}/>
                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
                     <Table hide={this.state.loggedin !== 3}/>
                     <GameRules hide={this.state.loggedin !== 4}/>
@@ -95,20 +90,12 @@ class Game extends Component {
             )
         } else {
             return (
-                <div> 
-                    <nav className="navbar navbar-dark bg-dark mb-2">
-                         <div className="div-inline">
-                             <button className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 0)}>Home</button>
-                             <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 1)}>Login</button>
-                             <button hidden={(this.state.loggedUser.userId !== null)} className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 2)}>Register</button>
-                             <button hidden={(this.state.loggedUser.userId === null)} className="btn btn-sm btn-outline-info mr-1" onClick={(e) => this.refresh(e, 3)}>Play!</button>
-                             <button className="btn btn-sm btn-outline-info mr" onClick={(e) => this.refresh(e, 4)}>Game Rules</button>
-                         </div>
-                     </nav>
-                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
-                     <Login hide={this.state.loggedin !== 1} onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister} />
-                     <Register hide={this.state.loggedin !== 2} onRegister={this.processRegister}/>
-                     <GameRules hide={this.state.loggedin !== 4}/>
+                <div>
+                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout}/>
+                    <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
+                    <Login hide={this.state.loggedin !== 1} onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister} />
+                    <Register hide={this.state.loggedin !== 2} onRegister={this.processRegister}/>
+                    <GameRules hide={this.state.loggedin !== 4}/>
                 </div>
             )
         }

@@ -1,5 +1,3 @@
-'use strict';
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
@@ -21,7 +19,7 @@ const UserSchema = new Schema({
     }
 });
 
-// Hashes the password
+// Hashes the password using bcrypt
 UserSchema.pre('save', function(next) {
     const user = this;
     bcrypt.hash(user.password, 10, function(err, hash) {

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import './Cards.css';
 
 class Cards extends Component {
-    state = { suit: null, value: null, name: null }
 
-    changeSuit = (suit) => {
+    changeSuit(suit) {
         switch (suit) {
             case 'CLUBS':
                 return "♣";
@@ -19,19 +18,13 @@ class Cards extends Component {
         }
     }
 
-    componentWillMount() {
-        const suit = this.changeSuit(this.props.card.suit);
-        this.setState({
-            name: this.props.card.name,
-            suit
-        })
-    }
-
     render() {
+        const { card } = this.props;
+        const suit = this.changeSuit(card.suit);
         return ( // Renders each individual card value
             <div>
-                {this.props.card.flipped ? (
-                    <p>{this.state.name}{this.state.suit}</p>
+                {card.flipped ? (
+                    <p>{card.name}{suit}</p>
                 ) : ( // Image that goes on back of card
                     <img className="cardBack" src="./images/shark.png" alt="Flipped" />
                 )}

@@ -7,6 +7,7 @@ class Player extends Component {
     
     render() {
         const { cards } = this.props; // Players cards are passed down using props
+        
         return(
                 <div className="container flex-container mt-4">
                     {/*takes each card in cards and pass it to be rendered as a card */}

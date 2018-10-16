@@ -1,13 +1,13 @@
 
-.trophy {
+.trophy { /* Scales the trophy icon to the page */
     height: 5vw;
     min-height: 20px;
 }
 
-.highscore {
+.highscore { /* Scales the container to the page */
     height: 70vh;
 }
 
-.title {
-    font-size: 4vw;
+.title { /* Scales the title to the page */
+    font-size: 4vw; 
 } 

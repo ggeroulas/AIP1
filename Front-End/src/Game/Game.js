@@ -12,10 +12,10 @@ class Game extends Component {
         super();
         let gameState = 0; // Determines what is rendered in the UI, i.e. login, register, table, etc.
         if (localStorage.getItem('token') && this.getLoggedUser()) {
-            gameState = 3; 
+            gameState = 3;
         }
         this.state = {
-            loggedin: gameState, 
+            loggedin: gameState,
             loggedUser: { // User attributes
                 user: false,
                 userId: null,
@@ -31,45 +31,45 @@ class Game extends Component {
     getLoggedUser = () => {
         try {
             axios.get('/user',
-            {
-                headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('token')
-                }
-            }).then((res) => {
-                this.setState(prevState => ({
-                    loggedUser: {
-                        user: true,
-                        userId: res.data.user.id,
-                        username: res.data.user.username
-                    },
-                    loggedin: 3
-                }));
-                return true;
-            }); 
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                }).then((res) => {
+                    this.setState(prevState => ({
+                        loggedUser: {
+                            user: true,
+                            userId: res.data.user.id,
+                            username: res.data.user.username
+                        },
+                        loggedin: 3
+                    }));
+                    return true;
+                });
         } catch (err) {
             localStorage.removeItem('token');
             return false;
-        }    
+        }
     }
 
     // Notifies that user has been registered and directs to login screen
     processRegister = () => {
-        this.setState({loggedin: 1, registered: true});
+        this.setState({ loggedin: 1, registered: true });
         console.log(this.state);
     }
 
     changeRegister = () => {
-        this.setState({registered: false})
+        this.setState({ registered: false })
     }
 
     // Changes state to render refreshed components
     refresh(x) {
-        this.setState({loggedin: x});
+        this.setState({ loggedin: x });
     }
 
     // Destroys session and logs user out
     logout() {
-        this.setState({loggedin: 0});
+        this.setState({ loggedin: 0 });
         localStorage.removeItem('token');
         this.setState(prevState => ({
             loggedUser: {
@@ -78,27 +78,27 @@ class Game extends Component {
             }
         }));
     }
-    
+
     render() {
         if (this.state.loggedUser.user) {
             return (
                 <div>
                     {/* Renders game components if user is logged in */}
-                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout}/>
-                    <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
-                    <Table hide={this.state.loggedin !== 3}/>
-                    <GameRules hide={this.state.loggedin !== 4}/>
+                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout} />
+                    <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user} />
+                    <Table hide={this.state.loggedin !== 3} />
+                    <GameRules hide={this.state.loggedin !== 4} />
                 </div>
             )
         } else {
             return (
                 <div>
                     {/* Renders components if user is not logged in */}
-                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout}/>
-                    <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
+                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout} />
+                    <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user} />
                     <Login hide={this.state.loggedin !== 1} onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister} />
-                    <Register hide={this.state.loggedin !== 2} onRegister={this.processRegister}/>
-                    <GameRules hide={this.state.loggedin !== 4}/>
+                    <Register hide={this.state.loggedin !== 2} onRegister={this.processRegister} />
+                    <GameRules hide={this.state.loggedin !== 4} />
                 </div>
             )
         }

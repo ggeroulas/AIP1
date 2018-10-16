@@ -1,10 +1,10 @@
 
-.center {
+.center { /* Used to center elements throughou the application*/
   width: 50%;
   margin: 0 auto;
 }
 
-.flex-container {
+.flex-container { /* Adjusts a container to flex around content */
     display: flex;
     justify-content: center;
     

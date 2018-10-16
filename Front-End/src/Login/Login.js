@@ -5,15 +5,15 @@ class Login extends Component {
     constructor() {
         super();
         this.state = {
-            loggedIn: false,
-            user: '',
-            error: '',
-            registered: false
+            loggedIn: false, // Is the user logged in
+            user: '', // Passes the user
+            error: '', // Error message for alert
+            registered: false // Is the user registered
         };
         this.checkPassword = this.checkPassword.bind(this);
     };
 
-    checkPassword(e) {
+    checkPassword(e) { // Checks the login credentials against what is stored in the db
         this.props.afterRegister();
         axios.post('/login', 
             {
@@ -28,7 +28,7 @@ class Login extends Component {
                     }
                 }
             )
-            .catch((err) => {//should instead get the error response from the api
+            .catch((err) => { // Passes error message from the backend to be displayed in alert
                 this.setState({error: err.response.data.error.message});    
             });
         e.preventDefault();
@@ -37,6 +37,7 @@ class Login extends Component {
     render() {
         return(
         <div className="container-small center" hidden={this.props.hide}>
+            {/* Alert message after succesful registration */}
             <p className="alert alert-success" hidden={(!this.props.registered)}>{'You have successfully registered!'}</p>
             <form onSubmit={this.checkPassword}>
                 <h4>Login</h4>
@@ -48,6 +49,7 @@ class Login extends Component {
                     <label>Password</label>
                     <input  type="password" className="form-control" ref={input => this.password = input} placeholder="Password"></input>
                 </div>
+                {/* Alert message if there is an issue with login */}
                 <p className="alert alert-danger" hidden={(this.state.error === '')}>{this.state.error}</p>
                 <input className="btn btn-primary" type="submit" value="Login"/>
             </form>

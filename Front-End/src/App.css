@@ -1,11 +1,7 @@
 
-.backCol {
-
+.backCol { /* Sets the tesselated backdrop for the application*/
     background: url(./card_backdrop.png) repeat;
     min-height: 100vh;
     overflow: hidden;
 }
 
-.foot {
-    font-size: 1.5vw;
-}

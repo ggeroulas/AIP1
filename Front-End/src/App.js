@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Game from './Game/Game.js'
 import Header from './Header/Header.js'
 import './App.css';
-
-
-//♠	♥	♦	♣
+import Footer from './Footer/Footer.js'
 
 class App extends Component {
   
@@ -12,13 +10,10 @@ class App extends Component {
     return (
       <div>
         <div className="backCol">
-          <Header/>
-          <Game/> {/* Initialises the main component */}
+            <Header/> {/* Initialises the header */}
+            <Game/> {/* Initialises the main component */}
         </div>
-          <nav className="navbar navbar-light bg-dark">
-            <a className="text-light foot" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Advanced Internet Peoplez | Dai Lo Dev Team</a>
-            <a className="text-light foot" href="https://www.youtube.com/watch?v=q6EoRBvdVPQ">Copyright© 2018</a>
-          </nav>
+            <Footer/> {/* Initialises the footer */}
       </div>
     );
   }

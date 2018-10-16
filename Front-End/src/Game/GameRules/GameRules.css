@@ -1,5 +1,5 @@
 
-.rules {
-    max-width: 600px;
+.rules { /* Sets the minimum and maximum width container for game rules can be */
+    max-width: 600px; 
     min-width: 120px;
 }

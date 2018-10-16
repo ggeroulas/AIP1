@@ -6,8 +6,8 @@ class GameRules extends Component {
     render() {
         
         return(
-
             <div className="card rules center p-2" hidden={this.props.hide}>
+                {/* Lays out the game rules for Card Shark, hidden can be toggled for in game use */}
                 <h4>Game Rules</h4>
                 <p>The object of CardShark is to achieve a total of 21 points or a points
                 sum greater than the dealer. You start with 2 cards, the sum of which 

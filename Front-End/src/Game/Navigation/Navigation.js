@@ -4,6 +4,7 @@ class Navigation extends Component {
     render() {
         return (
             <nav className="navbar navbar-dark bg-dark mb-2">
+            { /* The navigation bar for the overall application, buttons can be toggled hidden or shown depennding on the screen */}
                 <div className="div-inline">
                     <button className="btn btn-sm btn-outline-info mr-1" onClick={() => this.props.onSelectNav(0)}>Home</button>
                     <button className="btn btn-sm btn-outline-info mr-1" hidden={(this.props.userId !== null)} onClick={() => this.props.onSelectNav(1)}>Login</button>

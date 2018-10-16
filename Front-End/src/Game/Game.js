@@ -10,14 +10,13 @@ import axios from 'axios';
 class Game extends Component {
     constructor() {
         super();
-        let gameState = 0;
+        let gameState = 0; // Determines what is rendered in the UI, i.e. login, register, table, etc.
         if (localStorage.getItem('token') && this.getLoggedUser()) {
-            gameState = 3;
+            gameState = 3; 
         }
         this.state = {
-            loggedin: gameState,
-             // Case 0 no one logged in, Case 1 refresh to show login, Case 2 refresh to show register, Case 3 continue to table
-            loggedUser: {
+            loggedin: gameState, 
+            loggedUser: { // User attributes
                 user: false,
                 userId: null,
                 username: null
@@ -50,10 +49,10 @@ class Game extends Component {
         } catch (err) {
             localStorage.removeItem('token');
             return false;
-        }
-           
+        }    
     }
 
+    // Notifies that user has been registered and directs to login screen
     processRegister = () => {
         this.setState({loggedin: 1, registered: true});
         console.log(this.state);
@@ -63,10 +62,12 @@ class Game extends Component {
         this.setState({registered: false})
     }
 
+    // Changes state to render refreshed components
     refresh(x) {
         this.setState({loggedin: x});
     }
 
+    // Destroys session and logs user out
     logout() {
         this.setState({loggedin: 0});
         localStorage.removeItem('token');
@@ -82,6 +83,7 @@ class Game extends Component {
         if (this.state.loggedUser.user) {
             return (
                 <div>
+                    {/* Renders game components if user is logged in */}
                     <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout}/>
                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
                     <Table hide={this.state.loggedin !== 3}/>
@@ -91,6 +93,7 @@ class Game extends Component {
         } else {
             return (
                 <div>
+                    {/* Renders components if user is not logged in */}
                     <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout}/>
                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user}/>
                     <Login hide={this.state.loggedin !== 1} onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister} />

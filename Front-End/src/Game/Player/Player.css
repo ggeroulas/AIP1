@@ -1,4 +1,4 @@
-.cardPlayer {
+.cardPlayer { /* Sets the div parameters for each player card */
     background-color: white;
     height: 100px;
     min-width: 60px !important;

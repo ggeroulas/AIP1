@@ -28,14 +28,13 @@ class Cards extends Component {
     }
 
     render() {
-        return ( // Renders each individual card
-            <div className="cardVal">
+        return ( // Renders each individual card value
+            <div>
                 {this.props.card.flipped ? (
                     <p>{this.state.name}{this.state.suit}</p>
-                ) : (
+                ) : ( // Image that goes on back of card
                     <img className="cardBack" src="./images/shark.png" alt="Flipped" />
                 )}
-                
             </div>
         );
     }

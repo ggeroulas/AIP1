@@ -5,263 +5,266 @@ import Dealer from '../Dealer/Dealer';
 import axios from 'axios';
 
 class Table extends Component {
-  constructor() {
-    super();
-    const score = this.getScore();
-    this.state = {
-      score: score, // Initialises the score for the player
-      cards: {
-        deck: [],
-        playerCards: [
-          { suit: '', value: 0, name: '', flipped: false },
-          { suit: '', value: 0, name: '', flipped: false }
-        ],
-        dealerCards: [
-          { suit: '', value: 0, name: '', flipped: false },
-          { suit: '', value: 0, name: '', flipped: false }
-        ]
-      },
-      stage: 1, //0 = beginning/During, 1 = evaluation 
-      message: 'Press "NEXT GAME" to Start',
-      win: true 
-    };
-    this.getScore = this.getScore.bind(this);
-    this.startGame = this.startGame.bind(this);
-    this.drawCard = this.drawCard.bind(this);
-    this.hold = this.hold.bind(this);
-    this.changeScore = this.changeScore.bind(this);
-    this.consoleLOG = this.consoleLOG.bind(this);
-    this.handleNewGame = this.handleNewGame.bind(this);
-    this.evaluate = this.evaluate.bind(this);
-    this.flipCard = this.flipCard.bind(this);
-    this.flipDealer = this.flipDealer.bind(this);
-  }
-  //testing reasons
-  consoleLOG () {
-    console.log(this.state)
-  }
+    constructor() {
+        super();
+        const score = this.getScore();
+        this.state = {
+            score: score, // Initialises the score for the player
+            cards: { // Defines the card hand for player and dealer
+                deck: [],
+                playerCards: [
+                    { suit: '', value: 0, name: '', flipped: false },
+                    { suit: '', value: 0, name: '', flipped: false }
+                ],
+                dealerCards: [
+                    { suit: '', value: 0, name: '', flipped: false },
+                    { suit: '', value: 0, name: '', flipped: false }
+                ]
+            },
+            stage: 1, //0 = beginning/During, 1 = evaluation 
+            message: 'Press "NEXT GAME" to Start', // Message shown for in game alerts
+            win: true // Passes to server in the event of a win or lost game
+        };
+        this.getScore = this.getScore.bind(this);
+        this.startGame = this.startGame.bind(this);
+        this.drawCard = this.drawCard.bind(this);
+        this.hold = this.hold.bind(this);
+        this.changeScore = this.changeScore.bind(this);
+        this.consoleLOG = this.consoleLOG.bind(this);
+        this.handleNewGame = this.handleNewGame.bind(this);
+        this.evaluate = this.evaluate.bind(this);
+        this.flipCard = this.flipCard.bind(this);
+        this.flipDealer = this.flipDealer.bind(this);
+    }
 
-  // Gets the score
-  getScore() {
-    axios.get('user/userScore', 
-    {
-      headers: { 
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).then((res) => {
-      //console.log(res.data);
-      this.setState({...this.state, score: res.data.score})//should wait and set the score in the beginning
-    });
-  }
+    //testing reasons
+    consoleLOG() {
+        console.log(this.state)
+    }
 
-  // Resets and creates deck
-  newDeck() {
-    // Creates new Deck
-    let newDeck = [];
-    const suits = ['HEARTS', 'SPADES', 'CLUBS', 'DIAMONDS'];
-    const names = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    // Gets the score from back end and sets the state
+    getScore() {
+        axios.get('user/userScore',
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then((res) => {
+                //console.log(res.data);
+                this.setState({ ...this.state, score: res.data.score })
+            });
+    }
 
-    for (let s = 0; s < suits.length; s++) {
-        for (let n = 0; n <= names.length - 1; n++) {
-            if (n < 10) {
-                newDeck.push({ suit: suits[s], value: n + 1, name: names[n], flipped: false});
-            } else {
-                newDeck.push({ suit: suits[s], value: 10, name: names[n], flipped: false});
+    // Resets and creates deck
+    newDeck() {
+        // Creates new Deck
+        let newDeck = [];
+        const suits = ['HEARTS', 'SPADES', 'CLUBS', 'DIAMONDS'];
+        const names = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+
+        for (let s = 0; s < suits.length; s++) {
+            for (let n = 0; n <= names.length - 1; n++) {
+                if (n < 10) {
+                    newDeck.push({ suit: suits[s], value: n + 1, name: names[n], flipped: false });
+                } else {
+                    newDeck.push({ suit: suits[s], value: 10, name: names[n], flipped: false });
+                }
             }
         }
-    }
-    // Shufffles the deck
-    for (let i = newDeck.length - 1; i > 0; i--) {
+        // Shufffles the deck
+        for (let i = newDeck.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * i);
             let temp = newDeck[j];
             newDeck[j] = newDeck[i];
             newDeck[i] = temp;
         }
-    return newDeck;
-  }
-
-  //initialises new deck and card
-  startGame() {
-    let deck = this.newDeck();
-    let playerCards = [];
-    let dealerCards = [];
-    // Draws Cards for players
-    for (var i = 0; i < 2; i++) {
-      playerCards.push(this.flipCard(deck.pop()));
-      dealerCards.push(deck.pop());
-    }
-    //dealers extra cards could be done after so it looks nicer
-    while (this.evaluate(dealerCards) <= 16) {
-      dealerCards.push(deck.pop());
+        return newDeck;
     }
 
-    return {deck, playerCards, dealerCards};
-  }
+    //initialises new deck and card
+    startGame() {
+        let deck = this.newDeck();
+        let playerCards = [];
+        let dealerCards = [];
+        // Draws Cards for players
+        for (var i = 0; i < 2; i++) {
+            playerCards.push(this.flipCard(deck.pop()));
+            dealerCards.push(deck.pop());
+        }
+        // Dealer decision for each hand
+        while (this.evaluate(dealerCards) <= 16) {
+            dealerCards.push(deck.pop());
+        }
 
-  // removes past deck and creates new deck and cards
-  handleNewGame() {
-    this.setState({...this.state, cards: 
-      {
-        ...this.state.cards, 
-        deck: [], 
-        playerCards: [], 
-        dealerCards: []
-      },
-      stage: 0,
-      message: ''
-    },
-    () => {
-      let newState = this.state;
-      newState.cards = this.startGame();
-      if (this.evaluate(newState.cards.playerCards) === 21) {
+        return { deck, playerCards, dealerCards };
+    }
+
+    // removes past deck and creates new deck and cards
+    handleNewGame() {
+        this.setState({
+            ...this.state, cards:
+            {
+                ...this.state.cards,
+                deck: [],
+                playerCards: [],
+                dealerCards: []
+            },
+            stage: 0,
+            message: ''
+        },
+            () => {
+                let newState = this.state;
+                newState.cards = this.startGame();
+                if (this.evaluate(newState.cards.playerCards) === 21) {
+                    this.flipDealer();
+                    this.changeScore(true);
+                    newState.message = "You Have 21 You Win!";
+                    newState.stage = 1;
+                    newState.win = true;
+                }
+                this.setState(newState);
+            });
+    }
+
+    flipCard(card) { // Flips the card so it does not show value
+        card.flipped = true;
+        return card;
+    }
+
+    drawCard() {// Function to draw cards for the player, also handles if player busts or gets blackjack
+        let newState = this.state;
+        newState.cards.playerCards.push(this.flipCard(newState.cards.deck.pop()));
+        if (this.evaluate(newState.cards.playerCards) > 21) {
+            this.flipDealer();
+            this.changeScore(false);
+            newState.message = "Busted! You Lose";
+            newState.stage = 1;
+            newState.win = false;
+        } else if (this.evaluate(newState.cards.playerCards) === 21) {
+            newState.message = "You Have 21 You Win!";
+            newState.stage = 1;
+            newState.win = true;
+            this.flipDealer();
+            this.changeScore(true);
+        }
+        this.setState(newState);
+    }
+
+    hold() {// Function to action the player to hold their hand, also handles evaluation of winner
+        const playerPoints = this.evaluate(this.state.cards.playerCards);
+        const dealerPoints = this.evaluate(this.state.cards.dealerCards);
+
         this.flipDealer();
-        this.changeScore(true);
-        newState.message = "You Have 21 You Win!";
-        newState.stage = 1;
-        newState.win = true;
-      }
-      this.setState(newState);
-    });
-  }
 
-  flipCard(card) {
-    card.flipped = true;
-    return card;
-  }
-
-  drawCard() {// Function to draw cards for the player
-    let newState = this.state;
-    newState.cards.playerCards.push(this.flipCard(newState.cards.deck.pop()));
-    if (this.evaluate(newState.cards.playerCards) > 21) {
-      this.flipDealer();
-      this.changeScore(false);
-      newState.message = "Busted! You Lose";
-      newState.stage = 1;
-      newState.win = false;
-    } else if (this.evaluate(newState.cards.playerCards) === 21) {
-      newState.message = "You Have 21 You Win!";
-      newState.stage = 1;
-      newState.win = true;
-      this.flipDealer();
-      this.changeScore(true);
-    }
-    this.setState(newState);
-  }
-
-  hold() {// Function to action the player to hold their hand
-    const playerPoints = this.evaluate(this.state.cards.playerCards);
-    const dealerPoints = this.evaluate(this.state.cards.dealerCards);
-
-    this.flipDealer();
-
-    if (dealerPoints > 21) {
-      this.setState({ message: 'Dealer Bust, You Win!', win: true });
-      this.changeScore(true);
-    } else if (playerPoints > dealerPoints && dealerPoints < 21) {
-      this.setState({ message: 'Winner: ' + playerPoints, win: true});
-      this.changeScore(true);
-    } else if (playerPoints === dealerPoints) {
-      this.setState({ message: 'Draw! No Winner!', win: true});
-    } else {
-      this.setState({ message: 'Loser! Your hand: ' + playerPoints + ', Dealer hand: ' + dealerPoints, win: false});
-      this.changeScore(false);
-    }
-  }
-
-  flipDealer() {
-    let newDCards = this.state.cards.dealerCards;
-    for (let i = 0; i < newDCards.length; i++) {
-      newDCards[i] = this.flipCard(newDCards[i]);
-    }
-    this.setState({...this.state, cards:
-      {
-        ...this.state.cards,
-        dealerCards: newDCards
-      }, 
-      stage: 1
-    });
-  }
-
-  evaluate(hand) { //evaluates the points for a hand
-    let total = 0;
-    let aces = 0;
-    for (let i = 0; i < hand.length; i++) {
-        if (hand[i].value !== 1) {
-            total += hand[i].value;
+        if (dealerPoints > 21) {
+            this.setState({ message: 'Dealer Bust, You Win!', win: true });
+            this.changeScore(true);
+        } else if (playerPoints > dealerPoints && dealerPoints < 21) {
+            this.setState({ message: 'Winner: ' + playerPoints, win: true });
+            this.changeScore(true);
+        } else if (playerPoints === dealerPoints) {
+            this.setState({ message: 'Draw! No Winner!', win: true });
         } else {
-            aces++;
+            this.setState({ message: 'Loser! Your hand: ' + playerPoints + ', Dealer hand: ' + dealerPoints, win: false });
+            this.changeScore(false);
         }
     }
-    if (aces !== 0) {
-      total += (aces - 1);
-      if (total <= 10) total += 11;
-      else total++;
-    };
-    return total;
-  }
 
-  // Changes score should push to db
-  changeScore(didWin) {
-    const data = {
-      win: (didWin) ? 1 : 0
+    flipDealer() { // Flips the dealers cards so that the player does not see the values, or if values need to be shown after a game
+        let newDCards = this.state.cards.dealerCards;
+        for (let i = 0; i < newDCards.length; i++) {
+            newDCards[i] = this.flipCard(newDCards[i]);
+        }
+        this.setState({
+            ...this.state, cards:
+            {
+                ...this.state.cards,
+                dealerCards: newDCards
+            },
+            stage: 1
+        });
     }
-    const axiosConfig = {
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      }
+
+    evaluate(hand) { // evaluates the points for a hand
+        let total = 0;
+        let aces = 0;
+        for (let i = 0; i < hand.length; i++) {
+            if (hand[i].value !== 1) {
+                total += hand[i].value;
+            } else {
+                aces++;
+            }
+        }
+        if (aces !== 0) {
+            total += (aces - 1);
+            if (total <= 10) total += 11;
+            else total++;
+        };
+        return total;
     }
-    axios.post('/user/scoreUpdate', data, axiosConfig)
-      .then((res) => {
-        this.setState({ score: this.getScore() });
-      });
-  }
 
-  render() {
-      return (
-      <div className="container" hidden={this.props.hide}>
-      <div className="score card bg-white"> {/* Shows the score */}
-          <p>Score: {this.state.score}</p>
-        </div>
-        <div className="container-fluid oval">
-          <div className="container cln pt-3 pb-3">
-            <Dealer cards={this.state.cards.dealerCards} /> {/* Renders the dealer cards */}
-            <img className="shark container flex-container" src="./images/shark.png" alt="shark" />
-            <Player cards={this.state.cards.playerCards} /> {/* Renders the players cards */}
-          </div>
-        </div>
-        <p className="text-center center msgBox mt-2 alert alert-info" hidden={this.state.message !== ''}>Your hand: {this.evaluate(this.state.cards.playerCards)}</p>
-        <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
-        <div> {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
-          <div className="flex-container mt-2">
-            <button 
-              className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
-              disabled={(this.state.stage === 1)}
-              onClick={this.drawCard}
-            >
-              HIT
-            </button> {/*disabled={this.state.bust} */}
-            <button 
-              className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'} 
-              disabled={(this.state.stage === 1)}
-              onClick={this.hold}
-            >
-              STAND
-            </button>
-            <button 
-              className={'btn-' + ((this.state.stage !== 1) ? 'secondary' : 'primary') + ' btn-sm m-2'  } 
-              disabled={(this.state.stage !== 1)}
-              onClick={this.handleNewGame}
-            >
-              NEXT GAME
-            </button>
-            {/* <button className="btn-primary btn-sm m-2" onClick={this.consoleLOG}>CONSOLE</button> */}
-          </div>
-      </div>
-      {/* notifies the player if they win or lose */}
-      </div>
-    );
+    // Changes score after a game, changes are pushed to the db
+    changeScore(didWin) {
+        const data = {
+            win: (didWin) ? 1 : 0
+        }
+        const axiosConfig = {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            }
+        }
+        axios.post('/user/scoreUpdate', data, axiosConfig)
+            .then((res) => {
+                this.setState({ score: this.getScore() });
+            });
+    }
 
-  }
+    render() {
+        return (
+            <div className="container" hidden={this.props.hide}>
+                <div className="score card bg-white"> {/* Shows the score */}
+                    <p>Score: {this.state.score}</p>
+                </div>
+                <div className="container-fluid oval"> {/* Renders the game table, player hand and dealer hand */}
+                    <div className="container cln pt-3 pb-3">
+                        <Dealer cards={this.state.cards.dealerCards} /> 
+                        <img className="shark container flex-container" src="./images/shark.png" alt="shark" />
+                        <Player cards={this.state.cards.playerCards} />
+                    </div>
+                </div>
+                {/* Alerts show the players current points and then shows messages at the end of each game i.e. winner/loser */}
+                <p className="text-center center msgBox mt-2 alert alert-info" hidden={this.state.message !== ''}>Your hand: {this.evaluate(this.state.cards.playerCards)}</p>
+                <p className={"text-center center msgBox mt-2 alert alert-" + ((this.state.win) ? "success" : "danger")} hidden={this.state.message === ''}>{this.state.message}</p>
+                <div>
+                    {/* The player menu allowing them to draw cards, hold their hand, or start the next game */}
+                    <div className="flex-container mt-2">
+                        <button
+                            className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'}
+                            disabled={(this.state.stage === 1)}
+                            onClick={this.drawCard}
+                        >
+                            HIT
+                        </button>
+                        <button
+                            className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'}
+                            disabled={(this.state.stage === 1)}
+                            onClick={this.hold}
+                        >
+                            STAND
+                        </button>
+                        <button
+                            className={'btn-' + ((this.state.stage !== 1) ? 'secondary' : 'primary') + ' btn-sm m-2'}
+                            disabled={(this.state.stage !== 1)}
+                            onClick={this.handleNewGame}
+                        >
+                            NEXT GAME
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+
+    }
 }
 
 export default Table;

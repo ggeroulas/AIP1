@@ -104,6 +104,5 @@ export function win(playerCards, dealerCards) {
         alert = false;
         win = false;
     }
-    console.log(win);
     return { message, alert, win }
 }

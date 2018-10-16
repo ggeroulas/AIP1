@@ -1,7 +1,10 @@
+#root {
+    height: 100%;
+}
 
 .backCol { /* Sets the tesselated backdrop for the application*/
     background: url(./card_backdrop.png) repeat;
-    min-height: 100vh;
+    min-height: 100%;
     overflow: hidden;
 }
 

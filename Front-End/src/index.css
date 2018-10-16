@@ -1,3 +1,6 @@
+html, body {
+  height: 100%;
+}
 
 .center { /* Used to center elements throughou the application*/
   width: 50%;

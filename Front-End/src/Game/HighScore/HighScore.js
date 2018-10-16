@@ -5,29 +5,36 @@ import './HighScore.css';
 class HighScore extends Component {
     constructor() {
         super();
-        axios.get('/test') //this checks connection 
-            .then((res) => {
-                console.log(res.data);
-            })
-            .catch((err) => {
-                console.log(err); //SERVER NOT CONNECTED ERROR
-            });
+        this.testConnection();
         this.state = {
             users: []
         }
         this.getHighScores();
     }
 
+    testConnection() {
+        axios
+            .get('/test') //this checks connection 
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err); //SERVER NOT CONNECTED ERROR
+            });
+    }
+
     getHighScores() {
         axios
             .get('/highScore') //gets list of highscore
             .then((res) => {
+                // Creates an array of users by looping through data
                 let users = [];
                 for (let i = 0; i < res.data.length; i++) {
                     let user = { username: res.data[i].username, score: res.data[i].score };
                     users.push(user);
                 }
-                this.setState({ users }); // Sets the list of users for the high scores
+                // Sets the list of users for the high scores
+                this.setState({ users }); 
             });
     }
 

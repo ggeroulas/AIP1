@@ -84,7 +84,7 @@ class Game extends Component {
             return (
                 <div>
                     {/* Renders game components if user is logged in */}
-                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout} />
+                    <Navigation username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout} />
                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user} />
                     <Table hide={this.state.loggedin !== 3} />
                     <GameRules hide={this.state.loggedin !== 4} />
@@ -94,7 +94,7 @@ class Game extends Component {
             return (
                 <div>
                     {/* Renders components if user is not logged in */}
-                    <Navigation userId={this.state.loggedUser.userId} username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout} />
+                    <Navigation username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout} />
                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user} />
                     <Login hide={this.state.loggedin !== 1} onLogin={this.getLoggedUser} registered={this.state.registered} afterRegister={this.changeRegister} />
                     <Register hide={this.state.loggedin !== 2} onRegister={this.processRegister} />

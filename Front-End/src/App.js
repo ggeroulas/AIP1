@@ -9,9 +9,10 @@ class App extends Component {
     render() {
         return (
             <div className="backCol">
-                <Header/> {/* Initialises the header */}
-                <Game/> {/* Initialises the main component */}    
-                <Footer/> {/* Initialises the footer */}
+                {/* Renders the three main components of Header, Game and Footer */}
+                <Header/>
+                <Game/>  
+                <Footer/>
             </div>
         );
     }

@@ -79,14 +79,32 @@ Root component of the application. Renders main component App and implements cor
 ### App
 Main component of the application, renders core components Header, Game and Footer.
 
-Header
-Game
-Table
-Navigation
-High Score
-Game Rules
-Cards
-Player
+### Header
+Header for the application, visible across all screens. Contains title and spinning shark logo.
+
+### Footer
+Footer runs across bottom of all screens.
+
+### Game
+Main container for game components. This component contains a number of functions to allow navigation between menus and game components. All subcomponents are rendered and then are either show or hidden by changing props.
+
+#### Table
+Component contains main methods for the card game itself, including evaluating points, winning as well as score. The deck of cards is also managed through this component and the associated DeckFunctions.js file. Table renders the score, the dealer, player as well as input options for handling user actions in the game. 
+
+#### Navigation
+The navigation bar runs below the header of every screen, includes options to login/register, logout, high scores, game rules or enter the actual game. Renders all buttons, each of which can be toggled depending on the screen currently being displayed.
+
+#### High Score
+Retrieves top 10 highest scoring players from the database and renders it in a table.
+
+#### Game Rules
+Renders the rules of CardShark.
+
+#### Player
+Renders the containers for the players cards, also renders cards component.
+
+#### Cards
+Does not render actual card containers but returns the value and suit for each card, or otherwise the back of the card if it is flipped.
 
 ------------------------------------------------
 

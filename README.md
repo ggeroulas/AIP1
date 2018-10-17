@@ -110,9 +110,38 @@ Does not render actual card containers but returns the value and suit for each c
 
 ## Styling
 
+Bootstrap is used as the main CSS library throughout the application. It is imported in the root component meaning it can be used throughout the whole application. Some of the basics used in the application will be touched on, for more information and examples refer to the [documentation](https://getbootstrap.com/docs/4.1/getting-started/introduction/). Containers and the grid system are used to place elements on the screen, this also scales to smaller devices. Where needed padding or margin adjustments are made using p- or m- to space elements. Bootstrap colours are used inline throughout the application, such as bg-info (Background colour set to blue). Where bootstrap styles need to be modified or overridden, components may include a relevant CSS file with styling attributes that better suit the application. For example adjustments to colour, text size, min-width etc. 
+
 ------------------------------------------------
 
 ## Server API
+
+The front-end framework makes HTTP request to the back-end API which routes to relevant RESTful methods. These methods retrieve and store data as well as handling authentication. The routes are divided into secure routes which cannot be accessed once authenticated and non-secure routes which can be called from anywhere in the application. The web methods will be explained briefly.
+
+### Routes
+
+/test
+* Tests the connection between the front-end and back-end
+
+/register
+* Routes to auth.js, registers the user into the database or returns 400 error if register was unsuccesful
+
+/login
+* Validates login request data against database, if succesful validation will return 200 'OK' response. If unsuccesful due to incorrect or incomplete data, will return 401 error with relevant message
+
+/highScore
+* Queries the database to return the top 10 highest scoring players
+
+### Secure Routes
+
+/userScore
+* Returns the user's score from the database
+
+/scoreUpdate
+* Updates the user's score in the database
+
+/
+* Retrieves the user id and their username
 
 ------------------------------------------------
 

@@ -1,4 +1,4 @@
-# CardShark
+# CardShark ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
                                                                  
 Support Documentation for CardShark© 
 
@@ -9,7 +9,96 @@ Developers:
 
 -----------------------------------------------
 
-1. CODING AND NAMING STANDARDS
+## Game
+
+                    The object of CardShark is to achieve a total of 21 points or a points
+                    sum greater than the dealer. You start with 2 cards, the sum of which 
+                    determines your amount of points. All card numbers reflect a relevant amount of 
+                    points. The exceptions are King, Queen and Jack which are all worth 10. As well 
+                    as Ace which can be either 1 or 11.
+             
+                    You may click HIT until you have a desired amount of cards, or until
+                    you reach a sum greater than 21. If this occurs, your hand of cards is 
+                    bust and the dealer automatically wins the round.
+             
+                    If you do not wish to draw more cards you may STAND your hand which will 
+                    determine a winner for the round.
+              
+                    Once a winner is determined, you may click NEXT GAME which will begin 
+                    the next round. Winning gains the player 100 pts, losing removes 100pts.
+		    
+------------------------------------------------
+
+## Application Stack & Dependencies
+	
+	Front-End: React, JS, CSS
+		
+		Proxy: "http://localhost:3000"
+		Libraries:
+			* react
+			* react-dom
+			* react-scripts 
+			* axios (Used to make HTTP requests to backend)
+			* bootstrap (Main styling library)
+	
+	Back-End: JS, MongoDB
+		
+		Proxy: "http://localhost:5000"
+		Libraries: 
+			* express (server framework)
+			* bcrypt (password hashing function)
+			* jsonwebtoken (creates web tokens)
+			* mongoose (object modeling tool for MongoDB)
+			* passport (authentication middleware)
+			* passport-jwt
+			* passport-local
+
+------------------------------------------------
+	
+## Component Structure
+
+	* Index
+	* App
+		* Header
+		* Game
+			* Table
+			* Navigation
+			* High Score
+			* GameRules
+			* Cards
+			* Player
+		* Footer
+
+------------------------------------------------
+
+## Components
+
+### Index
+Root component of the application. Renders main component App and implements core libraries.
+
+### App
+Main component of the application, renders core components Header, Game and Footer.
+
+Header
+Game
+Table
+Navigation
+High Score
+Game Rules
+Cards
+Player
+
+------------------------------------------------
+
+## Styling
+
+------------------------------------------------
+
+## Server API
+
+------------------------------------------------
+
+## Code, Naming and Standards
 
 	* Commenting will be used consistently throughout the application. Commenting is required as a 	minimum for the 
 	following code items:
@@ -76,60 +165,7 @@ Developers:
 	* Mixins should not be within the application as they will cause unneeded dependencies, clashes and make the project
 	unnecessarily complex.
 
-	* JSX attributes must always utilise double quotations "", meaning all other JSX items must use single quotations ''.
-
------------------------------------------------
-
-2. GAME
-
-                    The object of CardShark is to achieve a total of 21 points or a points
-                    sum greater than the dealer. You start with 2 cards, the sum of which 
-                    determines your amount of points. All card numbers reflect a relevant amount of 
-                    points. The exceptions are King, Queen and Jack which are all worth 10. As well 
-                    as Ace which can be either 1 or 11.
-             
-                    You may click HIT until you have a desired amount of cards, or until
-                    you reach a sum greater than 21. If this occurs, your hand of cards is 
-                    bust and the dealer automatically wins the round.
-             
-                    If you do not wish to draw more cards you may STAND your hand which will 
-                    determine a winner for the round.
-              
-                    Once a winner is determined, you may click NEXT GAME which will begin 
-                    the next round. Winning gains the player 100 pts, losing removes 100pts.
-		    
-------------------------------------------------
-
-3. APPLICATION STACK & DEPENDENCIES
-	
-	Front-End: React, JS, CSS
-		
-		Proxy: "http://localhost:3000"
-		Libraries:
-			* react
-			* react-dom
-			* react-scripts 
-			* axios (Used to make HTTP requests to backend)
-			* bootstrap (Main styling library)
-	
-	Back-End: JS, MongoDB
-		
-		Proxy: "http://localhost:5000"
-		Libraries: 
-			* express (server framework)
-			* bcrypt (password hashing function)
-			* cors (middleware for Connect/Express)
-			* jsonwebtoken (creates web tokens)
-			* mongoose (object modeling tool for MongoDB)
-			* passport (authentication middleware)
-			* passport-jwt
-			* passport-local
-		
-	[Running on AWS at: http://52.14.196.83]
-
-------------------------------------------------
-	
-
+	* JSX attributes must always utilise double quotations, meaning all other JSX items must use single quotations.
 
 
 

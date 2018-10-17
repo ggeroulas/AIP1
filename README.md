@@ -4,6 +4,10 @@ Support Documentation for CardShark©
 
 CardShark is an online game similar to BlackJack, with similar rules. This appliation was built upon create-react-app.
 
+CardShark is accessible at:
+
+	http://52.14.196.83/
+
 Developers:
 	
 	De Shun Zhong

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Table from './Table/Table';
-import Login from '../Login/Login';
-import Register from "../Register/Register";
-import HighScore from "./HighScore/HighScore";
-import GameRules from "./GameRules/GameRules";
-import Navigation from "./Navigation/Navigation";
+import Login from './Login/Login';
+import Register from './Register/Register';
+import HighScore from './HighScore/HighScore';
+import GameRules from './GameRules/GameRules';
+import Navigation from './Navigation/Navigation';
 import axios from 'axios';
 
 class Game extends Component {

@@ -3,6 +3,7 @@ import './Cards.css';
 
 class Cards extends Component {
 
+    // Converts the suit String to unicode character
     changeSuit(suit) {
         switch (suit) {
             case 'CLUBS':
@@ -19,9 +20,11 @@ class Cards extends Component {
     }
 
     render() {
+        // pass the card object { suit, value, name, flipped } as props 
         const { card } = this.props;
         const suit = this.changeSuit(card.suit);
-        return ( // Renders each individual card value
+        // Renders each individual card value, checks if flipped to apply different css
+        return ( 
             <div>
                 {card.flipped ? (
                     <p>{card.name}{suit}</p>
@@ -33,6 +36,4 @@ class Cards extends Component {
     }
 }
 
-
 export default Cards;
-

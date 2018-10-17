@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-
 class Register extends Component {
     constructor() {
         super();
@@ -11,30 +10,36 @@ class Register extends Component {
         this.registerUser = this.registerUser.bind(this);
     }
 
-    registerUser(e) { // Registers user, if username is taken or passwords don't match error is passed
-        if (this.password.value === this.cpassword.value) {
-            axios.post('/register',
-            {
-                username: this.username.value,
-                password: this.password.value
-            })
-            .then(
-                (res) => {
-                    this.props.onRegister();
-                },
-                (err) => {
-                    this.setState({error: "Username already taken!"});                }
-            )
-        }
-        else {
+    // Handles RegisterUser, performs checks on the form before sending post request to add user to db
+    registerUser(e) { 
+        if (this.username.value === "") {
+            this.setState({error: "Username cannot be empty!"});
+        } else if (this.password.value === "") {
+            this.setState({error: "Password cannot be empty!"});
+        } else if (this.password.value === this.cpassword.value) {
+            axios
+                .post('/register', {
+                    username: this.username.value,
+                    password: this.password.value
+                })
+                .then(
+                    (res) => {
+                        // onRegister function is passed as a prop to send back that a user has successfully registered
+                        this.props.onRegister();
+                    },
+                    (err) => {
+                        this.setState({error: "Username already taken!"});                
+                    }
+                );
+        } else {
             this.setState({error: "Passwords do not match!"});
         }
         e.preventDefault();
     }
 
-
     render() {
         return(
+            // Component is passed a hide prop which determines whether or not component is hidden after render
             <div className="container-small center" hidden={this.props.hide}>
                 <form onSubmit={this.registerUser}>
                     <h4>Register</h4>

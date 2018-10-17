@@ -1,11 +1,39 @@
-# CardShark ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+# CardShark
                                                                  
 Support Documentation for CardShark© 
+
+CardShark is an online game similar to BlackJack, with similar rules. This appliation was built upon create-react-app.
 
 Developers:
 	
 	De Shun Zhong
 	George Geroulas
+
+-----------------------------------------------
+
+## How To Get Started
+
+	To run this application locally you can first of all clone this repository.
+
+	This application runs both the Front-End and the Back-End (Database) separately, 
+	therefore, being by switching the directory to the Database and installing the 
+	relevant node modules before starting the Database by the following
+
+	1. cd Database/
+	2. npm install
+	3. npm start
+
+	This should start the server on port 5000 and accessible at http://localhost:5000.
+
+	Next, we must do the same for the Front-End:
+
+	1. cd Front-End/
+	2. npm install
+	3. npm start
+	
+	This should start the Front-End on port 3000 and accessible at http://localhost:3000, 
+	from your preferred browser.
+
 
 -----------------------------------------------
 
@@ -50,8 +78,12 @@ Developers:
 			* jsonwebtoken (creates web tokens)
 			* mongoose (object modeling tool for MongoDB)
 			* passport (authentication middleware)
-			* passport-jwt
+			* passport-jwt 
 			* passport-local
+		Developer Dependencies:
+			* Babel-cli (transpiler enabling the use of new versions of ECMAScript)
+			* babel-preset-es2015
+			* nodemon (enable automatic server restart on changes)
 
 ------------------------------------------------
 	

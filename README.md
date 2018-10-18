@@ -154,27 +154,27 @@ Bootstrap is used as the main CSS library throughout the application. It is impo
 
 The front-end framework makes HTTP request to the back-end API which routes to relevant RESTful methods. These methods retrieve and store data as well as handling authentication. The routes are divided into secure routes which cannot be accessed once authenticated and non-secure routes which can be called from anywhere in the application. The web methods will be explained briefly.
 
-### Routes
+### Routes /
 
 /test
-* Tests the connection between the front-end and back-end
+* Tests the connection between the front-end and back-end.
 
 /register
-* Routes to auth.js, registers the user into the database or returns 400 error if register was unsuccesful
+* Handles registration for users, takes in username and password as request body. Will return conflict error if already exists, or otherwise succesful registration message.
 
 /login
-* Validates login request data against database, if succesful validation will return 200 'OK' response. If unsuccesful due to incorrect or incomplete data, will return 401 error with relevant message
+* Handles login for users, takes in username and password as request body. Validates login request data against database, if succesful validation will return success message. If unsuccesful due to incorrect or incomplete data, will return 401 error with relevant message.
 
 /highScore
-* Queries the database to return the top 10 highest scoring players
+* Queries the database to return the top 10 highest scoring players.
 
-### Secure Routes
+### Secure Routes /user
 
 /userScore
-* Returns the user's score from the database
+* Passes in the user's jwt in request header, returns the user's score from the database.
 
 /scoreUpdate
-* Updates the user's score in the database
+* Passes in the user's jwt in request header and win/lose value in body. Updates the user's score in the database
 
 /
 * Retrieves the user id and their username

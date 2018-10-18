@@ -6,6 +6,7 @@ class GameRules extends Component {
     render() {
         
         return(
+            // Component is passed a hide prop which determines whether or not component is hidden after render
             <div className="card rules center p-2" hidden={this.props.hide}>
                 {/* Lays out the game rules for Card Shark, hidden can be toggled for in game use */}
                 <h4>Game Rules</h4>

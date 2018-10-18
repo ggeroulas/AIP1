@@ -21,7 +21,7 @@ class Game extends Component {
                 userId: null,
                 username: null
             },
-            registered: false
+            registered: false // Determines if a user had successfully registered
         };
         this.refresh = this.refresh.bind(this);
         this.logout = this.logout.bind(this);
@@ -84,6 +84,8 @@ class Game extends Component {
             return (
                 <div>
                     {/* Renders game components if user is logged in */}
+                    {/* The prop passed, hide, is used to determine which component is hidden, but still rendered.
+                        Components are still rendered so users cannot switch between an active game and reset cards without consequence. */}
                     <Navigation username={this.state.loggedUser.username} onSelectNav={this.refresh} onSelectLogout={this.logout} />
                     <HighScore hide={this.state.loggedin !== 0} user={this.state.loggedUser.user} />
                     <Table hide={this.state.loggedin !== 3} />

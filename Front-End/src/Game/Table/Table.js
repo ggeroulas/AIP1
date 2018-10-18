@@ -32,6 +32,7 @@ class Table extends Component {
 
     // Retrieves the score from the database and sets the state
     getScore() {
+        
         axios.get('user/userScore',
             {
                 headers: {
@@ -40,6 +41,7 @@ class Table extends Component {
             }).then((res) => {
                 this.setState({ ...this.state, score: res.data.score });
             });
+    
     }
 
     // Resets the current deck and also checks for instant win on draw

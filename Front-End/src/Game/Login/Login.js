@@ -8,14 +8,12 @@ class Login extends Component {
             loggedIn: false, // Is the user logged in
             user: '', // Passes the user
             error: '', // Error message for alert
-            registered: false // Is the user registered
         };
         this.checkPassword = this.checkPassword.bind(this);
     };
 
     // Checks the login credentials against what is stored in the db
     checkPassword(e) { 
-        let start = performance.now();
         this.props.afterRegister();
         axios.post('/login', 
             {
@@ -35,7 +33,6 @@ class Login extends Component {
                 this.setState({error: err.response.data.error.message});    
             });
         e.preventDefault();
-        console.log(performance.now()-start);
     }
     
     render() {

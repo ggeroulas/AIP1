@@ -142,21 +142,21 @@ class Table extends Component {
                     {/* The player menu allowing them to draw cards, hold their hand, or start the next game, the stage helps determine what buttons should be disabled when */}
                     <div className="flex-container mt-2">
                         <button
-                            className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'}
+                            className={"btn-" + ((this.state.stage === 1) ? "secondary" : "primary") + " btn-sm m-2"}
                             disabled={(this.state.stage === 1)}
                             onClick={this.handleDrawCard}
                         >
                             HIT
                         </button>
                         <button
-                            className={'btn-' + ((this.state.stage === 1) ? 'secondary' : 'primary') + ' btn-sm m-2'}
+                            className={"btn-" + ((this.state.stage === 1) ? "secondary" : "primary") + " btn-sm m-2"}
                             disabled={(this.state.stage === 1)}
                             onClick={this.handleStand}
                         >
                             STAND
                         </button>
                         <button
-                            className={'btn-' + ((this.state.stage !== 1) ? 'secondary' : 'primary') + ' btn-sm m-2'}
+                            className={'btn-' + ((this.state.stage !== 1) ? "secondary" : "primary") + " btn-sm m-2"}
                             disabled={(this.state.stage !== 1)}
                             onClick={this.handleNewGame}
                         >

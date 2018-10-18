@@ -15,6 +15,8 @@ class Game extends Component {
             gameState = 3;
         }
         this.state = {
+            // the loggedin attribute determines what navigation pane they have selected:
+            // 0: Home, 1: Login, 2: Register, 3: Game/Table, 4: Game Rules 
             loggedin: gameState,
             loggedUser: { // User attributes
                 user: false,
@@ -58,6 +60,7 @@ class Game extends Component {
         console.log(this.state);
     }
 
+    // Function passed as a prop to remove registed alert after incorrect login
     changeRegister = () => {
         this.setState({ registered: false })
     }

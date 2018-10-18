@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import './Cards.css';
+import { CLUBS, DIAMONDS, HEARTS, SPADES } from '../TableConstants';
 
 class Cards extends Component {
 
     // Converts the suit String to unicode character
     changeSuit(suit) {
         switch (suit) {
-            case 'CLUBS':
+            case CLUBS:
                 return "♣";
-            case 'DIAMONDS':
+            case DIAMONDS:
                 return "♦";
-            case 'HEARTS':
+            case HEARTS:
                 return "♥";
-            case 'SPADES':
+            case SPADES:
                 return "♠";
             default:
                 return "";

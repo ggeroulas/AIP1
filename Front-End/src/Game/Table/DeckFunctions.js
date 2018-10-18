@@ -1,3 +1,5 @@
+import { HEARTS, SPADES, CLUBS, DIAMONDS } from './TableConstants';
+
 // Flips a single card
 export function flipCard(card) {
     card.flipped = true;
@@ -23,7 +25,7 @@ export function drawCard(deck, hand) {
 export function newDeck() {
     // Creates new Deck
     let newDeck = [];
-    const suits = ['HEARTS', 'SPADES', 'CLUBS', 'DIAMONDS'];
+    const suits = [HEARTS, SPADES, CLUBS, DIAMONDS];
     const names = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
     for (let s = 0; s < suits.length; s++) {

@@ -3,6 +3,7 @@ import Player from './Player/Player';
 import './Table.css';
 import axios from 'axios';
 import { flipCards, drawCard, initaliseGame, evaluate, win } from './DeckFunctions';
+import { PLAYER, DEALER } from './TableConstants';
 
 class Table extends Component {
     constructor() {
@@ -130,9 +131,9 @@ class Table extends Component {
                 </div>
                 <div className="container-fluid oval"> {/* Renders the game table, player hand and dealer hand */}
                     <div className="container cln pt-3 pb-3">
-                        <Player player={"DEALER"} cards={this.state.cards.dealerCards} /> 
+                        <Player player={DEALER} cards={this.state.cards.dealerCards} /> 
                         <img className="shark container flex-container" src="./images/shark.png" alt="shark" />
-                        <Player player={"PLAYER"} cards={this.state.cards.playerCards} />
+                        <Player player={PLAYER} cards={this.state.cards.playerCards} />
                     </div>
                 </div>
                 {/* Alerts show the players current points and then shows messages at the end of each game i.e. winner/loser */}

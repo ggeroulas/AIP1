@@ -6,6 +6,7 @@ import HighScore from './HighScore/HighScore';
 import GameRules from './GameRules/GameRules';
 import Navigation from './Navigation/Navigation';
 import axios from 'axios';
+import { errorHandling } from './ErrorHandling';
 
 class Game extends Component {
     constructor() {
@@ -32,8 +33,8 @@ class Game extends Component {
     // Callback to get Logged in user
     getLoggedUser = () => {
         try {
-            axios.get('/user',
-                {
+            axios
+                .get('/user', {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token')
                     }
@@ -48,10 +49,11 @@ class Game extends Component {
                     }));
                     return true;
                 });
-        } catch (err) {
-            localStorage.removeItem('token');
-            return false;
-        }
+                } catch (err) {
+                    console.log(errorHandling(err))
+                    localStorage.removeItem('token');
+                    return false;
+                }
     }
 
     // Notifies that user has been registered and directs to login screen

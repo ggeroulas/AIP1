@@ -4,6 +4,7 @@ import './Table.css';
 import axios from 'axios';
 import { flipCards, drawCard, initaliseGame, evaluate, win } from './DeckFunctions';
 import { PLAYER, DEALER } from './TableConstants';
+import { errorHandling } from '../ErrorHandling';
 
 class Table extends Component {
     constructor() {
@@ -41,6 +42,9 @@ class Table extends Component {
                 }
             }).then((res) => {
                 this.setState({ ...this.state, score: res.data.score });
+            })
+            .catch((err) => {
+                console.log(errorHandling(err));
             });
     
     }
@@ -116,9 +120,13 @@ class Table extends Component {
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
         }
-        axios.post('/user/scoreUpdate', data, axiosConfig)
+        axios
+            .post('/user/scoreUpdate', data, axiosConfig)
             .then((res) => {
                 return this.getScore();
+            })
+            .catch((err) => {
+                console.log(errorHandling(err));
             });
     }
 

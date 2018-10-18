@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { errorHandling } from '../ErrorHandling';
 
 class Login extends Component {
     constructor() {
@@ -15,8 +16,8 @@ class Login extends Component {
     // Checks the login credentials against what is stored in the db
     checkPassword(e) { 
         this.props.afterRegister();
-        axios.post('/login', 
-            {
+        axios
+            .post('/login', {
                 username: this.username.value,
                 password: this.password.value
             })
@@ -30,7 +31,11 @@ class Login extends Component {
                 }
             )
             .catch((err) => { // Passes error message from the backend to be displayed in alert
-                this.setState({error: err.response.data.error.message});    
+                if (err.response.status === 401) {
+                    this.setState({error: err.response.data.error.message});
+                } else {
+                    console.log(errorHandling(err));
+                }
             });
         e.preventDefault();
     }

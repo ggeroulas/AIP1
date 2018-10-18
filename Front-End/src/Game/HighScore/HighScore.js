@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './HighScore.css';
+import { errorHandling } from '../ErrorHandling';
 
 class HighScore extends Component {
     constructor() {
@@ -12,20 +13,22 @@ class HighScore extends Component {
         this.getHighScores();
     }
 
+    // Checks in the beginning the connection to the Server
     testConnection() {
         axios
-            .get('/test') //this checks connection 
+            .get('/test')
             .then((res) => {
                 console.log(res.data);
             })
             .catch((err) => {
-                console.log(err); //SERVER NOT CONNECTED ERROR
+                console.log(errorHandling(err));
             });
     }
 
+    //Retrieves the list of users with top 10 high scores
     getHighScores() {
         axios
-            .get('/highScore') //gets list of highscore
+            .get('/highScore')
             .then((res) => {
                 // Creates an array of users by looping through data
                 let users = [];
@@ -33,8 +36,10 @@ class HighScore extends Component {
                     let user = { username: res.data[i].username, score: res.data[i].score };
                     users.push(user);
                 }
-                // Sets the list of users for the high scores
                 this.setState({ users }); 
+            })
+            .catch((err) => {
+                console.log(errorHandling(err));
             });
     }
 

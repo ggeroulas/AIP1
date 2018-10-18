@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { errorHandling } from '../ErrorHandling';
 
 class Register extends Component {
     constructor() {
@@ -16,7 +17,9 @@ class Register extends Component {
             this.setState({error: "Username cannot be empty!"});
         } else if (this.password.value === "") {
             this.setState({error: "Password cannot be empty!"});
-        } else if (this.password.value === this.cpassword.value) {
+        } else if (this.password.value !== this.cpassword.value) {
+            this.setState({error: "Passwords do not match!"});   
+        } else {
             axios
                 .post('/register', {
                     username: this.username.value,
@@ -26,13 +29,14 @@ class Register extends Component {
                     (res) => {
                         // onRegister function is passed as a prop to send back that a user has successfully registered
                         this.props.onRegister();
-                    },
-                    (err) => {
+                })
+                .catch((err) => {
+                    if (err.response.status === 409) {
                         this.setState({error: "Username already taken!"});                
+                    } else {
+                        console.log(errorHandling(err));
                     }
-                );
-        } else {
-            this.setState({error: "Passwords do not match!"});
+                });
         }
         e.preventDefault();
     }

@@ -18,6 +18,10 @@ Developers:
 ## How To Get Started
 
 	To run this application locally you can first of all clone this repository.
+	
+	MongoDB is used as a data storage for the application and is required before the application can be run. In order to
+	install MongoDB follow the instruction relevant for your [system](https://docs.mongodb.com/v3.2/installation/). Once
+	installed, run MongoDB locally by navigating to the directory and running the 'mongod' command.
 
 	This application runs both the Front-End and the Back-End (Database) separately, 
 	therefore, being by switching the directory to the Database and installing the 

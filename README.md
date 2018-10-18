@@ -88,6 +88,7 @@ Developers:
 			* passport (authentication middleware)
 			* passport-jwt 
 			* passport-local
+			* cluster (allows multiple CPU core threads)
 		Developer Dependencies:
 			* Babel-cli (transpiler enabling the use of new versions of ECMAScript)
 			* babel-preset-es2015
@@ -169,6 +170,9 @@ The front-end framework makes HTTP request to the back-end API which routes to r
 
 /test
 * Tests the connection between the front-end and back-end.
+
+/cluster
+* Tests clustering functionality, returns which CPU thread process is running on.
 
 /register
 * Handles registration for users, takes in username and password as request body. Will return conflict error if already exists, or otherwise succesful registration message.

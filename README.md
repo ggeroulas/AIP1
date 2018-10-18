@@ -18,6 +18,10 @@ Developers:
 ## How To Get Started
 
 	To run this application locally you can first of all clone this repository.
+	
+	MongoDB is used as a data storage for the application and is required before the application can be run. In order 
+	to install MongoDB follow the instruction relevant for your [system](https://docs.mongodb.com/v3.2/installation/). 
+	Once installed, run MongoDB locally by navigating to the directory and running the 'mongod' command.
 
 	This application runs both the Front-End and the Back-End (Database) separately, 
 	therefore, being by switching the directory to the Database and installing the 
@@ -144,6 +148,13 @@ Does not render actual card containers but returns the value and suit for each c
 
 ------------------------------------------------
 
+## Other Files
+
+#### DeckFunctions
+This file contains the functionality for the game, it includes such functions as creating a new and shuffled deck, evaluating hand values and drawing cards.
+
+------------------------------------------------
+
 ## Styling
 
 Bootstrap is used as the main CSS library throughout the application. It is imported in the root component meaning it can be used throughout the whole application. Some of the basics used in the application will be touched on, for more information and examples refer to the [documentation](https://getbootstrap.com/docs/4.1/getting-started/introduction/). Containers and the grid system are used to place elements on the screen, this also scales to smaller devices. Where needed padding or margin adjustments are made using p- or m- to space elements. Bootstrap colours are used inline throughout the application, such as bg-info (Background colour set to blue). Where bootstrap styles need to be modified or overridden, components may include a relevant CSS file with styling attributes that better suit the application. For example adjustments to colour, text size, min-width etc. 
@@ -154,27 +165,27 @@ Bootstrap is used as the main CSS library throughout the application. It is impo
 
 The front-end framework makes HTTP request to the back-end API which routes to relevant RESTful methods. These methods retrieve and store data as well as handling authentication. The routes are divided into secure routes which cannot be accessed once authenticated and non-secure routes which can be called from anywhere in the application. The web methods will be explained briefly.
 
-### Routes
+### Routes /
 
 /test
-* Tests the connection between the front-end and back-end
+* Tests the connection between the front-end and back-end.
 
 /register
-* Routes to auth.js, registers the user into the database or returns 400 error if register was unsuccesful
+* Handles registration for users, takes in username and password as request body. Will return conflict error if already exists, or otherwise succesful registration message.
 
 /login
-* Validates login request data against database, if succesful validation will return 200 'OK' response. If unsuccesful due to incorrect or incomplete data, will return 401 error with relevant message
+* Handles login for users, takes in username and password as request body. Validates login request data against database, if succesful validation will return success message. If unsuccesful due to incorrect or incomplete data, will return 401 error with relevant message.
 
 /highScore
-* Queries the database to return the top 10 highest scoring players
+* Queries the database to return the top 10 highest scoring players.
 
-### Secure Routes
+### Secure Routes /user
 
 /userScore
-* Returns the user's score from the database
+* Passes in the user's jwt in request header, returns the user's score from the database.
 
 /scoreUpdate
-* Updates the user's score in the database
+* Passes in the user's jwt in request header and win/lose value in body. Updates the user's score in the database
 
 /
 * Retrieves the user id and their username
@@ -227,8 +238,8 @@ The front-end framework makes HTTP request to the back-end API which routes to r
 	development must branch off from master to ensure changes do not affect the working build of the application. These
 	branches can then be merged later once finalised. Branches must be appropriately named.
 
-	* Configuration is to be stored in environmental variables. This is to ensure that between stages of deployment they
-	are not accidentally added into the code repository accidentally.
+	* Configuration is to be stored in environmental variables or configuration files if needed. This is to ensure that
+	between stages of deployment they are not accidentally added into the code repository accidentally.
 
 	* Within the code repository, the application should make no association whether services are run locally or via third
 	party through our backend service AWS.
@@ -241,7 +252,6 @@ The front-end framework makes HTTP request to the back-end API which routes to r
 	the users. Any other data should be considered stateless and should have no association external from that session.
 
 	* The output of the application should be routed to the console for monitoring of the behaviour of the application.
-	Logs should also be stored in a file database so that any errors or inconsistencies can be tracked.
 
 	* Commit messages must be meaningful and specific to the iteration being pushed to the code repository.
 
@@ -249,8 +259,3 @@ The front-end framework makes HTTP request to the back-end API which routes to r
 	unnecessarily complex.
 
 	* JSX attributes must always utilise double quotations, meaning all other JSX items must use single quotations.
-
-
-
-
-
